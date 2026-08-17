@@ -20,7 +20,7 @@
  */
 
 import type { AcquisitionMode, Coverage, ForensicSignal, RiskFlag } from "@dpa/schema";
-import { scoreProvenance, type ScorerInput, type RegistrySummary } from "./scorer.js";
+import { scoreProvenance, type ScorerInput, type RegistrySummary, type BreakdownEntry } from "./scorer.js";
 import { computeCoverage, type CoverageInput } from "./coverage.js";
 import { computeForgeryRisk, type ForgeryRiskResult } from "./forgery.js";
 
@@ -41,6 +41,8 @@ export interface AssessInput {
   region?: string | null;
   corpus?: string;
   acquisitionMode?: AcquisitionMode;
+  /** Whether the object was recorded before removal. See CoverageInput. */
+  everInventoried?: boolean;
   // Forensic inputs (independent of provenance scoring)
   forensicSignals?: ForensicSignal[];
 }
@@ -50,6 +52,11 @@ export interface AssessResult {
   coverage: Coverage;
   flags: RiskFlag[];
   scorer: "accumulation-v0.4";
+  /**
+   * Ordered scoring steps. Carried out of the assessment so a reader can
+   * recompute the number by hand — an unauditable score is a rumour.
+   */
+  breakdown: BreakdownEntry[];
   /** Forgery risk lives outside riskAssessment (see ObjectIdentity). Provided here
    *  for pipelines that compute it alongside the provenance assessment. */
   forgeryRisk: ForgeryRiskResult;
@@ -82,6 +89,7 @@ export function assess(input: AssessInput): AssessResult {
     region: input.region,
     corpus: input.corpus,
     mode: input.acquisitionMode,
+    everInventoried: input.everInventoried,
   };
   const coverage = computeCoverage(coverageInput);
 
@@ -111,6 +119,7 @@ export function assess(input: AssessInput): AssessResult {
     coverage,
     flags,
     scorer: "accumulation-v0.4",
+    breakdown: scored.breakdown,
     forgeryRisk,
   };
 }

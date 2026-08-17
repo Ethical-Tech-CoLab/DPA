@@ -76,6 +76,19 @@ interface RegisterScope {
   systematic: boolean;
   /** The precondition for an object to be in here at all. */
   requires: string;
+  /**
+   * True when the register can only ever contain objects that were DOCUMENTED
+   * BEFORE they were lost.
+   *
+   * Every theft register works this way: a report names an object, and naming
+   * requires that somebody already knew it existed. An object dug out of an
+   * unrecorded site was never inventoried, so no theft could be reported and no
+   * such register can ever hold it — not because of a backlog, but because
+   * there is no report to file. Treating these registers as applicable to
+   * never-recorded material is how a search of nothing gets reported as a
+   * search that found nothing.
+   */
+  requiresPriorRecord: boolean;
 }
 
 export const REGISTER_SCOPES: RegisterScope[] = [
@@ -87,6 +100,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: true,
     systematic: true,
     requires: "a theft reported to and recorded by a member-country police force",
+    requiresPriorRecord: true,
   },
   {
     id: "interpol-id-art",
@@ -96,6 +110,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: true,
     systematic: true,
     requires: "the same police report as the Stolen Works of Art database",
+    requiresPriorRecord: true,
   },
   {
     id: "fbi-nsaf",
@@ -105,6 +120,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: true,
     systematic: true,
     requires: "a law-enforcement submission and a value threshold",
+    requiresPriorRecord: true,
   },
   {
     id: "carabinieri-tpc",
@@ -114,6 +130,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: true,
     systematic: true,
     requires: "an Italian nexus — the archive is national",
+    requiresPriorRecord: true,
   },
   {
     id: "lostart-de",
@@ -126,6 +143,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: true,
     systematic: true,
     requires: "a loss connected to Nazi persecution, 1933–45",
+    requiresPriorRecord: true,
   },
   {
     id: "getty-provenance-index",
@@ -138,6 +156,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: true,
     systematic: true,
     requires: "passage through the European or American art market",
+    requiresPriorRecord: true,
   },
   {
     id: "art-loss-register",
@@ -147,6 +166,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: true,
     systematic: true,
     requires: "a registered loss, usually by an owner or insurer",
+    requiresPriorRecord: true,
   },
   {
     id: "icom-red-lists",
@@ -162,6 +182,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     identifying: false,
     systematic: true,
     requires: "membership of an at-risk object category from a listed region",
+    requiresPriorRecord: false,
   },
   {
     id: "wikidata",
@@ -174,6 +195,7 @@ export const REGISTER_SCOPES: RegisterScope[] = [
     // register.
     systematic: false,
     requires: "someone having written the object up",
+    requiresPriorRecord: false,
   },
 ];
 
@@ -237,6 +259,20 @@ export interface CoverageInput {
   corpus?: string;
   /** Explicit mode, when the caller already knows it (catalogue objects do). */
   mode?: AcquisitionMode;
+  /**
+   * Was this object ever recorded — inventoried, catalogued, excavated under
+   * permit, photographed by an owner — BEFORE it was removed?
+   *
+   * Set `false` for material taken from unrecorded sites. Every theft register
+   * then becomes structurally blind to it, because a theft report has to name
+   * an object and nobody could name this one.
+   *
+   * Defaults to `true`, which makes coverage look BETTER than it may be. The
+   * bias is deliberate and matches the rest of this module: the tool should
+   * never overstate how blind it is, because "we could not have seen it" is
+   * the strongest excuse the system can offer and it must be earned.
+   */
+  everInventoried?: boolean;
 }
 
 /**
@@ -254,6 +290,7 @@ export function computeCoverage(input: CoverageInput): Coverage {
   const corpus = `${input.corpus ?? ""} ${input.region ?? ""}`.toLowerCase();
   const mode = detectMode(corpus, input.mode);
   const region = input.region?.toLowerCase().trim() ?? null;
+  const everInventoried = input.everInventoried ?? true;
 
   const identifying: Coverage["identifyingRegisters"] = [];
   const weak: Coverage["weakRegisters"] = [];
@@ -276,6 +313,14 @@ export function computeCoverage(input: CoverageInput): Coverage {
         id: s.id,
         name: s.name,
         why: `Geographically out of scope${region ? ` for ${region}` : ""} — requires ${s.requires}.`,
+      });
+      continue;
+    }
+    if (s.requiresPriorRecord && !everInventoried) {
+      blind.push({
+        id: s.id,
+        name: s.name,
+        why: `This object was never recorded before it was removed, so no loss could be reported. The register requires ${s.requires}, and that report cannot exist. Its silence is structural, not evidential.`,
       });
       continue;
     }

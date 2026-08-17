@@ -199,3 +199,74 @@ describe("Mode detection from corpus", () => {
     expect(modeBlind).toHaveLength(0);
   });
 });
+
+describe("registers that require a prior record", () => {
+  // The defect this locks: INTERPOL declares it holds "archaeological" losses,
+  // but its own `requires` text says a theft has to have been reported to a
+  // police force. For material taken from a site nobody had recorded, no such
+  // report can exist — so the register is not merely empty on this object, it
+  // is structurally incapable of holding it. Counting it as coverage turns
+  // "we could never have seen this" into "we looked and found nothing".
+  it("treats theft registers as blind when the object was never inventoried", () => {
+    const c = computeCoverage({
+      region: "Niger",
+      mode: "archaeological",
+      everInventoried: false,
+    });
+
+    expect(c.identifyingRegisters).toHaveLength(0);
+    expect(c.coverageClass).toBe("structurally-uncovered");
+
+    const ids = c.blindRegisters.map((r) => r.id);
+    expect(ids).toContain("interpol-swoa");
+    expect(ids).toContain("interpol-id-art");
+  });
+
+  it("explains the blindness as structural, not evidential", () => {
+    const c = computeCoverage({
+      region: "Niger",
+      mode: "archaeological",
+      everInventoried: false,
+    });
+    const swoa = c.blindRegisters.find((r) => r.id === "interpol-swoa");
+    expect(swoa?.why).toMatch(/never recorded before it was removed/i);
+    expect(swoa?.why).toMatch(/structural, not evidential/i);
+  });
+
+  it("still counts registers that do not need a prior report", () => {
+    const c = computeCoverage({
+      region: "Niger",
+      mode: "archaeological",
+      everInventoried: false,
+    });
+    // ICOM Red Lists work off object category, not off a reported loss, so
+    // they remain in scope — but they are weak, never identifying.
+    expect(c.weakRegisters.map((r) => r.id)).toContain("icom-red-lists");
+  });
+
+  it("defaults to assuming the object WAS inventoried", () => {
+    const assumed = computeCoverage({ region: "Italy", mode: "market-theft" });
+    const explicit = computeCoverage({
+      region: "Italy",
+      mode: "market-theft",
+      everInventoried: true,
+    });
+    expect(assumed.identifyingRegisters.map((r) => r.id)).toEqual(
+      explicit.identifyingRegisters.map((r) => r.id),
+    );
+    // The default must never make coverage look WORSE than the evidence
+    // supports — overstating our own blindness would excuse the buyer.
+    expect(assumed.identifyingRegisters.length).toBeGreaterThan(0);
+  });
+
+  it("does not change a documented colonial removal", () => {
+    // The Benin bronzes were catalogued in 1897 by the people who took them.
+    // Inventory is not the missing piece here; jurisdiction is.
+    const c = computeCoverage({
+      region: "Nigeria",
+      mode: "colonial",
+      everInventoried: true,
+    });
+    expect(c.coverageClass).toBe("structurally-uncovered");
+  });
+});
