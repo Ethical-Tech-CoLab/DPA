@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-02-01T00:00:00.000Z",
+  "mode": "fixtures",
+  "note": "Every file under /api was produced by running the real pipeline over committed fixtures at build time. No API keys, no network calls, no hand-written scores.",
+  "passports": [
+    {
+      "id": "bura-askos",
+      "title": "Bura askos (zoomorphic funerary vessel)",
+      "culture": "Bura (Bura-Asinda-Sikka complex)",
+      "teachingPoint": "No register has ever been able to name this object. A quiet result here is a measure of the reach of the registers, not of the object's innocence — which is why the coverage class must be read before the score.",
+      "confidenceScore": 58,
+      "coverageClass": "structurally-uncovered",
+      "coverageRatio": 0,
+      "forgeryRisk": 27,
+      "acquisitionMode": "archaeological",
+      "claimStatus": "informal-inquiry",
+      "routing": "human-review",
+      "routingReason": "Flagged for human review: coverage is structurally-uncovered, so the score of 58 measures the reach of the registers rather than the object — it cannot clear anything automatically. An issuer must not sign this passport until a reviewer approves.",
+      "issuerClass": "pseudonymous-wallet",
+      "flagCount": 5,
+      "timelineLength": 6,
+      "registerCount": 9,
+      "identifyingRegisterCount": 0
+    },
+    {
+      "id": "benin-bronze",
+      "title": "Benin Bronze commemorative head",
+      "culture": "Edo (Kingdom of Benin)",
+      "teachingPoint": "Removal is documented in detail, by the people who carried it out. The evidence is strong and the title is contested anyway — which is why a provenance score is not a legitimacy score.",
+      "confidenceScore": 48,
+      "coverageClass": "structurally-uncovered",
+      "coverageRatio": 0,
+      "forgeryRisk": 9,
+      "acquisitionMode": "colonial",
+      "claimStatus": "under-negotiation",
+      "routing": "human-review",
+      "routingReason": "Flagged for human review: coverage is structurally-uncovered, so the score of 48 measures the reach of the registers rather than the object — it cannot clear anything automatically. An issuer must not sign this passport until a reviewer approves.",
+      "issuerClass": "pseudonymous-wallet",
+      "flagCount": 6,
+      "timelineLength": 7,
+      "registerCount": 9,
+      "identifyingRegisterCount": 0
+    },
+    {
+      "id": "getty-bronze",
+      "title": "Victorious Youth (Athlete of Fano)",
+      "culture": "Greek (late Classical / Hellenistic)",
+      "teachingPoint": "Every relevant register could see this object, and searched. The record is still thin. That is the most informative low score the system can produce, and it is lower than the Bura askos.",
+      "confidenceScore": 28,
+      "coverageClass": "well-covered",
+      "coverageRatio": 0.67,
+      "forgeryRisk": 44,
+      "acquisitionMode": "market-theft",
+      "claimStatus": "formal-claim",
+      "routing": "human-review",
+      "routingReason": "Flagged for human review: confidence 28 is below 35 in a well-covered class — records ought to exist for this object and they are thin, which is a finding rather than a gap. An issuer must not sign this passport until a reviewer approves.",
+      "issuerClass": "pseudonymous-wallet",
+      "flagCount": 7,
+      "timelineLength": 7,
+      "registerCount": 9,
+      "identifyingRegisterCount": 6
+    },
+    {
+      "id": "schiele-wally",
+      "title": "Portrait of Wally Neuzil",
+      "culture": "Austrian",
+      "teachingPoint": "The registers worked exactly as designed here: the object was listed, the claim was substantiated, and the case still took twelve years and a seizure to resolve. A high-coverage, high-confidence passport is a starting point for a legal process, not a substitute for one.",
+      "confidenceScore": 28,
+      "coverageClass": "well-covered",
+      "coverageRatio": 0.33,
+      "forgeryRisk": 7,
+      "acquisitionMode": "nazi-era",
+      "claimStatus": "resolved-returned",
+      "routing": "human-review",
+      "routingReason": "Flagged for human review: confidence 28 is below 35 in a well-covered class — records ought to exist for this object and they are thin, which is a finding rather than a gap. An issuer must not sign this passport until a reviewer approves.",
+      "issuerClass": "pseudonymous-wallet",
+      "flagCount": 7,
+      "timelineLength": 8,
+      "registerCount": 9,
+      "identifyingRegisterCount": 3
+    }
+  ],
+  "comparability": [
+    {
+      "id": "bura-askos",
+      "comparableWith": [
+        "benin-bronze"
+      ]
+    },
+    {
+      "id": "benin-bronze",
+      "comparableWith": [
+        "bura-askos"
+      ]
+    },
+    {
+      "id": "getty-bronze",
+      "comparableWith": [
+        "schiele-wally"
+      ]
+    },
+    {
+      "id": "schiele-wally",
+      "comparableWith": [
+        "getty-bronze"
+      ]
+    }
+  ]
+}

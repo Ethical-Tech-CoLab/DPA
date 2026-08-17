@@ -1,0 +1,50 @@
+[
+  {
+    "role": "public",
+    "label": "Public",
+    "description": "Anyone. Sees that the object exists, its confidence score with its coverage class, and that it was notarised — and nothing that could identify or endanger the holder.",
+    "visibleTiers": [
+      "public"
+    ]
+  },
+  {
+    "role": "source-community",
+    "label": "Source community",
+    "description": "A community with an ancestral or territorial connection to the object. Sees the public tier plus claim status, custodianship terms and community statements. Never sees museum or enforcement internals.",
+    "visibleTiers": [
+      "public",
+      "source-community"
+    ]
+  },
+  {
+    "role": "museum",
+    "label": "Museum / cultural institution",
+    "description": "An accredited cultural institution. Sees curatorial and condition detail needed to assess a loan or an acquisition.",
+    "visibleTiers": [
+      "public",
+      "museum"
+    ]
+  },
+  {
+    "role": "enforcement",
+    "label": "Law enforcement",
+    "description": "Carabinieri TPC, INTERPOL, or an equivalent authority. Sees the full provenance narrative, register hits and the escrowed contact route to the holder.",
+    "visibleTiers": [
+      "public",
+      "museum",
+      "enforcement"
+    ]
+  },
+  {
+    "role": "owner",
+    "label": "Holder (pseudonymous owner)",
+    "description": "The holder of the object, identified only by a pseudonymous key. Sees everything, because it is their own record.",
+    "visibleTiers": [
+      "public",
+      "source-community",
+      "museum",
+      "enforcement",
+      "owner"
+    ]
+  }
+]

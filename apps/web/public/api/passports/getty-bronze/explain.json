@@ -1,0 +1,96 @@
+{
+  "id": "getty-bronze",
+  "teachingPoint": "Every relevant register could see this object, and searched. The record is still thin. That is the most informative low score the system can produce, and it is lower than the Bura askos.",
+  "explanation": "PROVENANCE CONFIDENCE SCORE: 28/100\nThe score is built by accumulation, not by deduction. It starts at 30 (the honest baseline for 'nothing is known') and gains credit for authoritative records (+18 each) and press reports (+8 each). Gaps in the early chain, and hits in stolen-art registers, subtract points. An object with no published history scores near 30 — not near 100. Absence of evidence is not evidence of clean provenance.\n\nScore build-up:\n  +30 — base score — 'nothing is known' starting position (ADR-002) → running total: 30\n  +18 — authority record: \"Created by an unknown Greek sculptor, probably in the late 4th or early 3rd century BCE. The statue depicts a young male athlete — possibly a victorious pentathlete — in a pose associated with the victor's crown. Attribution to the circle of Lysippos has been proposed based on stylistic analysis.\" → running total: 48\n  +18 — authority record: \"Italian government filed formal request for return of the statue, asserting it is Italian cultural property under Law 364 of 1909 and the 1939 Bottai Law, because the object was found in Italian territorial or fishing waters. This claim has been contested on the ground that the fishermen found it in international waters.\" → running total: 66\n  +18 — authority record: \"As of 2025, the Getty Bronze remains at the J. Paul Getty Museum, Villa, Malibu. Italy continues formal repatriation requests. The Getty's position is that it acquired the work in good faith and that its provenance before 1977 is unclear. The dispute is a canonical case study in the law of cultural property and museum acquisition policy.\" → running total: 84\n  +8 — press report: \"Discovered by Italian fishermen from Fano (Pesaro e Urbino province, Marche region) in their nets in international waters of the Adriatic Sea, approximately 1964–1965. The fishermen reportedly concealed the statue, eventually selling it clandestinely.\" → running total: 92\n  +8 — press report: \"Purchased by J. Paul Getty for the J. Paul Getty Museum, Malibu, in 1977 for approximately $3.95 million, reportedly through intermediaries including a Munich dealer. The statue had left Italy without an export permit. Italian authorities were not notified.\" → running total: 100\n  +8 — press report: \"Italian court in Pesaro convicted several parties in absentia (including an art dealer and, controversially, a Getty curator) for receiving stolen goods. The Pesaro court's jurisdiction was disputed. The conviction did not result in extradition or return of the statue.\" → running total: 108\n  +8 — press report: \"US Supreme Court declined to review the case (2007), leaving in place a California appellate ruling that California courts had jurisdiction but that Italy's claim under the National Stolen Property Act was time-barred.\" → running total: 116\n  -16 — cap at 100 (positive-evidence ceiling) → running total: 100\n  -12 — provenance gap (1 undated event(s); no complete chain before earliest record) → running total: 88\n  -20 — register hit: \"INTERPOL cultural heritage crime unit has referenced the Getty Bronze in the context of Italian repatriation demands for illicitly exported antiquities\" → running total: 68\n  -20 — register hit: \"Carabinieri TPC has an active repatriation file for the 'Atleta Vittorioso di Fano' (Bronzo di Lisippo), held by the J. Paul Getty Museum\" → running total: 48\n  -20 — register hit: \"J. Paul Getty Museum acquisition 1977: Victorious Youth (Athlete of Fano). Acquired through German dealer; pre-acquisition provenance disputed with Italy.\" → running total: 28\n\nEVIDENCE COVERAGE: WELL-COVERED\n6 of 9 registers could systematically name this object. Silence here is comparatively informative: records would be expected to exist.\nRegisters that could have systematically named this object: INTERPOL Stolen Works of Art, INTERPOL ID-Art, FBI National Stolen Art File, Carabinieri TPC, Getty Provenance Index, Art Loss Register. A quiet result from these registers is meaningful — records would be expected to exist.\nRegisters applicable but not identifying (category-level or attention-driven): Wikidata. Silence from these carries little evidential weight.\n2 register(s) cannot structurally hold an object of this type or origin. Their silence says nothing.\n\nWHAT THIS SCORE DOES NOT MEAN:\nA high score is not a declaration of clean provenance. It means sourced evidence was found — not that the evidence is complete, not that no problem exists outside what was checked, and not that the object is legally safe to sell or exhibit.\nA low score is not an accusation of looting. Under the accumulation model, a low score means evidence was not found — which may mean the documentary record is genuinely thin, or may mean the registers that could have spoken simply do not cover material of this type.\nThis score does not assess forgery risk. Whether the image is what it claims to be is a separate question on the same scale — see forgeryRisk.\n\nCOMPARABILITY:\nThis score is comparable only to other well covered objects. Comparison against a structurally uncovered object will understate how little was checked there.\nThe score is an ordinal measure within a coverage class, not a universal percentage. Ranking objects from different coverage classes by score is an analytical error equivalent to comparing temperatures in Celsius and Fahrenheit without converting.\n\nRISK FLAGS (7):\n  [HIGH] repatriationPrecedent: Timeline cites a repatriation/illicit-excavation event: \"Italian court in Pesaro convicted several parties in absentia (including an art dealer and, controversially, a Getty curator) for receiving stolen goods. The Pesaro court's jurisdiction was disputed. The conviction did not result in extradition or return of the statue.\"\n  [MEDIUM] lootingSignal: Object history intersects a documented looting/repatriation case.\n  [MEDIUM] provenanceGap: Pre-acquisition history is incomplete (1 undated event(s); no documented chain before earliest record).\n  [HIGH] registrySignal: Register source describes this object in theft/looting/restitution terms: \"INTERPOL cultural heritage crime unit has referenced the Getty Bronze in the context of Italian repatriation demands for illicitly exported antiquities\". Verify against the register itself before relying on it.\n  [HIGH] registrySignal: Register source describes this object in theft/looting/restitution terms: \"Carabinieri TPC has an active repatriation file for the 'Atleta Vittorioso di Fano' (Bronzo di Lisippo), held by the J. Paul Getty Museum\". Verify against the register itself before relying on it.\n  [HIGH] registrySignal: Register source describes this object in theft/looting/restitution terms: \"J. Paul Getty Museum acquisition 1977: Victorious Youth (Athlete of Fano). Acquired through German dealer; pre-acquisition provenance disputed with Italy.\". Verify against the register itself before relying on it.\n  [LOW] registryCoverageGap: 2 of 9 registers have no public API and were not searched (INTERPOL SWOA, FBI NSAF, Carabinieri TPC among them). Their silence here means nothing — the official searches must be run by hand.",
+  "breakdown": [
+    {
+      "reason": "base score — 'nothing is known' starting position (ADR-002)",
+      "delta": 30,
+      "runningTotal": 30,
+      "source": "ADR-002"
+    },
+    {
+      "reason": "authority record: \"Created by an unknown Greek sculptor, probably in the late 4th or early 3rd century BCE. The statue depicts a young male athlete — possibly a victorious pentathlete — in a pose associated with the victor's crown. Attribution to the circle of Lysippos has been proposed based on stylistic analysis.\"",
+      "delta": 18,
+      "runningTotal": 48,
+      "source": "https://www.getty.edu/art/collection/object/103OZS"
+    },
+    {
+      "reason": "authority record: \"Italian government filed formal request for return of the statue, asserting it is Italian cultural property under Law 364 of 1909 and the 1939 Bottai Law, because the object was found in Italian territorial or fishing waters. This claim has been contested on the ground that the fishermen found it in international waters.\"",
+      "delta": 18,
+      "runningTotal": 66,
+      "source": "https://www.beniculturali.it/comunicato/il-bronzo-di-lisippo"
+    },
+    {
+      "reason": "authority record: \"As of 2025, the Getty Bronze remains at the J. Paul Getty Museum, Villa, Malibu. Italy continues formal repatriation requests. The Getty's position is that it acquired the work in good faith and that its provenance before 1977 is unclear. The dispute is a canonical case study in the law of cultural property and museum acquisition policy.\"",
+      "delta": 18,
+      "runningTotal": 84,
+      "source": "https://www.getty.edu/art/collection/object/103OZS"
+    },
+    {
+      "reason": "press report: \"Discovered by Italian fishermen from Fano (Pesaro e Urbino province, Marche region) in their nets in international waters of the Adriatic Sea, approximately 1964–1965. The fishermen reportedly concealed the statue, eventually selling it clandestinely.\"",
+      "delta": 8,
+      "runningTotal": 92,
+      "source": "https://en.wikipedia.org/wiki/Victorious_Youth"
+    },
+    {
+      "reason": "press report: \"Purchased by J. Paul Getty for the J. Paul Getty Museum, Malibu, in 1977 for approximately $3.95 million, reportedly through intermediaries including a Munich dealer. The statue had left Italy without an export permit. Italian authorities were not notified.\"",
+      "delta": 8,
+      "runningTotal": 100,
+      "source": "https://www.nytimes.com/2006/10/16/arts/16bronze.html"
+    },
+    {
+      "reason": "press report: \"Italian court in Pesaro convicted several parties in absentia (including an art dealer and, controversially, a Getty curator) for receiving stolen goods. The Pesaro court's jurisdiction was disputed. The conviction did not result in extradition or return of the statue.\"",
+      "delta": 8,
+      "runningTotal": 108,
+      "source": "https://www.latimes.com/archives/la-xpm-2010-jun-28-la-et-getty-bronze-20100628-story.html"
+    },
+    {
+      "reason": "press report: \"US Supreme Court declined to review the case (2007), leaving in place a California appellate ruling that California courts had jurisdiction but that Italy's claim under the National Stolen Property Act was time-barred.\"",
+      "delta": 8,
+      "runningTotal": 116,
+      "source": "https://www.nytimes.com/2007/02/21/arts/design/21bronze.html"
+    },
+    {
+      "reason": "cap at 100 (positive-evidence ceiling)",
+      "delta": -16,
+      "runningTotal": 100,
+      "source": "ADR-002"
+    },
+    {
+      "reason": "provenance gap (1 undated event(s); no complete chain before earliest record)",
+      "delta": -12,
+      "runningTotal": 88,
+      "source": "https://en.wikipedia.org/wiki/Victorious_Youth"
+    },
+    {
+      "reason": "register hit: \"INTERPOL cultural heritage crime unit has referenced the Getty Bronze in the context of Italian repatriation demands for illicitly exported antiquities\"",
+      "delta": -20,
+      "runningTotal": 68,
+      "source": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime"
+    },
+    {
+      "reason": "register hit: \"Carabinieri TPC has an active repatriation file for the 'Atleta Vittorioso di Fano' (Bronzo di Lisippo), held by the J. Paul Getty Museum\"",
+      "delta": -20,
+      "runningTotal": 48,
+      "source": "https://www.carabinieri.it/in-vostro-aiuto/consigli/patrimonio-culturale"
+    },
+    {
+      "reason": "register hit: \"J. Paul Getty Museum acquisition 1977: Victorious Youth (Athlete of Fano). Acquired through German dealer; pre-acquisition provenance disputed with Italy.\"",
+      "delta": -20,
+      "runningTotal": 28,
+      "source": "https://www.getty.edu/art/collection/object/103OZS"
+    }
+  ],
+  "disclosure": {
+    "public": "Role: Public\nDescription: Anyone. Sees that the object exists, its confidence score with its coverage class, and that it was notarised — and nothing that could identify or endanger the holder.\n\nFields visible:\n  • public: object identity, title, artist, cultural context, image hash, confidence score, coverage class, and the notarisation proof\n\nFields withheld:\n  • source-community: claim status, custodianship terms, and source-community statements\n    Reason: Community-facing fields (claim status, custodianship) are tagged source-community and are not visible to ladder roles. They belong to the community, not the institution.\n  • museum: physical dimensions, condition, loan eligibility, risk flags, and forensic scores\n    Reason: Requires \"museum\" access level; this role is at \"public\" on the disclosure ladder.\n  • enforcement: full provenance timeline, registry hits, current location, holder pseudonym, and contact escrow\n    Reason: Requires \"enforcement\" access level; this role is at \"public\" on the disclosure ladder.\n  • owner: holder identity and all fields above\n    Reason: Requires \"owner\" access level; this role is at \"public\" on the disclosure ladder.",
+    "source-community": "Role: Source community\nDescription: A community with an ancestral or territorial connection to the object. Sees the public tier plus claim status, custodianship terms and community statements. Never sees museum or enforcement internals.\n\nFields visible:\n  • public: object identity, title, artist, cultural context, image hash, confidence score, coverage class, and the notarisation proof\n  • source-community: claim status, custodianship terms, and source-community statements\n\nFields withheld:\n  • museum: physical dimensions, condition, loan eligibility, risk flags, and forensic scores\n    Reason: Source communities have a legitimate interest in cultural claim information but not in institutional or enforcement internals. The orthogonal role model prevents this role from seeing museum or enforcement data regardless of ladder position.\n  • enforcement: full provenance timeline, registry hits, current location, holder pseudonym, and contact escrow\n    Reason: Source communities have a legitimate interest in cultural claim information but not in institutional or enforcement internals. The orthogonal role model prevents this role from seeing museum or enforcement data regardless of ladder position.\n  • owner: holder identity and all fields above\n    Reason: Source communities have a legitimate interest in cultural claim information but not in institutional or enforcement internals. The orthogonal role model prevents this role from seeing museum or enforcement data regardless of ladder position.",
+    "museum": "Role: Museum\nDescription: An accredited cultural institution. Sees curatorial and condition detail needed to assess a loan or an acquisition.\n\nFields visible:\n  • public: object identity, title, artist, cultural context, image hash, confidence score, coverage class, and the notarisation proof\n  • museum: physical dimensions, condition, loan eligibility, risk flags, and forensic scores\n\nFields withheld:\n  • source-community: claim status, custodianship terms, and source-community statements\n    Reason: Community-facing fields (claim status, custodianship) are tagged source-community and are not visible to ladder roles. They belong to the community, not the institution.\n  • enforcement: full provenance timeline, registry hits, current location, holder pseudonym, and contact escrow\n    Reason: Requires \"enforcement\" access level; this role is at \"museum\" on the disclosure ladder.\n  • owner: holder identity and all fields above\n    Reason: Requires \"owner\" access level; this role is at \"museum\" on the disclosure ladder.",
+    "enforcement": "Role: Enforcement\nDescription: Carabinieri TPC, INTERPOL, or an equivalent authority. Sees the full provenance narrative, register hits and the escrowed contact route to the holder.\n\nFields visible:\n  • public: object identity, title, artist, cultural context, image hash, confidence score, coverage class, and the notarisation proof\n  • museum: physical dimensions, condition, loan eligibility, risk flags, and forensic scores\n  • enforcement: full provenance timeline, registry hits, current location, holder pseudonym, and contact escrow\n\nFields withheld:\n  • source-community: claim status, custodianship terms, and source-community statements\n    Reason: Community-facing fields (claim status, custodianship) are tagged source-community and are not visible to ladder roles. They belong to the community, not the institution.\n  • owner: holder identity and all fields above\n    Reason: Requires \"owner\" access level; this role is at \"enforcement\" on the disclosure ladder.",
+    "owner": "Role: Owner\nDescription: The holder of the object, identified only by a pseudonymous key. Sees everything, because it is their own record.\n\nFields visible:\n  • public: object identity, title, artist, cultural context, image hash, confidence score, coverage class, and the notarisation proof\n  • source-community: claim status, custodianship terms, and source-community statements\n  • museum: physical dimensions, condition, loan eligibility, risk flags, and forensic scores\n  • enforcement: full provenance timeline, registry hits, current location, holder pseudonym, and contact escrow\n  • owner: holder identity and all fields above\n\nFields withheld:\n  (none — this role sees everything)"
+  },
+  "routing": {
+    "routing": "human-review",
+    "reason": "Flagged for human review: confidence 28 is below 35 in a well-covered class — records ought to exist for this object and they are thin, which is a finding rather than a gap. An issuer must not sign this passport until a reviewer approves."
+  }
+}

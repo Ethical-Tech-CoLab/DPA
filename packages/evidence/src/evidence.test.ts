@@ -1,246 +1,123 @@
 /**
- * @dpa/evidence — policy and fixture tests.
+ * @dpa/evidence — service policy tests.
  *
- * Tests cover:
- *  - No register check can produce a `clear`-like verdict
- *  - Every RegistryCheckRecord has non-empty caveat and officialSearch
- *  - Every TimelineEvent has non-empty source
- *  - General-knowledge events never have tier verifiedByAuthority
- *  - Fixture gather returns non-empty timeline for all four objects
+ * These assert properties of the evidence SERVICE. Assertions about the
+ * demo case data live with that data, in @dpa/fixtures-build, because this
+ * package ships no case content.
  */
 import { describe, it, expect } from "vitest";
-import type { RegistryCheckRecord, TimelineEvent } from "@dpa/schema";
-import {
-  BURA_ASKOS_TIMELINE,
-  BURA_ASKOS_REGISTRY_CHECKS,
-  BENIN_BRONZE_TIMELINE,
-  BENIN_BRONZE_REGISTRY_CHECKS,
-  GETTY_BRONZE_TIMELINE,
-  GETTY_BRONZE_REGISTRY_CHECKS,
-  SCHIELE_WALLY_TIMELINE,
-  SCHIELE_WALLY_REGISTRY_CHECKS,
-  gatherEvidence,
-  assertGeneralKnowledgePolicy,
-} from "./index.js";
+import type { TimelineEvent } from "@dpa/schema";
+import { gatherEvidence, assertGeneralKnowledgePolicy } from "./index.js";
 import { REGISTRIES } from "./registers.js";
 
 /* -------------------------------------------------------------------------- */
-/* All fixture data combined                                                   */
+/* ADR-009: no clear verdict                                                   */
 /* -------------------------------------------------------------------------- */
 
-const ALL_REGISTRY_CHECKS: RegistryCheckRecord[] = [
-  ...BURA_ASKOS_REGISTRY_CHECKS,
-  ...BENIN_BRONZE_REGISTRY_CHECKS,
-  ...GETTY_BRONZE_REGISTRY_CHECKS,
-  ...SCHIELE_WALLY_REGISTRY_CHECKS,
-];
-
-const ALL_TIMELINE_EVENTS: TimelineEvent[] = [
-  ...BURA_ASKOS_TIMELINE,
-  ...BENIN_BRONZE_TIMELINE,
-  ...GETTY_BRONZE_TIMELINE,
-  ...SCHIELE_WALLY_TIMELINE,
-];
-
-/* -------------------------------------------------------------------------- */
-/* ADR-009: No clear verdict                                                   */
-/* -------------------------------------------------------------------------- */
-
-const ALLOWED_VERDICTS = new Set<string>([
-  "possible-match",
-  "no-evidence-found",
-  "not-queryable",
-  "not-run",
-]);
-
-describe("ADR-009: no clear verdict", () => {
-  it("no fixture registry check has a disallowed verdict", () => {
-    for (const check of ALL_REGISTRY_CHECKS) {
-      expect(ALLOWED_VERDICTS.has(check.verdict),
-        `Registry "${check.registry}" has disallowed verdict "${check.verdict}"`
-      ).toBe(true);
-    }
-  });
-
-  it("REGISTRIES enum does not contain a 'clear' concept", () => {
-    // The upstream schema permits exactly these four verdicts
-    for (const reg of REGISTRIES) {
-      // This is a structural check — the RegistryDef itself doesn't carry
-      // a verdict, but its access type must be one of the four allowed values
-      const allowed = new Set(["structured-api", "grounded-search", "referral-only", "paid-x402"]);
-      expect(allowed.has(reg.access)).toBe(true);
-    }
-  });
-});
-
-/* -------------------------------------------------------------------------- */
-/* RegistryCheckRecord invariants                                              */
-/* -------------------------------------------------------------------------- */
-
-describe("RegistryCheckRecord invariants", () => {
-  it("every record has a non-empty caveat", () => {
-    for (const check of ALL_REGISTRY_CHECKS) {
-      expect(check.caveat.length,
-        `Registry "${check.registry}" has empty caveat`
-      ).toBeGreaterThan(0);
-    }
-  });
-
-  it("every record has a non-empty officialSearch URL", () => {
-    for (const check of ALL_REGISTRY_CHECKS) {
-      expect(check.officialSearch.length,
-        `Registry "${check.registry}" has empty officialSearch`
-      ).toBeGreaterThan(0);
-    }
-  });
-
-  it("every record has a non-empty method", () => {
-    for (const check of ALL_REGISTRY_CHECKS) {
-      expect(check.method.length,
-        `Registry "${check.registry}" has empty method`
-      ).toBeGreaterThan(0);
-    }
-  });
-
-  it("every record with hits has non-empty hit source URLs", () => {
-    for (const check of ALL_REGISTRY_CHECKS) {
-      for (const hit of check.hits) {
-        expect(hit.source.length,
-          `Hit in registry "${check.registry}" has empty source`
-        ).toBeGreaterThan(0);
-      }
-    }
-  });
-});
-
-/* -------------------------------------------------------------------------- */
-/* TimelineEvent invariants                                                    */
-/* -------------------------------------------------------------------------- */
-
-describe("TimelineEvent invariants", () => {
-  it("every event has a non-empty source URL", () => {
-    for (const ev of ALL_TIMELINE_EVENTS) {
-      expect(ev.source.length,
-        `Event "${ev.event.slice(0, 60)}" has empty source`
-      ).toBeGreaterThan(0);
-    }
-  });
-
-  it("every event has a non-empty event description", () => {
-    for (const ev of ALL_TIMELINE_EVENTS) {
-      expect(ev.event.length).toBeGreaterThan(0);
-    }
-  });
-
-  it("confidence is in [0, 1]", () => {
-    for (const ev of ALL_TIMELINE_EVENTS) {
-      expect(ev.confidence).toBeGreaterThanOrEqual(0);
-      expect(ev.confidence).toBeLessThanOrEqual(1);
-    }
-  });
-
-  it("tier is a valid VerificationTier", () => {
-    const validTiers = new Set<string>([
-      "verifiedByAuthority",
-      "reportedInPress",
-      "inferred",
+describe("ADR-009: register access types", () => {
+  it("every register declares one of the four allowed access types", () => {
+    const allowed = new Set([
+      "structured-api",
+      "grounded-search",
+      "referral-only",
+      "paid-x402",
     ]);
-    for (const ev of ALL_TIMELINE_EVENTS) {
-      expect(validTiers.has(ev.tier),
-        `Event has invalid tier "${ev.tier}"`
-      ).toBe(true);
+    for (const reg of REGISTRIES) {
+      expect(allowed.has(reg.access), `Register "${reg.name}" has access "${reg.access}"`).toBe(true);
+    }
+  });
+
+  it("every register states what it structurally cannot cover", () => {
+    for (const reg of REGISTRIES) {
+      expect(
+        reg.coverage.length,
+        `Register "${reg.name}" does not describe its own limits`,
+      ).toBeGreaterThan(0);
+    }
+  });
+
+  it("every register links an official search a human can redo", () => {
+    for (const reg of REGISTRIES) {
+      expect(reg.officialSearch.length, `Register "${reg.name}" has no official search URL`).toBeGreaterThan(0);
     }
   });
 });
 
 /* -------------------------------------------------------------------------- */
-/* General-knowledge policy                                                    */
+/* General-knowledge policy (ADR-008)                                          */
 /* -------------------------------------------------------------------------- */
 
 describe("general-knowledge policy", () => {
-  it("no general-knowledge event has tier verifiedByAuthority", () => {
-    for (const ev of ALL_TIMELINE_EVENTS) {
-      if (ev.isGeneralKnowledge) {
-        expect(ev.tier,
-          `General-knowledge event "${ev.event.slice(0, 60)}" has forbidden tier "verifiedByAuthority"`
-        ).not.toBe("verifiedByAuthority");
-      }
-    }
+  const base: TimelineEvent = {
+    event: "test",
+    date: null,
+    location: null,
+    source: "https://example.com",
+    sourceType: "test",
+    verifiedBy: "test",
+    tier: "inferred",
+    confidence: 0.3,
+    isGeneralKnowledge: true,
+  };
+
+  it("rejects a general-knowledge claim dressed as an authority record", () => {
+    expect(() =>
+      assertGeneralKnowledgePolicy({ ...base, tier: "verifiedByAuthority", confidence: 0.9 }),
+    ).toThrow();
   });
 
-  it("assertGeneralKnowledgePolicy throws on invalid event", () => {
-    const bad: TimelineEvent = {
-      event: "test",
-      date: null,
-      location: null,
-      source: "https://example.com",
-      sourceType: "test",
-      verifiedBy: "test",
-      tier: "verifiedByAuthority",
-      confidence: 0.9,
-      isGeneralKnowledge: true,
-    };
-    expect(() => assertGeneralKnowledgePolicy(bad)).toThrow();
-  });
-
-  it("assertGeneralKnowledgePolicy passes on valid inferred event", () => {
-    const good: TimelineEvent = {
-      event: "test",
-      date: null,
-      location: null,
-      source: "https://example.com",
-      sourceType: "test",
-      verifiedBy: "test",
-      tier: "inferred",
-      confidence: 0.3,
-      isGeneralKnowledge: true,
-    };
-    expect(() => assertGeneralKnowledgePolicy(good)).not.toThrow();
+  it("accepts a general-knowledge claim marked inferred", () => {
+    expect(() => assertGeneralKnowledgePolicy(base)).not.toThrow();
   });
 });
 
 /* -------------------------------------------------------------------------- */
-/* Fixture gather                                                              */
+/* Recorded evidence injection                                                 */
 /* -------------------------------------------------------------------------- */
 
-describe("fixture gather returns non-empty timelines", () => {
-  const fixtureKeys = [
-    "bura-askos",
-    "benin-bronze",
-    "getty-bronze",
-    "schiele-wally",
-  ] as const;
+describe("gatherEvidence with recorded evidence", () => {
+  const recorded = {
+    timeline: [
+      {
+        event: "Acquired by the museum",
+        date: "1965",
+        location: "London",
+        source: "https://example.com/accession",
+        sourceType: "museum-record",
+        verifiedBy: "Example Museum",
+        tier: "verifiedByAuthority" as const,
+        confidence: 0.9,
+        isGeneralKnowledge: false,
+      },
+    ],
+    registryChecks: [],
+  };
 
-  for (const key of fixtureKeys) {
-    it(`gatherEvidence("${key}") returns non-empty timeline`, async () => {
-      const result = await gatherEvidence(
-        { title: key },
-        { mode: "fixtures", fixtureKey: key },
-      );
-      expect(result.timeline.length).toBeGreaterThan(0);
-      expect(result.mode).toBe("fixtures");
-    });
+  it("returns the caller's recorded evidence without network I/O", async () => {
+    const result = await gatherEvidence(
+      { title: "Test Object" },
+      { mode: "fixtures", recorded },
+    );
+    expect(result.timeline).toEqual(recorded.timeline);
+    expect(result.mode).toBe("fixtures");
+    expect(result.sourcesConsulted).toEqual(["recorded"]);
+  });
 
-    it(`gatherEvidence("${key}") returns registry checks with valid verdicts`, async () => {
-      const result = await gatherEvidence(
-        { title: key },
-        { mode: "fixtures", fixtureKey: key },
-      );
-      for (const check of result.registryChecks) {
-        expect(ALLOWED_VERDICTS.has(check.verdict),
-          `Key "${key}" registry "${check.registry}" has disallowed verdict "${check.verdict}"`
-        ).toBe(true);
-      }
-    });
-  }
+  it("falls through to connectors when no recorded evidence is supplied", async () => {
+    const result = await gatherEvidence(
+      { title: "Test Object" },
+      { mode: "fixtures", connectors: [] },
+    );
+    expect(result.sourcesConsulted).not.toContain("recorded");
+  });
 });
 
 /* -------------------------------------------------------------------------- */
-/* Source bias note                                                            */
+/* Source bias                                                                 */
 /* -------------------------------------------------------------------------- */
 
 describe("source bias note", () => {
-  it("is non-empty and mentions Western bias", async () => {
+  it("names the Western bias of the connector set rather than hiding it", async () => {
     const { SOURCE_BIAS_NOTE } = await import("./sourceBias.js");
     expect(SOURCE_BIAS_NOTE.length).toBeGreaterThan(50);
     expect(SOURCE_BIAS_NOTE.toLowerCase()).toContain("western");

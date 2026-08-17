@@ -1,0 +1,441 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "passport": "https://ethical-tech-colab.github.io/DPA/ns#"
+  },
+  "type": "DigitalProvenancePassport",
+  "schemaVersion": "0.4.0",
+  "id": "benin-bronze",
+  "artwork": {
+    "title": "Benin Bronze commemorative head",
+    "artist": null,
+    "period": "16th–17th century CE",
+    "culture": "Edo (Kingdom of Benin)",
+    "material": "Leaded brass",
+    "dimensions": "H 23 cm",
+    "currentLocation": "European museum collection",
+    "imageUrl": null,
+    "imageHash": "0x3a8f2c1d9e7b6a5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c"
+  },
+  "objectIdentity": {
+    "sha256": "0x3a8f2c1d9e7b6a5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c",
+    "dHash": "0xa1b2c3d4e5f60718",
+    "angleCount": 5,
+    "embeddingRef": null,
+    "duplicateOf": null,
+    "similarityScore": null,
+    "forgeryRisk": {
+      "score": 9,
+      "signals": [
+        {
+          "name": "casting-seam-analysis",
+          "value": 0.09,
+          "interpretation": "Casting seams consistent with lost-wax technique of the period; no indication of modern manufacture.",
+          "severity": "low"
+        }
+      ]
+    }
+  },
+  "provenanceTimeline": [
+    {
+      "event": "Cast at the Benin royal court, Benin City (present-day Edo State, Nigeria). Commemorative brass plaques were produced by the Igun Eronmwon guild of royal brass-casters under royal commission, depicting court ceremonies, warriors, and historical events. Plaques were mounted on wooden pillars of the Oba's palace.",
+      "date": null,
+      "location": "Benin City, Kingdom of Benin (present-day Edo State, Nigeria)",
+      "source": "https://www.britishmuseum.org/collection/term/BIOG185641",
+      "sourceType": "museum-catalogue",
+      "verifiedBy": "The British Museum",
+      "tier": "verifiedByAuthority",
+      "confidence": 0.9,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "British Punitive Expedition, February–March 1897. Following the ambush of a British trade delegation (January 1897), a British naval and military force attacked and sacked Benin City on 18 February 1897. Oba Ovonramwen was deposed. British officers removed an estimated 3,000–5,000 brass plaques, ivory carvings, and other royal objects from the palace compound. Objects were initially distributed among expedition members and later sold through naval auctions and dealers.",
+      "date": "1897-02-18",
+      "location": "Benin City, Nigeria (then Southern Nigeria Protectorate)",
+      "source": "https://www.britishmuseum.org/collection/object/E_Af1898-0115-10",
+      "sourceType": "museum-catalogue",
+      "verifiedBy": "The British Museum",
+      "tier": "verifiedByAuthority",
+      "confidence": 0.95,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Objects dispersed to European and American museums and private collections through commercial dealers (including W.D. Webster and Th. Bokencamp) and direct transfers. The British Museum acquired its first Benin objects from the expedition in 1897–1898. German collections (Berlin Ethnologisches Museum, then the Museum für Völkerkunde) acquired objects through the same channels.",
+      "date": "1898-01-01",
+      "location": "London, UK; Berlin, Germany",
+      "source": "https://en.wikipedia.org/wiki/Benin_Bronzes",
+      "sourceType": "scholarly",
+      "verifiedBy": "Wikipedia (community-edited; see British Museum catalogue for authoritative records)",
+      "tier": "reportedInPress",
+      "confidence": 0.75,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Nigeria gained independence (1960) and the Nigerian government began formal requests for the return of Benin objects. The National Commission for Museums and Monuments (NCMM) was established to coordinate Nigeria's cultural property policy.",
+      "date": "1960-10-01",
+      "location": "Lagos, Nigeria",
+      "source": "https://www.ncmm.gov.ng/",
+      "sourceType": "government",
+      "verifiedBy": "Nigerian National Commission for Museums and Monuments",
+      "tier": "verifiedByAuthority",
+      "confidence": 0.85,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Benin Dialogue Group formed (2010), bringing together European museum directors and representatives of the Nigerian government, the Royal Court of Benin, and the NCMM to negotiate the long-term loan and potential repatriation of Benin objects. Germany committed to repatriation; the first transfers were completed in 2022.",
+      "date": "2010-01-01",
+      "location": null,
+      "source": "https://www.benindialoguegroup.com/",
+      "sourceType": "government",
+      "verifiedBy": "Benin Dialogue Group",
+      "tier": "verifiedByAuthority",
+      "confidence": 0.9,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Germany transferred 512 Benin Bronze objects to Nigeria (December 2022 and subsequent tranches). The Humboldt Forum (Berlin) and 17 other German museums participated. Oba Ewuare II received the objects at the Benin Royal Museum, Benin City.",
+      "date": "2022-12-01",
+      "location": "Berlin, Germany / Benin City, Nigeria",
+      "source": "https://www.theguardian.com/culture/2022/dec/16/germany-returns-benin-bronzes-to-nigeria",
+      "sourceType": "press",
+      "verifiedBy": "The Guardian",
+      "tier": "reportedInPress",
+      "confidence": 0.9,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Coverage gap note: the 1897 removal was a state military action, not a private theft. INTERPOL SWOA, the FBI NSAF, and the Art Loss Register record PRIVATE crimes (theft from known collections). The Benin Bronzes are not listed in any stolen-property register because no theft report was ever filed — the Oba's government did not exist as a legal person from whom objects could be 'reported stolen' under international law of the period. This is the structural reason colonial-era objects are absent from all criminal registers.",
+      "date": null,
+      "location": null,
+      "source": "https://www.unesco.org/en/articles/1970-convention-and-illicit-traffic-cultural-property",
+      "sourceType": "policy",
+      "verifiedBy": "UNESCO (coverage note, inferred)",
+      "tier": "inferred",
+      "confidence": 0.9,
+      "isGeneralKnowledge": false
+    }
+  ],
+  "registryChecks": [
+    {
+      "registry": "INTERPOL Stolen Works of Art Database",
+      "assertedBy": "INTERPOL — Cultural Heritage Crime Unit",
+      "access": "referral-only",
+      "verdict": "not-queryable",
+      "method": "No programmatic access. Structural coverage note: the 1897 Punitive Expedition was a state military action. INTERPOL SWOA records objects reported stolen by police forces of member states. No theft report was ever filed for Benin royal objects removed in 1897 — making their absence from this register uninformative about their actual status.",
+      "caveat": "Not queryable programmatically. Structural gap: colonial-era objects removed by state military action are absent from criminal registers by design — not because they are unproblematic. A null result here is uninformative.",
+      "hits": [],
+      "officialSearch": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/Stolen-Works-of-Art-Database",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "INTERPOL ID-Art (mobile lookup)",
+      "assertedBy": "INTERPOL — Cultural Heritage Crime Unit",
+      "access": "referral-only",
+      "verdict": "not-queryable",
+      "method": "No programmatic access. Same structural coverage gap applies.",
+      "caveat": "Not queryable programmatically. Structural coverage gap — see INTERPOL SWOA note.",
+      "hits": [],
+      "officialSearch": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/ID-Art-mobile-app",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "FBI National Stolen Art File",
+      "assertedBy": "US Federal Bureau of Investigation — Art Crime Team",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over fbi.gov. No Benin Bronze listings found in public pages. Same structural coverage gap as INTERPOL — the FBI NSAF records private theft reports.",
+      "caveat": "No evidence surfaced. This is NOT a clean bill of health. The FBI NSAF records reported thefts from documented collections; it cannot hold records of colonial-era objects removed by state military action.",
+      "hits": [],
+      "officialSearch": "https://artcrimes.fbi.gov/",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Carabinieri TPC — Leonardo database",
+      "assertedBy": "Comando Carabinieri Tutela Patrimonio Culturale (Italy)",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over carabinieri.it. No results for Benin Bronze plaque. The TPC archive focuses primarily on Italian cultural property.",
+      "caveat": "No evidence surfaced. This is NOT a clean bill of health. The TPC archive has no coverage of Nigerian colonial-era objects.",
+      "hits": [],
+      "officialSearch": "https://tpcweb.carabinieri.it/SitoPubblico/ricerca",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Lost Art Database",
+      "assertedBy": "German Lost Art Foundation (Deutsches Zentrum Kulturgutverluste)",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over lostart.de. No Benin Bronze listings. This register covers Nazi-era spoliation only — structurally irrelevant to a 1897 colonial removal.",
+      "caveat": "No evidence surfaced. The Lost Art Database covers 1933–1945 Nazi-era cultural property loss only. It is structurally irrelevant to 1897 colonial-era removal.",
+      "hits": [],
+      "officialSearch": "https://www.lostart.de/en/search",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Getty Provenance Index",
+      "assertedBy": "Getty Research Institute",
+      "access": "grounded-search",
+      "verdict": "possible-match",
+      "method": "Grounded search over getty.edu. The Getty Provenance Index contains auction catalogue entries for Benin bronzes sold through European dealers in the late 19th and early 20th centuries, including W.D. Webster sales. These records document the early market dispersal of Expedition objects.",
+      "caveat": "A hit surfaced in auction catalogue records from the post-1897 period. This is a LEAD requiring human verification — it confirms the object moved through the art market but does not establish current ownership or repatriation status.",
+      "hits": [
+        {
+          "claim": "Getty Provenance Index: auction catalogue records for Benin brass objects sold by W.D. Webster (c. 1899–1901) following the 1897 Punitive Expedition",
+          "source": "https://www.getty.edu/research/tools/provenance/search.html",
+          "riskRelevant": true
+        }
+      ],
+      "officialSearch": "https://www.getty.edu/research/tools/provenance/search.html",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "ICOM Red Lists of Cultural Objects at Risk",
+      "assertedBy": "International Council of Museums",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over icom.museum. The ICOM Red List for Africa does not specifically list Benin Bronzes as a current trafficking risk category — most known Benin objects are already in institutional custody.",
+      "caveat": "No evidence surfaced. The ICOM Red Lists address trafficking risk categories, not historical dispersal. Benin Bronzes are well documented in institutional collections; the current risk is insufficient repatriation, not further trafficking.",
+      "hits": [],
+      "officialSearch": "https://icom.museum/en/resources/red-lists/",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Wikidata (structured provenance events)",
+      "assertedBy": "Wikidata contributors — community-maintained, not an authority",
+      "access": "structured-api",
+      "verdict": "possible-match",
+      "method": "Wikidata SPARQL query. The 'Benin Bronzes' (Q223429) entity carries significant-event statements including 'looting' (P793), collection statements for the British Museum and other institutions, and country-of-origin Nigeria. Risk-relevant events found.",
+      "caveat": "Wikidata is community-maintained and certifies nothing. The significant-event statements here reflect widely documented historical fact but are unreviewed community edits. Treat as a lead, not a finding.",
+      "hits": [
+        {
+          "claim": "significant event: looting (1897 British Punitive Expedition)",
+          "source": "https://www.wikidata.org/wiki/Q223429",
+          "riskRelevant": true
+        },
+        {
+          "claim": "country of origin: Nigeria",
+          "source": "https://www.wikidata.org/wiki/Q223429",
+          "riskRelevant": false
+        },
+        {
+          "claim": "collection: British Museum, Ethnologisches Museum Berlin",
+          "source": "https://www.wikidata.org/wiki/Q223429",
+          "riskRelevant": false
+        }
+      ],
+      "officialSearch": "https://www.wikidata.org/wiki/Q223429",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Art Loss Register",
+      "assertedBy": "The Art Loss Register (commercial due-diligence registry)",
+      "access": "paid-x402",
+      "verdict": "not-queryable",
+      "method": "Commercial register — reached through the agent's paid x402 check, not this free layer.",
+      "caveat": "Commercial register not searched at this tier. Even if searched, the Art Loss Register records private theft reports; colonial-era removals by state action fall outside its coverage by design.",
+      "hits": [],
+      "officialSearch": "https://www.artloss.com/",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    }
+  ],
+  "premiumChecks": [],
+  "riskAssessment": {
+    "confidenceScore": 48,
+    "coverage": {
+      "acquisitionMode": "colonial",
+      "region": "nigeria",
+      "identifyingRegisters": [],
+      "weakRegisters": [
+        {
+          "id": "icom-red-lists",
+          "name": "ICOM Red Lists",
+          "why": "Lists object categories at risk, never individual objects — a due-diligence trigger, not an identification."
+        },
+        {
+          "id": "wikidata",
+          "name": "Wikidata",
+          "why": "Coverage follows scholarly and press attention rather than rule, so its silence carries little information."
+        }
+      ],
+      "blindRegisters": [
+        {
+          "id": "interpol-swoa",
+          "name": "INTERPOL Stolen Works of Art",
+          "why": "Holds market-theft, archaeological losses; requires a theft reported to and recorded by a member-country police force."
+        },
+        {
+          "id": "interpol-id-art",
+          "name": "INTERPOL ID-Art",
+          "why": "Holds market-theft, archaeological losses; requires the same police report as the Stolen Works of Art database."
+        },
+        {
+          "id": "fbi-nsaf",
+          "name": "FBI National Stolen Art File",
+          "why": "Holds market-theft losses; requires a law-enforcement submission and a value threshold."
+        },
+        {
+          "id": "carabinieri-tpc",
+          "name": "Carabinieri TPC",
+          "why": "Holds market-theft, archaeological losses; requires an Italian nexus — the archive is national."
+        },
+        {
+          "id": "lostart-de",
+          "name": "Lost Art Database",
+          "why": "Holds nazi-era losses; requires a loss connected to Nazi persecution, 1933–45."
+        },
+        {
+          "id": "getty-provenance-index",
+          "name": "Getty Provenance Index",
+          "why": "Holds market, market-theft, nazi-era losses; requires passage through the European or American art market."
+        },
+        {
+          "id": "art-loss-register",
+          "name": "Art Loss Register",
+          "why": "Holds market-theft, nazi-era losses; requires a registered loss, usually by an owner or insurer."
+        }
+      ],
+      "coverageClass": "structurally-uncovered",
+      "coverageRatio": 0,
+      "note": "No register in this set can systematically name an object of this kind and origin. A quiet result here carries essentially no information about the object — it reflects where the registers look, not what happened. The strongest evidence for material like this is usually physical or archaeological, and this tool cannot see it.",
+      "comparability": "This score is comparable only to other structurally uncovered objects. It must not be read against a well-covered Western-market object: the same number means 'nothing was reachable' here and 'a documented gap was found' there."
+    },
+    "flags": [
+      {
+        "type": "repatriationPrecedent",
+        "severity": "high",
+        "evidence": "Timeline cites a repatriation/illicit-excavation event: \"Benin Dialogue Group formed (2010), bringing together European museum directors and representatives of the Nigerian government, the Royal Court of Benin, and the NCMM to negotiate the long-term loan and potential repatriation of Benin objects. Germany committed to repatriation; the first transfers were completed in 2022.\"",
+        "source": "https://www.benindialoguegroup.com/"
+      },
+      {
+        "type": "lootingSignal",
+        "severity": "medium",
+        "evidence": "Object history intersects a documented looting/repatriation case.",
+        "source": "https://www.benindialoguegroup.com/"
+      },
+      {
+        "type": "provenanceGap",
+        "severity": "medium",
+        "evidence": "Pre-acquisition history is incomplete (2 undated event(s); no documented chain before earliest record).",
+        "source": "https://www.britishmuseum.org/collection/object/E_Af1898-0115-10"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"Getty Provenance Index: auction catalogue records for Benin brass objects sold by W.D. Webster (c. 1899–1901) following the 1897 Punitive Expedition\". Verify against the register itself before relying on it.",
+        "source": "https://www.getty.edu/research/tools/provenance/search.html"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"significant event: looting (1897 British Punitive Expedition)\". Verify against the register itself before relying on it.",
+        "source": "https://www.wikidata.org/wiki/Q223429"
+      },
+      {
+        "type": "registryCoverageGap",
+        "severity": "low",
+        "evidence": "3 of 9 registers have no public API and were not searched (INTERPOL SWOA, FBI NSAF, Carabinieri TPC among them). Their silence here means nothing — the official searches must be run by hand.",
+        "source": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/Stolen-Works-of-Art-Database"
+      }
+    ],
+    "scorer": "accumulation-v0.4"
+  },
+  "claimStatus": "under-negotiation",
+  "custodianship": "Subject to an active restitution dialogue. The Oba of Benin and the Nigerian National Commission for Museums and Monuments are recognised parties.",
+  "sourceCommunityStatement": "The Court of Benin regards commemorative heads as belonging to the Oba in perpetuity. Their removal in 1897 is not accepted as a transfer of title.",
+  "condition": "Excellent. Stable patina, no active corrosion.",
+  "loanEligibility": "Loans suspended pending the outcome of restitution negotiations.",
+  "holderPseudonym": "0xHolder-2b91",
+  "contactEscrow": "escrow://dpa/v0.4/contact/2b91",
+  "holderIdentity": "European museum collection (identity held in escrow)",
+  "issuer": {
+    "name": "DPA demo issuer — accredited institution",
+    "issuerClass": "pseudonymous-wallet",
+    "id": "did:pkh:eip155:84532:0x8F22c730D6D7CA873bD20723BBF1ecc781a84C81",
+    "wallet": "0x8F22c730D6D7CA873bD20723BBF1ecc781a84C81",
+    "certificateChain": null
+  },
+  "disclosure": {
+    "envelopeVersion": "0.4.0",
+    "defaultTier": "owner",
+    "fieldTiers": {
+      "@context": "public",
+      "type": "public",
+      "schemaVersion": "public",
+      "id": "public",
+      "issuedAt": "public",
+      "contentHash": "public",
+      "signature": "public",
+      "issuer.name": "public",
+      "issuer.issuerClass": "public",
+      "issuer.id": "public",
+      "issuer.wallet": "public",
+      "issuer.certificateChain": "public",
+      "disclosure": "public",
+      "credentialStatus": "public",
+      "notarisation": "public",
+      "artwork": "public",
+      "artwork.title": "public",
+      "artwork.artist": "public",
+      "artwork.period": "public",
+      "artwork.culture": "public",
+      "artwork.material": "public",
+      "artwork.imageHash": "public",
+      "artwork.imageUrl": "public",
+      "artwork.dimensions": "museum",
+      "artwork.currentLocation": "enforcement",
+      "riskAssessment": "public",
+      "riskAssessment.confidenceScore": "public",
+      "riskAssessment.coverage": "public",
+      "riskAssessment.scorer": "public",
+      "riskAssessment.flags": "museum",
+      "objectIdentity": "museum",
+      "objectIdentity.sha256": "public",
+      "objectIdentity.dHash": "public",
+      "objectIdentity.forgeryRisk": "museum",
+      "objectIdentity.duplicateOf": "enforcement",
+      "objectIdentity.similarityScore": "enforcement",
+      "claimStatus": "source-community",
+      "custodianship": "source-community",
+      "sourceCommunityStatement": "source-community",
+      "condition": "museum",
+      "loanEligibility": "museum",
+      "provenanceTimeline": "enforcement",
+      "registryChecks": "enforcement",
+      "premiumChecks": "enforcement",
+      "holderPseudonym": "enforcement",
+      "contactEscrow": "enforcement",
+      "holderIdentity": "owner"
+    }
+  },
+  "credentialStatus": {
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": 1,
+    "statusListCredential": "https://ethical-tech-colab.github.io/DPA/api/status/revocation.json"
+  },
+  "notarisation": {
+    "chain": "base-sepolia",
+    "chainId": 84532,
+    "easUid": "0x821bb8cac0ac986cce64468dcb6a949e3d1d9712548eca98138f5f548ee226c3",
+    "txHash": null,
+    "attestedAt": null,
+    "mode": "mock",
+    "schemaUid": null
+  },
+  "issuedAt": "2026-02-01T00:00:00.000Z",
+  "contentHash": "0xe7029a80dbe178528b26f490dcf146e71830ffb17f90f10bf07a6c4b4fef0d18",
+  "signature": "e7a86bf94c172dce6b2b085e98d153a8eb457e855f743f15aa4f7bbfe692a7746238e97cd906e2c06da0e19ce537641575fae24f9280719f998cd3e306b40af601",
+  "_redaction": {
+    "role": "owner",
+    "visibleTiers": [
+      "public",
+      "source-community",
+      "museum",
+      "enforcement",
+      "owner"
+    ],
+    "withheldFields": [],
+    "envelopeVersion": "0.4.0"
+  }
+}

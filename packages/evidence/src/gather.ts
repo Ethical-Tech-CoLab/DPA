@@ -28,18 +28,6 @@ import { WikipediaConnector } from "./connectors/wikipedia.js";
 import { EuropeanaConnector } from "./connectors/europeana.js";
 import { GeneralKnowledgeConnector } from "./connectors/generalKnowledge.js";
 
-// Fixtures
-import {
-  BURA_ASKOS_TIMELINE,
-  BURA_ASKOS_REGISTRY_CHECKS,
-  BENIN_BRONZE_TIMELINE,
-  BENIN_BRONZE_REGISTRY_CHECKS,
-  GETTY_BRONZE_TIMELINE,
-  GETTY_BRONZE_REGISTRY_CHECKS,
-  SCHIELE_WALLY_TIMELINE,
-  SCHIELE_WALLY_REGISTRY_CHECKS,
-} from "./fixtures/index.js";
-
 /* -------------------------------------------------------------------------- */
 /* Default connector set                                                       */
 /* -------------------------------------------------------------------------- */
@@ -56,32 +44,20 @@ export const DEFAULT_CONNECTORS: EvidenceConnector[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/* Fixture catalogue                                                           */
+/* Recorded evidence                                                           */
 /* -------------------------------------------------------------------------- */
 
-interface FixtureEntry {
+/**
+ * A previously-recorded evidence set, supplied by the caller.
+ *
+ * This package deliberately holds NO case data. Demo objects live in
+ * @dpa/fixtures-build and are injected here, so the evidence service cannot
+ * become a place where a hand-authored answer hides behind a lookup key.
+ */
+export interface RecordedEvidence {
   timeline: TimelineEvent[];
   registryChecks: RegistryCheckRecord[];
 }
-
-const FIXTURES: Record<string, FixtureEntry> = {
-  "bura-askos": {
-    timeline: BURA_ASKOS_TIMELINE,
-    registryChecks: BURA_ASKOS_REGISTRY_CHECKS,
-  },
-  "benin-bronze": {
-    timeline: BENIN_BRONZE_TIMELINE,
-    registryChecks: BENIN_BRONZE_REGISTRY_CHECKS,
-  },
-  "getty-bronze": {
-    timeline: GETTY_BRONZE_TIMELINE,
-    registryChecks: GETTY_BRONZE_REGISTRY_CHECKS,
-  },
-  "schiele-wally": {
-    timeline: SCHIELE_WALLY_TIMELINE,
-    registryChecks: SCHIELE_WALLY_REGISTRY_CHECKS,
-  },
-};
 
 /* -------------------------------------------------------------------------- */
 /* Deduplication                                                               */
@@ -105,10 +81,10 @@ function deduplicate(claims: EvidenceClaim[]): EvidenceClaim[] {
 export interface GatherOptions {
   mode?: "fixtures" | "live";
   /**
-   * Fixture key to look up (e.g. "bura-askos"). Required in fixtures mode
-   * unless `connectors` are provided separately.
+   * Pre-recorded evidence for this object, supplied by the caller. When
+   * present in fixtures mode it is returned directly with no network I/O.
    */
-  fixtureKey?: string;
+  recorded?: RecordedEvidence;
   connectors?: EvidenceConnector[];
   registerOpts?: RegisterCheckOptions;
   fetchImpl?: typeof globalThis.fetch;
@@ -125,9 +101,9 @@ export interface GatherResult {
 /**
  * Gather all evidence for one object.
  *
- * In **fixtures mode** (default) the pre-built fixture data is returned
- * directly — no network I/O.  In **live mode** all connectors are queried
- * concurrently and the results are merged and deduplicated.
+ * In **fixtures mode** (default) any `recorded` evidence the caller supplies is
+ * returned directly — no network I/O. In **live mode** all connectors are
+ * queried concurrently and the results are merged and deduplicated.
  *
  * Every general-knowledge event is validated against the policy
  * (`assertGeneralKnowledgePolicy`) before inclusion.
@@ -142,18 +118,13 @@ export async function gatherEvidence(
       ? "live"
       : "fixtures");
 
-  if (mode === "fixtures") {
-    const key = opts.fixtureKey;
-    const fixture = key ? FIXTURES[key] : undefined;
-    if (fixture) {
-      return {
-        timeline: fixture.timeline,
-        registryChecks: fixture.registryChecks,
-        sourcesConsulted: ["fixtures"],
-        mode: "fixtures",
-      };
-    }
-    // No fixture key — run connectors in fixtures mode
+  if (mode === "fixtures" && opts.recorded) {
+    return {
+      timeline: opts.recorded.timeline,
+      registryChecks: opts.recorded.registryChecks,
+      sourcesConsulted: ["recorded"],
+      mode: "fixtures",
+    };
   }
 
   const connectors = opts.connectors ?? DEFAULT_CONNECTORS;

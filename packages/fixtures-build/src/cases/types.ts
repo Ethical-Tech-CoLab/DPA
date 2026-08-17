@@ -60,6 +60,11 @@ export interface CaseInput {
     acquisitionMode: AcquisitionMode;
     region: string | null;
     corpus?: string;
+    /**
+     * Whether the object was ever recorded before removal. `false` makes every
+     * theft register structurally blind to it.
+     */
+    everInventoried?: boolean;
   };
 
   /** Optional market signal for the valuation-anomaly flag. */

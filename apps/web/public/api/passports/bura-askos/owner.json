@@ -1,0 +1,414 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "passport": "https://ethical-tech-colab.github.io/DPA/ns#"
+  },
+  "type": "DigitalProvenancePassport",
+  "schemaVersion": "0.4.0",
+  "id": "bura-askos",
+  "artwork": {
+    "title": "Bura askos (zoomorphic funerary vessel)",
+    "artist": null,
+    "period": "c. 3rd–11th century CE",
+    "culture": "Bura (Bura-Asinda-Sikka complex)",
+    "material": "Terracotta",
+    "dimensions": "H 41 cm × W 22 cm",
+    "currentLocation": "Private collection, Geneva",
+    "imageUrl": null,
+    "imageHash": "0x9c1f4a7b2e8d3f60a5c9b8e7d6f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6"
+  },
+  "objectIdentity": {
+    "sha256": "0x9c1f4a7b2e8d3f60a5c9b8e7d6f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6",
+    "dHash": "0xf0e1d2c3b4a59687",
+    "angleCount": 3,
+    "embeddingRef": null,
+    "duplicateOf": null,
+    "similarityScore": null,
+    "forgeryRisk": {
+      "score": 27,
+      "signals": [
+        {
+          "name": "surface-abrasion-consistency",
+          "value": 0.31,
+          "interpretation": "Abrasion pattern is consistent with burial and mechanical extraction rather than controlled excavation.",
+          "severity": "medium"
+        },
+        {
+          "name": "repair-seam-detection",
+          "value": 0.18,
+          "interpretation": "Two repair seams detected, consistent with post-excavation reassembly of a broken vessel.",
+          "severity": "low"
+        }
+      ]
+    }
+  },
+  "provenanceTimeline": [
+    {
+      "event": "Archaeological context: Bura-Asinda-Sikka complex, Tillabéri region, Niger. Terracotta zoomorphic and anthropomorphic funerary vessels (askoi) are a characteristic product of the Bura cultural tradition, dating approximately 3rd–11th century CE. Sites were known to local communities but not systematically excavated or inventoried by state authorities.",
+      "date": null,
+      "location": "Bura-Asinda-Sikka complex, Tillabéri Region, Niger",
+      "source": "https://www.cambridge.org/core/journals/azania-archaeological-research-in-africa/article/bura-asinda-sikka-archaeological-complex/",
+      "sourceType": "scholarly",
+      "verifiedBy": "Cambridge University Press — Azania: Archaeological Research in Africa",
+      "tier": "reportedInPress",
+      "confidence": 0.8,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "ICOM Red List for West African Cultural Objects (2003, updated 2015) identifies terracotta funerary vessels from the Bura region (Niger) as a category at high risk of illicit trafficking. The listing applies to object TYPES, not individual pieces; no individual Bura askos is registered in any criminal database.",
+      "date": "2003-01-01",
+      "location": null,
+      "source": "https://icom.museum/en/resources/red-lists/red-list-west-africa/",
+      "sourceType": "register",
+      "verifiedBy": "International Council of Museums",
+      "tier": "verifiedByAuthority",
+      "confidence": 0.9,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Intensive looting of Bura sites reported through the 1990s and 2000s. Local informants and field archaeologists documented large-scale mechanical extraction. Objects entered the international market primarily through Mali and then European dealers, with no documentation of origin.",
+      "date": "1995-01-01",
+      "location": "Tillabéri Region, Niger",
+      "source": "https://www.jstor.org/stable/20697597",
+      "sourceType": "scholarly",
+      "verifiedBy": "JSTOR — Journal of African Archaeology",
+      "tier": "reportedInPress",
+      "confidence": 0.65,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Niger ratified the 1970 UNESCO Convention on the Means of Prohibiting and Preventing the Illicit Import, Export and Transfer of Ownership of Cultural Property on 6 December 1997. Any Bura object removed after that date is in breach of Niger law and the Convention. However, the Convention requires a pre-existing inventory — which Bura sites lack.",
+      "date": "1997-12-06",
+      "location": null,
+      "source": "https://en.unesco.org/nations/niger",
+      "sourceType": "legal",
+      "verifiedBy": "UNESCO",
+      "tier": "verifiedByAuthority",
+      "confidence": 0.95,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "Structural coverage gap: because Bura funerary sites were not inventoried before looting began, objects from this complex cannot appear in INTERPOL SWOA, the FBI National Stolen Art File, or the Carabinieri TPC archive — those registers hold records of REPORTED THEFTS from DOCUMENTED COLLECTIONS. The absence of any register hit for a Bura askos is therefore uninformative and must not be read as evidence of clean provenance.",
+      "date": null,
+      "location": null,
+      "source": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/Stolen-Works-of-Art-Database",
+      "sourceType": "policy",
+      "verifiedBy": "INTERPOL — Cultural Heritage Crime Unit (coverage note)",
+      "tier": "inferred",
+      "confidence": 0.95,
+      "isGeneralKnowledge": false
+    },
+    {
+      "event": "TRAFFIC and UNESCO have documented that West African terracotta objects from Niger and Mali are among the most heavily trafficked categories of cultural property. Major auction house sales of Bura objects in Paris and Brussels during the 1990s–2010s typically carried provenance described only as 'European private collection, acquired before 1970' — a formulation that the 1970 cutoff was specifically intended to make meaningful, but which cannot be verified for unrecorded sites.",
+      "date": null,
+      "location": null,
+      "source": "https://www.traffic.org/publications/reports/stemming-the-tide-african-cultural-property-trafficking/",
+      "sourceType": "scholarly",
+      "verifiedBy": "TRAFFIC (wildlife and wildlife products trade monitoring)",
+      "tier": "reportedInPress",
+      "confidence": 0.6,
+      "isGeneralKnowledge": false
+    }
+  ],
+  "registryChecks": [
+    {
+      "registry": "INTERPOL Stolen Works of Art Database",
+      "assertedBy": "INTERPOL — Cultural Heritage Crime Unit",
+      "access": "referral-only",
+      "verdict": "not-queryable",
+      "method": "No programmatic access exists to INTERPOL SWOA. A referral link is emitted. However, the structural point must be noted: Bura funerary objects were never inventoried by Niger authorities before looting began. They cannot be in this register because a theft must be REPORTED to enter it, and an unrecorded excavation produces no theft report.",
+      "caveat": "Not queryable programmatically. More fundamentally: the structural coverage gap means a null result here is not a negative finding. Objects looted from unrecorded sites are architecturally absent from stolen-property registers regardless of their actual provenance.",
+      "hits": [],
+      "officialSearch": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/Stolen-Works-of-Art-Database",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "INTERPOL ID-Art (mobile lookup)",
+      "assertedBy": "INTERPOL — Cultural Heritage Crime Unit",
+      "access": "referral-only",
+      "verdict": "not-queryable",
+      "method": "No programmatic access exists. See INTERPOL SWOA note — structural absence applies here too.",
+      "caveat": "Not queryable programmatically. The structural absence from stolen-property registers applies equally to this interface of the SWOA database.",
+      "hits": [],
+      "officialSearch": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/ID-Art-mobile-app",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "FBI National Stolen Art File",
+      "assertedBy": "US Federal Bureau of Investigation — Art Crime Team",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over fbi.gov. No results naming Bura or the Bura-Asinda complex were found. This register requires a police report and a value threshold — neither applies to unrecorded looting in Niger.",
+      "caveat": "No evidence surfaced. This is NOT a clean bill of health. The FBI NSAF records reported thefts from documented collections; it cannot hold records of objects looted from unexcavated, uninventoried sites.",
+      "hits": [],
+      "officialSearch": "https://artcrimes.fbi.gov/",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Carabinieri TPC — Leonardo database",
+      "assertedBy": "Comando Carabinieri Tutela Patrimonio Culturale (Italy)",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over carabinieri.it and beniculturali.it. No results for Bura askos or Bura terracotta Niger. The TPC archive covers primarily Italian cultural property and Italian-market thefts.",
+      "caveat": "No evidence surfaced. This is NOT a clean bill of health. The TPC archive is the most important source for Italian antiquities; it has very limited coverage of West African archaeological material.",
+      "hits": [],
+      "officialSearch": "https://tpcweb.carabinieri.it/SitoPubblico/ricerca",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Lost Art Database",
+      "assertedBy": "German Lost Art Foundation (Deutsches Zentrum Kulturgutverluste)",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over lostart.de. No results. This register covers Nazi-era spoliation (1933–1945) exclusively; it has no coverage of archaeological looting from West Africa.",
+      "caveat": "No evidence surfaced. The Lost Art Database covers Nazi-era and wartime cultural property loss only. It is structurally irrelevant to Bura material — a null result here carries no information about the object's provenance.",
+      "hits": [],
+      "officialSearch": "https://www.lostart.de/en/search",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Getty Provenance Index",
+      "assertedBy": "Getty Research Institute",
+      "access": "grounded-search",
+      "verdict": "no-evidence-found",
+      "method": "Grounded search over getty.edu. No auction catalogue or dealer stock-book entries for Bura askos found. The Getty Provenance Index is strongest on the European and American art market and thin on West African material.",
+      "caveat": "No evidence surfaced. The Getty Provenance Index transcribes European auction catalogues and dealer inventories; it has very limited coverage of West African archaeological material, especially objects that moved through opaque channels.",
+      "hits": [],
+      "officialSearch": "https://www.getty.edu/research/tools/provenance/search.html",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "ICOM Red Lists of Cultural Objects at Risk",
+      "assertedBy": "International Council of Museums",
+      "access": "grounded-search",
+      "verdict": "possible-match",
+      "method": "Grounded search over icom.museum. The ICOM Red List for West African Cultural Objects (2003, updated 2015) explicitly identifies terracotta funerary vessels from Niger as a high-risk category. This is a TYPE match, not an individual object identification.",
+      "caveat": "The ICOM Red List identifies CATEGORIES of objects at risk, not individual pieces. A match here means 'objects of this type from this region are at high risk of illicit trafficking and require documentation'. It is a due-diligence trigger, not a theft record.",
+      "hits": [
+        {
+          "claim": "ICOM Red List West Africa identifies terracotta funerary vessels from Niger (Bura region) as a high-risk trafficking category",
+          "source": "https://icom.museum/en/resources/red-lists/red-list-west-africa/",
+          "riskRelevant": true
+        }
+      ],
+      "officialSearch": "https://icom.museum/en/resources/red-lists/",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Wikidata (structured provenance events)",
+      "assertedBy": "Wikidata contributors — community-maintained, not an authority",
+      "access": "structured-api",
+      "verdict": "no-evidence-found",
+      "method": "Wikidata entity search for 'Bura askos Niger terracotta'. No individual Bura funerary vessels are registered as individual Wikidata entities — consistent with their archaeological, uninventoried status.",
+      "caveat": "No entity found. Wikidata is community-maintained and certifies nothing. The absence of a Wikidata entry for this object reflects the general invisibility of uninventoried archaeological material in Western databases, not a clean provenance.",
+      "hits": [],
+      "officialSearch": "https://www.wikidata.org/",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "registry": "Art Loss Register",
+      "assertedBy": "The Art Loss Register (commercial due-diligence registry)",
+      "access": "paid-x402",
+      "verdict": "not-queryable",
+      "method": "Commercial register — reached through the agent's paid x402 check, not this free layer.",
+      "caveat": "The Art Loss Register is a commercial service. Even if searched, it records REPORTED LOSSES from known collections. For uninventoried Bura material, a null ALR result carries the same structural limitation as the police registers above.",
+      "hits": [],
+      "officialSearch": "https://www.artloss.com/",
+      "checkedAt": "2025-01-15T00:00:00.000Z"
+    }
+  ],
+  "premiumChecks": [],
+  "riskAssessment": {
+    "confidenceScore": 58,
+    "coverage": {
+      "acquisitionMode": "archaeological",
+      "region": "niger",
+      "identifyingRegisters": [],
+      "weakRegisters": [
+        {
+          "id": "icom-red-lists",
+          "name": "ICOM Red Lists",
+          "why": "Lists object categories at risk, never individual objects — a due-diligence trigger, not an identification."
+        },
+        {
+          "id": "wikidata",
+          "name": "Wikidata",
+          "why": "Coverage follows scholarly and press attention rather than rule, so its silence carries little information."
+        }
+      ],
+      "blindRegisters": [
+        {
+          "id": "interpol-swoa",
+          "name": "INTERPOL Stolen Works of Art",
+          "why": "This object was never recorded before it was removed, so no loss could be reported. The register requires a theft reported to and recorded by a member-country police force, and that report cannot exist. Its silence is structural, not evidential."
+        },
+        {
+          "id": "interpol-id-art",
+          "name": "INTERPOL ID-Art",
+          "why": "This object was never recorded before it was removed, so no loss could be reported. The register requires the same police report as the Stolen Works of Art database, and that report cannot exist. Its silence is structural, not evidential."
+        },
+        {
+          "id": "fbi-nsaf",
+          "name": "FBI National Stolen Art File",
+          "why": "Holds market-theft losses; requires a law-enforcement submission and a value threshold."
+        },
+        {
+          "id": "carabinieri-tpc",
+          "name": "Carabinieri TPC",
+          "why": "Geographically out of scope for niger — requires an Italian nexus — the archive is national."
+        },
+        {
+          "id": "lostart-de",
+          "name": "Lost Art Database",
+          "why": "Holds nazi-era losses; requires a loss connected to Nazi persecution, 1933–45."
+        },
+        {
+          "id": "getty-provenance-index",
+          "name": "Getty Provenance Index",
+          "why": "Holds market, market-theft, nazi-era losses; requires passage through the European or American art market."
+        },
+        {
+          "id": "art-loss-register",
+          "name": "Art Loss Register",
+          "why": "Holds market-theft, nazi-era losses; requires a registered loss, usually by an owner or insurer."
+        }
+      ],
+      "coverageClass": "structurally-uncovered",
+      "coverageRatio": 0,
+      "note": "No register in this set can systematically name an object of this kind and origin. A quiet result here carries essentially no information about the object — it reflects where the registers look, not what happened. The strongest evidence for material like this is usually physical or archaeological, and this tool cannot see it.",
+      "comparability": "This score is comparable only to other structurally uncovered objects. It must not be read against a well-covered Western-market object: the same number means 'nothing was reachable' here and 'a documented gap was found' there."
+    },
+    "flags": [
+      {
+        "type": "repatriationPrecedent",
+        "severity": "high",
+        "evidence": "Timeline cites a repatriation/illicit-excavation event: \"ICOM Red List for West African Cultural Objects (2003, updated 2015) identifies terracotta funerary vessels from the Bura region (Niger) as a category at high risk of illicit trafficking. The listing applies to object TYPES, not individual pieces; no individual Bura askos is registered in any criminal database.\"",
+        "source": "https://icom.museum/en/resources/red-lists/red-list-west-africa/"
+      },
+      {
+        "type": "lootingSignal",
+        "severity": "medium",
+        "evidence": "Object history intersects a documented looting/repatriation case.",
+        "source": "https://icom.museum/en/resources/red-lists/red-list-west-africa/"
+      },
+      {
+        "type": "provenanceGap",
+        "severity": "medium",
+        "evidence": "Pre-acquisition history is incomplete (3 undated event(s); no documented chain before earliest record).",
+        "source": "https://icom.museum/en/resources/red-lists/red-list-west-africa/"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"ICOM Red List West Africa identifies terracotta funerary vessels from Niger (Bura region) as a high-risk trafficking category\". Verify against the register itself before relying on it.",
+        "source": "https://icom.museum/en/resources/red-lists/red-list-west-africa/"
+      },
+      {
+        "type": "registryCoverageGap",
+        "severity": "low",
+        "evidence": "3 of 9 registers have no public API and were not searched (INTERPOL SWOA, FBI NSAF, Carabinieri TPC among them). Their silence here means nothing — the official searches must be run by hand.",
+        "source": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/Stolen-Works-of-Art-Database"
+      }
+    ],
+    "scorer": "accumulation-v0.4"
+  },
+  "claimStatus": "informal-inquiry",
+  "custodianship": "No custodianship agreement exists. The Republic of Niger has made no formal claim, in part because no inventory records this object as having been taken.",
+  "sourceCommunityStatement": "Communities in the Tillabéri region regard the Bura burial sites as ancestral ground. Extraction was not authorised by any local authority.",
+  "condition": "Stable. Two historic repair seams; no active deterioration.",
+  "loanEligibility": "Not eligible for loan. Title cannot be established and export legality cannot be demonstrated.",
+  "holderPseudonym": "0xHolder-7c4e",
+  "contactEscrow": "escrow://dpa/v0.4/contact/7c4e",
+  "holderIdentity": "Private collector, Geneva (identity held in escrow)",
+  "issuer": {
+    "name": "DPA demo issuer — pseudonymous wallet",
+    "issuerClass": "pseudonymous-wallet",
+    "id": "did:pkh:eip155:84532:0xf3552f339313392915e12E7DBA92446D66F5DCf5",
+    "wallet": "0xf3552f339313392915e12E7DBA92446D66F5DCf5",
+    "certificateChain": null
+  },
+  "disclosure": {
+    "envelopeVersion": "0.4.0",
+    "defaultTier": "owner",
+    "fieldTiers": {
+      "@context": "public",
+      "type": "public",
+      "schemaVersion": "public",
+      "id": "public",
+      "issuedAt": "public",
+      "contentHash": "public",
+      "signature": "public",
+      "issuer.name": "public",
+      "issuer.issuerClass": "public",
+      "issuer.id": "public",
+      "issuer.wallet": "public",
+      "issuer.certificateChain": "public",
+      "disclosure": "public",
+      "credentialStatus": "public",
+      "notarisation": "public",
+      "artwork": "public",
+      "artwork.title": "public",
+      "artwork.artist": "public",
+      "artwork.period": "public",
+      "artwork.culture": "public",
+      "artwork.material": "public",
+      "artwork.imageHash": "public",
+      "artwork.imageUrl": "public",
+      "artwork.dimensions": "museum",
+      "artwork.currentLocation": "enforcement",
+      "riskAssessment": "public",
+      "riskAssessment.confidenceScore": "public",
+      "riskAssessment.coverage": "public",
+      "riskAssessment.scorer": "public",
+      "riskAssessment.flags": "museum",
+      "objectIdentity": "museum",
+      "objectIdentity.sha256": "public",
+      "objectIdentity.dHash": "public",
+      "objectIdentity.forgeryRisk": "museum",
+      "objectIdentity.duplicateOf": "enforcement",
+      "objectIdentity.similarityScore": "enforcement",
+      "claimStatus": "source-community",
+      "custodianship": "source-community",
+      "sourceCommunityStatement": "source-community",
+      "condition": "museum",
+      "loanEligibility": "museum",
+      "provenanceTimeline": "enforcement",
+      "registryChecks": "enforcement",
+      "premiumChecks": "enforcement",
+      "holderPseudonym": "enforcement",
+      "contactEscrow": "enforcement",
+      "holderIdentity": "owner"
+    }
+  },
+  "credentialStatus": {
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": 0,
+    "statusListCredential": "https://ethical-tech-colab.github.io/DPA/api/status/revocation.json"
+  },
+  "notarisation": {
+    "chain": "base-sepolia",
+    "chainId": 84532,
+    "easUid": "0x32eba4960e54a4180fdb4b75db59ca7e4275f75918e24197e91bef7b6f0268f4",
+    "txHash": null,
+    "attestedAt": null,
+    "mode": "mock",
+    "schemaUid": null
+  },
+  "issuedAt": "2026-02-01T00:00:00.000Z",
+  "contentHash": "0x817421b8fe81670fa430b184aa5ae10d7d16f9b72a60b8674ef0698b288f1e00",
+  "signature": "7b911ce1efbed8249013a362bc038c9f85b6bd1b9ad255b8705b7db4140c690319b7cc09a8fbd4aeaadaeb139770b2ed87bb0e1579710149f6d7f26fe2da641301",
+  "_redaction": {
+    "role": "owner",
+    "visibleTiers": [
+      "public",
+      "source-community",
+      "museum",
+      "enforcement",
+      "owner"
+    ],
+    "withheldFields": [],
+    "envelopeVersion": "0.4.0"
+  }
+}

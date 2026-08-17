@@ -11,6 +11,11 @@
   "dependencies": {
     "@dpa/schema": "workspace:*",
     "@dpa/pipeline": "workspace:*",
-    "@dpa/govern": "workspace:*"
+    "@dpa/govern": "workspace:*",
+    "@dpa/assess": "workspace:*",
+    "@dpa/evidence": "workspace:*",
+    "@dpa/identity": "workspace:*",
+    "@dpa/issue": "workspace:*",
+    "@dpa/lifecycle": "workspace:*"
   }
 }

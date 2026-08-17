@@ -1,0 +1,197 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "passport": "https://ethical-tech-colab.github.io/DPA/ns#"
+  },
+  "type": "DigitalProvenancePassport",
+  "schemaVersion": "0.4.0",
+  "id": "getty-bronze",
+  "artwork": {
+    "title": "Victorious Youth (Athlete of Fano)",
+    "artist": "Unknown Greek sculptor, circle of Lysippos",
+    "period": "c. 300–100 BCE",
+    "culture": "Greek (late Classical / Hellenistic)",
+    "material": "Bronze",
+    "imageUrl": null,
+    "imageHash": "0x7e2b9d4f1a6c8e3b5d7f9a2c4e6b8d1f3a5c7e9b2d4f6a8c1e3b5d7f9a2c4e6b"
+  },
+  "objectIdentity": {
+    "sha256": "0x7e2b9d4f1a6c8e3b5d7f9a2c4e6b8d1f3a5c7e9b2d4f6a8c1e3b5d7f9a2c4e6b",
+    "dHash": "0x1f2e3d4c5b6a7988"
+  },
+  "provenanceTimelineCount": 7,
+  "registryChecksCount": 9,
+  "riskAssessment": {
+    "confidenceScore": 28,
+    "coverage": {
+      "acquisitionMode": "market-theft",
+      "region": "italy",
+      "identifyingRegisters": [
+        {
+          "id": "interpol-swoa",
+          "name": "INTERPOL Stolen Works of Art",
+          "requires": "a theft reported to and recorded by a member-country police force"
+        },
+        {
+          "id": "interpol-id-art",
+          "name": "INTERPOL ID-Art",
+          "requires": "the same police report as the Stolen Works of Art database"
+        },
+        {
+          "id": "fbi-nsaf",
+          "name": "FBI National Stolen Art File",
+          "requires": "a law-enforcement submission and a value threshold"
+        },
+        {
+          "id": "carabinieri-tpc",
+          "name": "Carabinieri TPC",
+          "requires": "an Italian nexus — the archive is national"
+        },
+        {
+          "id": "getty-provenance-index",
+          "name": "Getty Provenance Index",
+          "requires": "passage through the European or American art market"
+        },
+        {
+          "id": "art-loss-register",
+          "name": "Art Loss Register",
+          "requires": "a registered loss, usually by an owner or insurer"
+        }
+      ],
+      "weakRegisters": [
+        {
+          "id": "wikidata",
+          "name": "Wikidata",
+          "why": "Coverage follows scholarly and press attention rather than rule, so its silence carries little information."
+        }
+      ],
+      "blindRegisters": [
+        {
+          "id": "lostart-de",
+          "name": "Lost Art Database",
+          "why": "Holds nazi-era losses; requires a loss connected to Nazi persecution, 1933–45."
+        },
+        {
+          "id": "icom-red-lists",
+          "name": "ICOM Red Lists",
+          "why": "Holds archaeological, colonial losses; requires membership of an at-risk object category from a listed region."
+        }
+      ],
+      "coverageClass": "well-covered",
+      "coverageRatio": 0.67,
+      "note": "6 of 9 registers could systematically name this object. Silence here is comparatively informative: records would be expected to exist.",
+      "comparability": "This score is comparable only to other well covered objects. Comparison against a structurally uncovered object will understate how little was checked there."
+    },
+    "flagsCount": 7,
+    "scorer": "accumulation-v0.4"
+  },
+  "claimStatus": "formal-claim",
+  "custodianship": "Held by the J. Paul Getty Trust. The Italian Republic asserts title and has pursued forfeiture through Italian courts.",
+  "sourceCommunityStatement": null,
+  "issuer": {
+    "name": "DPA demo issuer — accredited institution",
+    "issuerClass": "pseudonymous-wallet",
+    "id": "did:pkh:eip155:84532:0x2D3Ad13e3debB10C2671a3d038029B1150CA927a",
+    "wallet": "0x2D3Ad13e3debB10C2671a3d038029B1150CA927a",
+    "certificateChain": null
+  },
+  "disclosure": {
+    "envelopeVersion": "0.4.0",
+    "defaultTier": "owner",
+    "fieldTiers": {
+      "@context": "public",
+      "type": "public",
+      "schemaVersion": "public",
+      "id": "public",
+      "issuedAt": "public",
+      "contentHash": "public",
+      "signature": "public",
+      "issuer.name": "public",
+      "issuer.issuerClass": "public",
+      "issuer.id": "public",
+      "issuer.wallet": "public",
+      "issuer.certificateChain": "public",
+      "disclosure": "public",
+      "credentialStatus": "public",
+      "notarisation": "public",
+      "artwork": "public",
+      "artwork.title": "public",
+      "artwork.artist": "public",
+      "artwork.period": "public",
+      "artwork.culture": "public",
+      "artwork.material": "public",
+      "artwork.imageHash": "public",
+      "artwork.imageUrl": "public",
+      "artwork.dimensions": "museum",
+      "artwork.currentLocation": "enforcement",
+      "riskAssessment": "public",
+      "riskAssessment.confidenceScore": "public",
+      "riskAssessment.coverage": "public",
+      "riskAssessment.scorer": "public",
+      "riskAssessment.flags": "museum",
+      "objectIdentity": "museum",
+      "objectIdentity.sha256": "public",
+      "objectIdentity.dHash": "public",
+      "objectIdentity.forgeryRisk": "museum",
+      "objectIdentity.duplicateOf": "enforcement",
+      "objectIdentity.similarityScore": "enforcement",
+      "claimStatus": "source-community",
+      "custodianship": "source-community",
+      "sourceCommunityStatement": "source-community",
+      "condition": "museum",
+      "loanEligibility": "museum",
+      "provenanceTimeline": "enforcement",
+      "registryChecks": "enforcement",
+      "premiumChecks": "enforcement",
+      "holderPseudonym": "enforcement",
+      "contactEscrow": "enforcement",
+      "holderIdentity": "owner"
+    }
+  },
+  "credentialStatus": {
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": 2,
+    "statusListCredential": "https://ethical-tech-colab.github.io/DPA/api/status/revocation.json"
+  },
+  "notarisation": {
+    "chain": "base-sepolia",
+    "chainId": 84532,
+    "easUid": "0xd969a9f87e437befece53f4319b52ce2445672bff8ee0f4ca66d12fb6c979692",
+    "txHash": null,
+    "attestedAt": null,
+    "mode": "mock",
+    "schemaUid": null
+  },
+  "issuedAt": "2026-02-01T00:00:00.000Z",
+  "contentHash": "0xae059c3764594523cd5e58ee8d958f26edccfaaf68a0363a8b07bac3265f7d52",
+  "signature": "2c9c95f87398933c2ab811d5412e157f59d2039e787ba98a68167fab9c62f4661245d599a8652b7dc380308c6eec3669ccc1a26617a75128d5e986368751e7b001",
+  "_redaction": {
+    "role": "source-community",
+    "visibleTiers": [
+      "public",
+      "source-community"
+    ],
+    "withheldFields": [
+      "artwork.dimensions",
+      "artwork.currentLocation",
+      "objectIdentity.angleCount",
+      "objectIdentity.embeddingRef",
+      "objectIdentity.duplicateOf",
+      "objectIdentity.similarityScore",
+      "objectIdentity.forgeryRisk.score",
+      "objectIdentity.forgeryRisk.signals",
+      "provenanceTimeline",
+      "registryChecks",
+      "premiumChecks",
+      "riskAssessment.flags",
+      "condition",
+      "loanEligibility",
+      "holderPseudonym",
+      "contactEscrow",
+      "holderIdentity"
+    ],
+    "envelopeVersion": "0.4.0"
+  }
+}

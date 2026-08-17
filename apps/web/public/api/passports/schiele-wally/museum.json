@@ -1,0 +1,248 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "passport": "https://ethical-tech-colab.github.io/DPA/ns#"
+  },
+  "type": "DigitalProvenancePassport",
+  "schemaVersion": "0.4.0",
+  "id": "schiele-wally",
+  "artwork": {
+    "title": "Portrait of Wally Neuzil",
+    "artist": "Egon Schiele",
+    "period": "1912",
+    "culture": "Austrian",
+    "material": "Oil on panel",
+    "dimensions": "32 cm × 39.8 cm",
+    "imageUrl": null,
+    "imageHash": "0x5c9e1b7d3f8a2c6e4b0d9f7a3c5e1b8d6f4a2c0e9b7d5f3a1c8e6b4d2f0a9c7e"
+  },
+  "objectIdentity": {
+    "sha256": "0x5c9e1b7d3f8a2c6e4b0d9f7a3c5e1b8d6f4a2c0e9b7d5f3a1c8e6b4d2f0a9c7e",
+    "dHash": "0x8877665544332211",
+    "angleCount": 2,
+    "embeddingRef": null,
+    "forgeryRisk": {
+      "score": 7,
+      "signals": [
+        {
+          "name": "pigment-period-consistency",
+          "value": 0.07,
+          "interpretation": "Pigment composition consistent with the artist's documented palette for the period.",
+          "severity": "low"
+        }
+      ]
+    }
+  },
+  "provenanceTimelineCount": 8,
+  "registryChecksCount": 9,
+  "riskAssessment": {
+    "confidenceScore": 28,
+    "coverage": {
+      "acquisitionMode": "nazi-era",
+      "region": "austria",
+      "identifyingRegisters": [
+        {
+          "id": "lostart-de",
+          "name": "Lost Art Database",
+          "requires": "a loss connected to Nazi persecution, 1933–45"
+        },
+        {
+          "id": "getty-provenance-index",
+          "name": "Getty Provenance Index",
+          "requires": "passage through the European or American art market"
+        },
+        {
+          "id": "art-loss-register",
+          "name": "Art Loss Register",
+          "requires": "a registered loss, usually by an owner or insurer"
+        }
+      ],
+      "weakRegisters": [
+        {
+          "id": "wikidata",
+          "name": "Wikidata",
+          "why": "Coverage follows scholarly and press attention rather than rule, so its silence carries little information."
+        }
+      ],
+      "blindRegisters": [
+        {
+          "id": "interpol-swoa",
+          "name": "INTERPOL Stolen Works of Art",
+          "why": "Holds market-theft, archaeological losses; requires a theft reported to and recorded by a member-country police force."
+        },
+        {
+          "id": "interpol-id-art",
+          "name": "INTERPOL ID-Art",
+          "why": "Holds market-theft, archaeological losses; requires the same police report as the Stolen Works of Art database."
+        },
+        {
+          "id": "fbi-nsaf",
+          "name": "FBI National Stolen Art File",
+          "why": "Holds market-theft losses; requires a law-enforcement submission and a value threshold."
+        },
+        {
+          "id": "carabinieri-tpc",
+          "name": "Carabinieri TPC",
+          "why": "Holds market-theft, archaeological losses; requires an Italian nexus — the archive is national."
+        },
+        {
+          "id": "icom-red-lists",
+          "name": "ICOM Red Lists",
+          "why": "Holds archaeological, colonial losses; requires membership of an at-risk object category from a listed region."
+        }
+      ],
+      "coverageClass": "well-covered",
+      "coverageRatio": 0.33,
+      "note": "3 of 9 registers could systematically name this object. Silence here is comparatively informative: records would be expected to exist.",
+      "comparability": "This score is comparable only to other well covered objects. Comparison against a structurally uncovered object will understate how little was checked there."
+    },
+    "flags": [
+      {
+        "type": "repatriationPrecedent",
+        "severity": "high",
+        "evidence": "Timeline cites a repatriation/illicit-excavation event: \"US Second Circuit Court of Appeals ruled (2001) that 'Portrait of Wally' constituted stolen property under the National Stolen Property Act (NSPA) and that the case could proceed to trial. This was a landmark ruling on the application of the NSPA to Nazi-looted art.\"",
+        "source": "https://law.justia.com/cases/federal/appellate-courts/F3/252/267/571018/"
+      },
+      {
+        "type": "lootingSignal",
+        "severity": "medium",
+        "evidence": "Object history intersects a documented looting/repatriation case.",
+        "source": "https://law.justia.com/cases/federal/appellate-courts/F3/252/267/571018/"
+      },
+      {
+        "type": "provenanceGap",
+        "severity": "medium",
+        "evidence": "Pre-acquisition history is incomplete (0 undated event(s); no documented chain before earliest record).",
+        "source": "https://www.leopoldmuseum.org/en/artworks/625/portrait-of-wally"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"INTERPOL cultural heritage materials reference Schiele's Portrait of Wally as a canonical Nazi-era spoliation case\". Verify against the register itself before relying on it.",
+        "source": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"FBI Art Crime Team has documented Schiele's Portrait of Wally as a major Nazi-era art restitution case; painting was seized in New York (1997) under National Stolen Property Act\". Verify against the register itself before relying on it.",
+        "source": "https://www.fbi.gov/investigate/violent-crime/art-theft"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"Lost Art Database: Egon Schiele, Portrait of Wally (1912) — registered as Nazi-era spoliation; forced transfer from Lea Bondi Jaray to Friedrich Welz, Vienna 1938\". Verify against the register itself before relying on it.",
+        "source": "https://www.kulturgutverluste.de/Webs/DE/Suche/Index.html"
+      },
+      {
+        "type": "registryCoverageGap",
+        "severity": "low",
+        "evidence": "2 of 9 registers have no public API and were not searched (INTERPOL SWOA, FBI NSAF, Carabinieri TPC among them). Their silence here means nothing — the official searches must be run by hand.",
+        "source": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/ID-Art-mobile-app"
+      }
+    ],
+    "scorer": "accumulation-v0.4"
+  },
+  "condition": "Excellent. Conserved to museum standard.",
+  "loanEligibility": "Eligible for loan. Title is settled and the settlement terms are public.",
+  "issuer": {
+    "name": "DPA demo issuer — accredited institution",
+    "issuerClass": "pseudonymous-wallet",
+    "id": "did:pkh:eip155:84532:0xbb122CDa5B152f3066f563eb352Aa06c3F0279f5",
+    "wallet": "0xbb122CDa5B152f3066f563eb352Aa06c3F0279f5",
+    "certificateChain": null
+  },
+  "disclosure": {
+    "envelopeVersion": "0.4.0",
+    "defaultTier": "owner",
+    "fieldTiers": {
+      "@context": "public",
+      "type": "public",
+      "schemaVersion": "public",
+      "id": "public",
+      "issuedAt": "public",
+      "contentHash": "public",
+      "signature": "public",
+      "issuer.name": "public",
+      "issuer.issuerClass": "public",
+      "issuer.id": "public",
+      "issuer.wallet": "public",
+      "issuer.certificateChain": "public",
+      "disclosure": "public",
+      "credentialStatus": "public",
+      "notarisation": "public",
+      "artwork": "public",
+      "artwork.title": "public",
+      "artwork.artist": "public",
+      "artwork.period": "public",
+      "artwork.culture": "public",
+      "artwork.material": "public",
+      "artwork.imageHash": "public",
+      "artwork.imageUrl": "public",
+      "artwork.dimensions": "museum",
+      "artwork.currentLocation": "enforcement",
+      "riskAssessment": "public",
+      "riskAssessment.confidenceScore": "public",
+      "riskAssessment.coverage": "public",
+      "riskAssessment.scorer": "public",
+      "riskAssessment.flags": "museum",
+      "objectIdentity": "museum",
+      "objectIdentity.sha256": "public",
+      "objectIdentity.dHash": "public",
+      "objectIdentity.forgeryRisk": "museum",
+      "objectIdentity.duplicateOf": "enforcement",
+      "objectIdentity.similarityScore": "enforcement",
+      "claimStatus": "source-community",
+      "custodianship": "source-community",
+      "sourceCommunityStatement": "source-community",
+      "condition": "museum",
+      "loanEligibility": "museum",
+      "provenanceTimeline": "enforcement",
+      "registryChecks": "enforcement",
+      "premiumChecks": "enforcement",
+      "holderPseudonym": "enforcement",
+      "contactEscrow": "enforcement",
+      "holderIdentity": "owner"
+    }
+  },
+  "credentialStatus": {
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": 3,
+    "statusListCredential": "https://ethical-tech-colab.github.io/DPA/api/status/revocation.json"
+  },
+  "notarisation": {
+    "chain": "base-sepolia",
+    "chainId": 84532,
+    "easUid": "0x47d79be30df438a447f22a4d9197c6e4580934814b5a59519725aea55991adf4",
+    "txHash": null,
+    "attestedAt": null,
+    "mode": "mock",
+    "schemaUid": null
+  },
+  "issuedAt": "2026-02-01T00:00:00.000Z",
+  "contentHash": "0x774a0030ef2e317a74231869c462571984df8161761ef5f0c014985cd072b992",
+  "signature": "ddf57f28abb60c628154563c9d2c35170ad18a478366e945a1fd9114539442ca5c3fb8feddfe0a61861dee5e7159e1c7a14fb481a4dfae41db3f5560531bc72400",
+  "_redaction": {
+    "role": "museum",
+    "visibleTiers": [
+      "public",
+      "museum"
+    ],
+    "withheldFields": [
+      "artwork.currentLocation",
+      "objectIdentity.duplicateOf",
+      "objectIdentity.similarityScore",
+      "provenanceTimeline",
+      "registryChecks",
+      "premiumChecks",
+      "claimStatus",
+      "custodianship",
+      "sourceCommunityStatement",
+      "holderPseudonym",
+      "contactEscrow",
+      "holderIdentity"
+    ],
+    "envelopeVersion": "0.4.0"
+  }
+}

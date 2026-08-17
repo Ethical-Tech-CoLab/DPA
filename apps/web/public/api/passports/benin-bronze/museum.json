@@ -1,0 +1,241 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "passport": "https://ethical-tech-colab.github.io/DPA/ns#"
+  },
+  "type": "DigitalProvenancePassport",
+  "schemaVersion": "0.4.0",
+  "id": "benin-bronze",
+  "artwork": {
+    "title": "Benin Bronze commemorative head",
+    "artist": null,
+    "period": "16th–17th century CE",
+    "culture": "Edo (Kingdom of Benin)",
+    "material": "Leaded brass",
+    "dimensions": "H 23 cm",
+    "imageUrl": null,
+    "imageHash": "0x3a8f2c1d9e7b6a5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c"
+  },
+  "objectIdentity": {
+    "sha256": "0x3a8f2c1d9e7b6a5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c",
+    "dHash": "0xa1b2c3d4e5f60718",
+    "angleCount": 5,
+    "embeddingRef": null,
+    "forgeryRisk": {
+      "score": 9,
+      "signals": [
+        {
+          "name": "casting-seam-analysis",
+          "value": 0.09,
+          "interpretation": "Casting seams consistent with lost-wax technique of the period; no indication of modern manufacture.",
+          "severity": "low"
+        }
+      ]
+    }
+  },
+  "provenanceTimelineCount": 7,
+  "registryChecksCount": 9,
+  "riskAssessment": {
+    "confidenceScore": 48,
+    "coverage": {
+      "acquisitionMode": "colonial",
+      "region": "nigeria",
+      "identifyingRegisters": [],
+      "weakRegisters": [
+        {
+          "id": "icom-red-lists",
+          "name": "ICOM Red Lists",
+          "why": "Lists object categories at risk, never individual objects — a due-diligence trigger, not an identification."
+        },
+        {
+          "id": "wikidata",
+          "name": "Wikidata",
+          "why": "Coverage follows scholarly and press attention rather than rule, so its silence carries little information."
+        }
+      ],
+      "blindRegisters": [
+        {
+          "id": "interpol-swoa",
+          "name": "INTERPOL Stolen Works of Art",
+          "why": "Holds market-theft, archaeological losses; requires a theft reported to and recorded by a member-country police force."
+        },
+        {
+          "id": "interpol-id-art",
+          "name": "INTERPOL ID-Art",
+          "why": "Holds market-theft, archaeological losses; requires the same police report as the Stolen Works of Art database."
+        },
+        {
+          "id": "fbi-nsaf",
+          "name": "FBI National Stolen Art File",
+          "why": "Holds market-theft losses; requires a law-enforcement submission and a value threshold."
+        },
+        {
+          "id": "carabinieri-tpc",
+          "name": "Carabinieri TPC",
+          "why": "Holds market-theft, archaeological losses; requires an Italian nexus — the archive is national."
+        },
+        {
+          "id": "lostart-de",
+          "name": "Lost Art Database",
+          "why": "Holds nazi-era losses; requires a loss connected to Nazi persecution, 1933–45."
+        },
+        {
+          "id": "getty-provenance-index",
+          "name": "Getty Provenance Index",
+          "why": "Holds market, market-theft, nazi-era losses; requires passage through the European or American art market."
+        },
+        {
+          "id": "art-loss-register",
+          "name": "Art Loss Register",
+          "why": "Holds market-theft, nazi-era losses; requires a registered loss, usually by an owner or insurer."
+        }
+      ],
+      "coverageClass": "structurally-uncovered",
+      "coverageRatio": 0,
+      "note": "No register in this set can systematically name an object of this kind and origin. A quiet result here carries essentially no information about the object — it reflects where the registers look, not what happened. The strongest evidence for material like this is usually physical or archaeological, and this tool cannot see it.",
+      "comparability": "This score is comparable only to other structurally uncovered objects. It must not be read against a well-covered Western-market object: the same number means 'nothing was reachable' here and 'a documented gap was found' there."
+    },
+    "flags": [
+      {
+        "type": "repatriationPrecedent",
+        "severity": "high",
+        "evidence": "Timeline cites a repatriation/illicit-excavation event: \"Benin Dialogue Group formed (2010), bringing together European museum directors and representatives of the Nigerian government, the Royal Court of Benin, and the NCMM to negotiate the long-term loan and potential repatriation of Benin objects. Germany committed to repatriation; the first transfers were completed in 2022.\"",
+        "source": "https://www.benindialoguegroup.com/"
+      },
+      {
+        "type": "lootingSignal",
+        "severity": "medium",
+        "evidence": "Object history intersects a documented looting/repatriation case.",
+        "source": "https://www.benindialoguegroup.com/"
+      },
+      {
+        "type": "provenanceGap",
+        "severity": "medium",
+        "evidence": "Pre-acquisition history is incomplete (2 undated event(s); no documented chain before earliest record).",
+        "source": "https://www.britishmuseum.org/collection/object/E_Af1898-0115-10"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"Getty Provenance Index: auction catalogue records for Benin brass objects sold by W.D. Webster (c. 1899–1901) following the 1897 Punitive Expedition\". Verify against the register itself before relying on it.",
+        "source": "https://www.getty.edu/research/tools/provenance/search.html"
+      },
+      {
+        "type": "registrySignal",
+        "severity": "high",
+        "evidence": "Register source describes this object in theft/looting/restitution terms: \"significant event: looting (1897 British Punitive Expedition)\". Verify against the register itself before relying on it.",
+        "source": "https://www.wikidata.org/wiki/Q223429"
+      },
+      {
+        "type": "registryCoverageGap",
+        "severity": "low",
+        "evidence": "3 of 9 registers have no public API and were not searched (INTERPOL SWOA, FBI NSAF, Carabinieri TPC among them). Their silence here means nothing — the official searches must be run by hand.",
+        "source": "https://www.interpol.int/en/Crimes/Cultural-heritage-crime/Stolen-Works-of-Art-Database"
+      }
+    ],
+    "scorer": "accumulation-v0.4"
+  },
+  "condition": "Excellent. Stable patina, no active corrosion.",
+  "loanEligibility": "Loans suspended pending the outcome of restitution negotiations.",
+  "issuer": {
+    "name": "DPA demo issuer — accredited institution",
+    "issuerClass": "pseudonymous-wallet",
+    "id": "did:pkh:eip155:84532:0x8F22c730D6D7CA873bD20723BBF1ecc781a84C81",
+    "wallet": "0x8F22c730D6D7CA873bD20723BBF1ecc781a84C81",
+    "certificateChain": null
+  },
+  "disclosure": {
+    "envelopeVersion": "0.4.0",
+    "defaultTier": "owner",
+    "fieldTiers": {
+      "@context": "public",
+      "type": "public",
+      "schemaVersion": "public",
+      "id": "public",
+      "issuedAt": "public",
+      "contentHash": "public",
+      "signature": "public",
+      "issuer.name": "public",
+      "issuer.issuerClass": "public",
+      "issuer.id": "public",
+      "issuer.wallet": "public",
+      "issuer.certificateChain": "public",
+      "disclosure": "public",
+      "credentialStatus": "public",
+      "notarisation": "public",
+      "artwork": "public",
+      "artwork.title": "public",
+      "artwork.artist": "public",
+      "artwork.period": "public",
+      "artwork.culture": "public",
+      "artwork.material": "public",
+      "artwork.imageHash": "public",
+      "artwork.imageUrl": "public",
+      "artwork.dimensions": "museum",
+      "artwork.currentLocation": "enforcement",
+      "riskAssessment": "public",
+      "riskAssessment.confidenceScore": "public",
+      "riskAssessment.coverage": "public",
+      "riskAssessment.scorer": "public",
+      "riskAssessment.flags": "museum",
+      "objectIdentity": "museum",
+      "objectIdentity.sha256": "public",
+      "objectIdentity.dHash": "public",
+      "objectIdentity.forgeryRisk": "museum",
+      "objectIdentity.duplicateOf": "enforcement",
+      "objectIdentity.similarityScore": "enforcement",
+      "claimStatus": "source-community",
+      "custodianship": "source-community",
+      "sourceCommunityStatement": "source-community",
+      "condition": "museum",
+      "loanEligibility": "museum",
+      "provenanceTimeline": "enforcement",
+      "registryChecks": "enforcement",
+      "premiumChecks": "enforcement",
+      "holderPseudonym": "enforcement",
+      "contactEscrow": "enforcement",
+      "holderIdentity": "owner"
+    }
+  },
+  "credentialStatus": {
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": 1,
+    "statusListCredential": "https://ethical-tech-colab.github.io/DPA/api/status/revocation.json"
+  },
+  "notarisation": {
+    "chain": "base-sepolia",
+    "chainId": 84532,
+    "easUid": "0x821bb8cac0ac986cce64468dcb6a949e3d1d9712548eca98138f5f548ee226c3",
+    "txHash": null,
+    "attestedAt": null,
+    "mode": "mock",
+    "schemaUid": null
+  },
+  "issuedAt": "2026-02-01T00:00:00.000Z",
+  "contentHash": "0xe7029a80dbe178528b26f490dcf146e71830ffb17f90f10bf07a6c4b4fef0d18",
+  "signature": "e7a86bf94c172dce6b2b085e98d153a8eb457e855f743f15aa4f7bbfe692a7746238e97cd906e2c06da0e19ce537641575fae24f9280719f998cd3e306b40af601",
+  "_redaction": {
+    "role": "museum",
+    "visibleTiers": [
+      "public",
+      "museum"
+    ],
+    "withheldFields": [
+      "artwork.currentLocation",
+      "objectIdentity.duplicateOf",
+      "objectIdentity.similarityScore",
+      "provenanceTimeline",
+      "registryChecks",
+      "premiumChecks",
+      "claimStatus",
+      "custodianship",
+      "sourceCommunityStatement",
+      "holderPseudonym",
+      "contactEscrow",
+      "holderIdentity"
+    ],
+    "envelopeVersion": "0.4.0"
+  }
+}
