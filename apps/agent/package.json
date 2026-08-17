@@ -1,0 +1,22 @@
+{
+  "name": "@dpa/agent",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@dpa/schema": "workspace:*",
+    "@dpa/identity": "workspace:*",
+    "@dpa/evidence": "workspace:*",
+    "@dpa/assess": "workspace:*",
+    "@dpa/issue": "workspace:*",
+    "@dpa/govern": "workspace:*",
+    "@dpa/lifecycle": "workspace:*",
+    "@dpa/payments": "workspace:*",
+    "@dpa/pipeline": "workspace:*"
+  }
+}

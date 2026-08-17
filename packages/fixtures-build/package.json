@@ -1,0 +1,16 @@
+{
+  "name": "@dpa/fixtures-build",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "tsx src/generate.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@dpa/schema": "workspace:*",
+    "@dpa/pipeline": "workspace:*",
+    "@dpa/govern": "workspace:*"
+  }
+}

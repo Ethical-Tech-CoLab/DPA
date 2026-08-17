@@ -1,0 +1,33 @@
+{
+  "name": "@dpa/web",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@dpa/schema": "workspace:*",
+    "@dpa/identity": "workspace:*",
+    "@dpa/evidence": "workspace:*",
+    "@dpa/assess": "workspace:*",
+    "@dpa/issue": "workspace:*",
+    "@dpa/govern": "workspace:*",
+    "@dpa/lifecycle": "workspace:*",
+    "@dpa/payments": "workspace:*",
+    "@dpa/pipeline": "workspace:*",
+    "next": "14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.169.0"
+  }
+}
