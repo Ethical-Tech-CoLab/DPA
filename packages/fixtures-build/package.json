@@ -17,5 +17,9 @@
     "@dpa/identity": "workspace:*",
     "@dpa/issue": "workspace:*",
     "@dpa/lifecycle": "workspace:*"
+  },
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
   }
 }

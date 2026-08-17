@@ -17,6 +17,10 @@
     "@dpa/govern": "workspace:*",
     "@dpa/lifecycle": "workspace:*",
     "@dpa/payments": "workspace:*",
-    "@dpa/pipeline": "workspace:*"
+    "@dpa/pipeline": "workspace:*",
+    "@dpa/fixtures-build": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
   }
 }

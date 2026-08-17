@@ -11,6 +11,11 @@
   "dependencies": {
     "@dpa/schema": "workspace:*",
     "@dpa/govern": "workspace:*",
-    "@dpa/pipeline": "workspace:*"
+    "@dpa/pipeline": "workspace:*",
+    "@dpa/fixtures-build": "workspace:*",
+    "@dpa/issue": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
   }
 }

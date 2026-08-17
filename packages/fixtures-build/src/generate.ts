@@ -34,13 +34,10 @@ import { explainScore, areComparable } from "@dpa/assess";
 import { explainDisclosure } from "@dpa/govern";
 import { CASES } from "./cases/index.js";
 import type { CaseInput } from "./cases/types.js";
+import { buildPassport, ISSUED_AT } from "./build.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_ROOT = join(__dirname, "../../../apps/web/public/api");
-
-/** Frozen so every build is byte-identical and diffs mean something. */
-const ISSUED_AT = "2026-02-01T00:00:00.000Z";
-const STATUS_LIST = "https://ethical-tech-colab.github.io/DPA/api/status/revocation.json";
 
 interface Summary {
   id: string;
@@ -63,42 +60,7 @@ interface Summary {
 }
 
 async function buildCase(caseInput: CaseInput, index: number) {
-  const result = await runPipeline({
-    id: caseInput.id,
-    artwork: {
-      ...caseInput.artwork,
-      imageHash: caseInput.identity.sha256,
-    },
-    objectIdentity: {
-      sha256: caseInput.identity.sha256,
-      dHash: caseInput.identity.dHash,
-      angleCount: caseInput.identity.angleCount,
-      embeddingRef: null,
-      duplicateOf: null,
-      similarityScore: null,
-    },
-    forensicSignals: caseInput.identity.forensicSignals,
-    recorded: {
-      timeline: caseInput.evidence,
-      registryChecks: caseInput.registryChecks,
-    },
-    premiumChecks: caseInput.premiumChecks,
-    coverage: caseInput.coverage,
-    claimStatus: caseInput.claimStatus,
-    custodianship: caseInput.custodianship,
-    sourceCommunityStatement: caseInput.sourceCommunityStatement,
-    condition: caseInput.condition,
-    loanEligibility: caseInput.loanEligibility,
-    holderPseudonym: caseInput.holderPseudonym,
-    contactEscrow: caseInput.contactEscrow,
-    holderIdentity: caseInput.holderIdentity,
-    issuerName: caseInput.issuerName,
-    issuerSeed: caseInput.id,
-    statusListIndex: index,
-    statusListCredential: STATUS_LIST,
-    issuedAt: ISSUED_AT,
-    mode: "fixtures",
-  });
+  const result = await buildPassport(caseInput, index);
 
   const { passport, routing, breakdown } = result;
 
