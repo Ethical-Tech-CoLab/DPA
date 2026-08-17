@@ -43,7 +43,7 @@
 import { p256 } from "@noble/curves/nist";
 import { sha256 } from "@noble/hashes/sha2";
 import type { Passport, Issuer } from "@dpa/schema";
-import { canonicalString } from "@dpa/schema";
+import { canonicalString, signableString } from "@dpa/schema";
 import { bytesToHex, hexToBytes, contentHash } from "./canonicalise.js";
 
 const _enc = new TextEncoder();
@@ -249,7 +249,7 @@ export function signAsInstitution(
   passportBody: Omit<Passport, "signature">,
   ca: CAChain,
 ): string {
-  const msg = _enc.encode(canonicalString(passportBody as Record<string, unknown>));
+  const msg = _enc.encode(signableString(passportBody as Record<string, unknown>));
   const hash = sha256(msg);
   return p256.sign(hash, ca.privateKey).toCompactHex();
 }
@@ -314,7 +314,7 @@ export function verifyInstitutionSignature(
   });
 
   // 2. Passport signature against issuing CA ---------------------------------
-  const msgBytes = _enc.encode(canonicalString(body as Record<string, unknown>));
+  const msgBytes = _enc.encode(signableString(body as Record<string, unknown>));
   const msgHash = sha256(msgBytes);
   let sigOk = false;
   try {

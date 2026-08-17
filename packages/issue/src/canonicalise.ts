@@ -18,9 +18,6 @@
 
 export { canonicalString, canonicalPayload } from "@dpa/schema";
 
-import { canonicalString } from "@dpa/schema";
-import { keccak_256 } from "@noble/hashes/sha3";
-
 /** Encode a Uint8Array as a lowercase hex string. No Buffer. */
 export function bytesToHex(bytes: Uint8Array): string {
   let out = "";
@@ -43,15 +40,11 @@ export function hexToBytes(hex: string): Uint8Array {
 const _enc = new TextEncoder();
 
 /**
- * keccak256 of the canonical payload, excluding BOTH `signature` and
- * `contentHash` itself to avoid self-reference. The signature separately
- * covers `contentHash` (since `canonicalString` excludes only `signature`),
- * so the stored hash value is tamper-evident.
+ * keccak256 of the canonical payload.
+ *
+ * Re-exported from @dpa/schema so that the wallet class, the institution
+ * class, and the notarisation path all hash identical bytes. This module used
+ * to compute its own; see the note on `contentHash` in @dpa/schema for why
+ * that had to stop.
  */
-export function contentHash(passport: Record<string, unknown>): string {
-  // Drop contentHash before calling canonicalString so it doesn't
-  // include itself. The schema's canonicalString already drops `signature`.
-  const { contentHash: _ch, ...rest } = passport;
-  const bytes = _enc.encode(canonicalString(rest as Record<string, unknown>));
-  return bytesToHex(keccak_256(bytes));
-}
+export { contentHash } from "@dpa/schema";

@@ -132,9 +132,24 @@ importers:
 
   packages/fixtures-build:
     dependencies:
+      '@dpa/assess':
+        specifier: workspace:*
+        version: link:../assess
+      '@dpa/evidence':
+        specifier: workspace:*
+        version: link:../evidence
       '@dpa/govern':
         specifier: workspace:*
         version: link:../govern
+      '@dpa/identity':
+        specifier: workspace:*
+        version: link:../identity
+      '@dpa/issue':
+        specifier: workspace:*
+        version: link:../issue
+      '@dpa/lifecycle':
+        specifier: workspace:*
+        version: link:../lifecycle
       '@dpa/pipeline':
         specifier: workspace:*
         version: link:../pipeline
@@ -171,6 +186,10 @@ importers:
       '@noble/hashes':
         specifier: ^1.5.0
         version: 1.8.0
+    devDependencies:
+      '@dpa/govern':
+        specifier: workspace:*
+        version: link:../govern
 
   packages/lifecycle:
     dependencies:
@@ -216,6 +235,9 @@ importers:
 
   packages/schema:
     dependencies:
+      '@noble/hashes':
+        specifier: ^1.5.0
+        version: 1.8.0
       zod:
         specifier: ^3.23.8
         version: 3.25.76

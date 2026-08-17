@@ -30,8 +30,9 @@
 
 import { secp256k1 } from "@noble/curves/secp256k1";
 import { keccak_256 } from "@noble/hashes/sha3";
+import { sha256 } from "@noble/hashes/sha256";
 import type { Passport, Issuer } from "@dpa/schema";
-import { canonicalString } from "@dpa/schema";
+import { canonicalString, signableString } from "@dpa/schema";
 import { bytesToHex, hexToBytes, contentHash } from "./canonicalise.js";
 
 export const BASE_SEPOLIA_CHAIN_ID = 84532;
@@ -102,11 +103,12 @@ export interface WalletIssuer {
   privateKey: Uint8Array;
 }
 
-/** Generate a fresh pseudonymous-wallet issuer. */
-export function generateWalletIssuer(name = "Pseudonymous wallet issuer"): WalletIssuer {
-  const privKey = secp256k1.utils.randomPrivateKey();
-  const rawAddr = privateKeyToAddress(privKey);
-  const address = checksumAddress(rawAddr);
+/** Build a wallet issuer from an existing 32-byte secp256k1 private key. */
+export function walletIssuerFromKey(
+  privKey: Uint8Array,
+  name = "Pseudonymous wallet issuer",
+): WalletIssuer {
+  const address = checksumAddress(privateKeyToAddress(privKey));
   const issuer: Issuer = {
     name,
     issuerClass: "pseudonymous-wallet",
@@ -115,6 +117,28 @@ export function generateWalletIssuer(name = "Pseudonymous wallet issuer"): Walle
     certificateChain: null,
   };
   return { issuer, privateKey: privKey };
+}
+
+/**
+ * Derive a wallet issuer deterministically from a text seed.
+ *
+ * For demos, tests, and build-time fixture generation, where a fresh random
+ * key on every run would make the output churn and hide real diffs behind
+ * noise. NEVER use this for a key that signs anything of consequence: the
+ * seed is the key, so anyone who reads the seed holds the key.
+ */
+export function deterministicWalletIssuer(
+  seed: string,
+  name = "Pseudonymous wallet issuer",
+): WalletIssuer {
+  const privKey = sha256(_enc.encode(`dpa-v0.4-demo-issuer:${seed}`));
+  return walletIssuerFromKey(privKey, name);
+}
+
+/** Generate a fresh pseudonymous-wallet issuer. */
+export function generateWalletIssuer(name = "Pseudonymous wallet issuer"): WalletIssuer {
+  const privKey = secp256k1.utils.randomPrivateKey();
+  return walletIssuerFromKey(privKey, name);
 }
 
 /**
@@ -128,7 +152,7 @@ export function signAsWallet(
   passportBody: Omit<Passport, "signature">,
   privKey: Uint8Array,
 ): string {
-  const msg = _enc.encode(canonicalString(passportBody as Record<string, unknown>));
+  const msg = _enc.encode(signableString(passportBody as Record<string, unknown>));
   const hash = eip191Hash(msg);
   const sig = secp256k1.sign(hash, privKey);
   return sig.toCompactHex() + sig.recovery!.toString(16).padStart(2, "0");
@@ -171,7 +195,7 @@ export function verifyWalletSignature(passport: Passport): {
       return { valid: false, recoveredAddress: "", reason: `Bad recovery bit: ${recovery}` };
     }
 
-    const msg = _enc.encode(canonicalString(body as Record<string, unknown>));
+    const msg = _enc.encode(signableString(body as Record<string, unknown>));
     const hash = eip191Hash(msg);
 
     const sig = secp256k1.Signature.fromCompact(compact).addRecoveryBit(recovery);

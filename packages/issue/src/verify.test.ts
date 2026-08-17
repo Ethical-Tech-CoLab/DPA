@@ -47,7 +47,42 @@ describe("contentHash: same for both issuer classes", () => {
     const hash1 = contentHash(bodyForHash as Record<string, unknown>);
     const hash2 = contentHash(bodyForHash as Record<string, unknown>);
     expect(hash1).toBe(hash2);
-    expect(hash1).toHaveLength(64); // keccak256 = 32 bytes = 64 hex chars
+    // "0x" + keccak256 (32 bytes = 64 hex chars). The prefix matters: the same
+    // value is written into an EVM attestation, where a bare digest is a
+    // different type from a bytes32.
+    expect(hash1).toHaveLength(66);
+    expect(hash1.startsWith("0x")).toBe(true);
+  });
+
+  it("is identical to the hash @dpa/govern seals and notarises", async () => {
+    // These were once two implementations — keccak256 unprefixed here, SHA-256
+    // prefixed there — so a passport signed by one could not be verified by
+    // the other. They must never diverge again.
+    const { computeContentHash } = await import("@dpa/govern");
+    const wi = generateWalletIssuer("wallet-issuer");
+    const body = { ...buildPassportBody(wi.issuer), contentHash: "" };
+    expect(contentHash(body as Record<string, unknown>)).toBe(
+      computeContentHash(body as Record<string, unknown>),
+    );
+  });
+
+  it("ignores notarisation, which is written after the hash is sealed", () => {
+    const wi = generateWalletIssuer("wallet-issuer");
+    const body = { ...buildPassportBody(wi.issuer), contentHash: "" };
+    const before = contentHash(body as Record<string, unknown>);
+    const after = contentHash({
+      ...body,
+      notarisation: {
+        chain: "base-sepolia",
+        chainId: 84532,
+        easUid: "0xabc",
+        txHash: "0xdef",
+        attestedAt: "2026-02-01T00:00:00.000Z",
+        mode: "mock",
+        schemaUid: null,
+      },
+    } as Record<string, unknown>);
+    expect(after).toBe(before);
   });
 });
 

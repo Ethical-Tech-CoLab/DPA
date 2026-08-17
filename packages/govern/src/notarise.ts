@@ -48,7 +48,7 @@
  */
 
 import { sha256 } from "@noble/hashes/sha256";
-import { canonicalString } from "@dpa/schema";
+import { contentHash as schemaContentHash } from "@dpa/schema";
 import type { Passport, Notarisation } from "@dpa/schema";
 
 // ---------------------------------------------------------------------------
@@ -114,25 +114,16 @@ export class HashMismatchError extends Error {
 /**
  * Compute the SHA-256 content hash of a passport's canonical form.
  *
- * Excludes three sealing fields from the input:
- *   `contentHash`  — cannot hash a value that includes itself
- *   `signature`    — excluded by `canonicalString`; made explicit here
- *   `notarisation` — references the hash (chicken-and-egg); set AFTER signing
+ * Delegates to `contentHash` in @dpa/schema, which is the single definition
+ * shared with the signing path. This module previously computed its own
+ * SHA-256 variant, which disagreed with the keccak256 the issuer signed over —
+ * so a passport sealed here could not be verified there.
  *
- * The result is `"0x"` + 64 lower-hex chars. Browser-compatible: TextEncoder
- * + @noble/hashes/sha256, no node:crypto, no Buffer.
+ * Retained under this name because the notarisation code and its tests read
+ * more clearly with it, and because it is the vocabulary of ADR-006.
  */
 export function computeContentHash(passport: Record<string, unknown>): string {
-  const { contentHash: _ch, signature: _sig, notarisation: _n, ...rest } = passport;
-  const canonical = canonicalString(rest);
-  const bytes = new TextEncoder().encode(canonical);
-  const hash = sha256(bytes);
-  return (
-    "0x" +
-    Array.from(hash)
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("")
-  );
+  return schemaContentHash(passport);
 }
 
 // ---------------------------------------------------------------------------
