@@ -636,6 +636,65 @@ blockquote {
 .finding-pass { color: var(--ok); }
 .finding-fail { color: var(--bad); }
 
+/* --- Capture (Stage 0). ---------------------------------------------------
+   Tones reuse the three coverage colours rather than introducing new ones.
+   That is deliberate: a contributor already reading `well-covered` /
+   `structurally-uncovered` elsewhere in the system should not have to learn a
+   second colour language for capture fitness. All three are validated for
+   separation by the theme package, so a rebrand cannot quietly collapse them. */
+
+.cap-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.cap-presets .btn[aria-pressed="true"] {
+  border-color: var(--accent); background: var(--accent-wash); color: var(--accent);
+}
+
+/* Two headline cards side by side as soon as there is room for both to hold a
+   sentence; one above the other when there is not. auto-fit rather than a
+   breakpoint, because this block sits at several widths across the page. */
+.cap-live {
+  display: grid; gap: var(--gap); margin-top: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+}
+
+.cap-headline { display: flex; flex-direction: column; gap: 6px; }
+.cap-class {
+  font-family: var(--serif); font-size: var(--fs-h2); line-height: 1.1;
+  text-transform: capitalize; margin: 0;
+}
+.cap-action { font-size: var(--fs-lede); line-height: 1.4; margin: 0; }
+
+.cap-ok { border-color: var(--ok); }
+.cap-ok.label, p.cap-ok { color: var(--ok); border-color: transparent; }
+.cap-warn { border-color: var(--warn); }
+.cap-bad { border-color: var(--bad); }
+
+.cap-metrics {
+  display: grid; gap: var(--gap); margin-top: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr));
+}
+
+.cap-metric { display: flex; flex-direction: column; gap: 8px; }
+/* The one thing worth fixing next is marked, so a page showing ten dimensions
+   still only asks the contributor to look at one. */
+.cap-metric-primary { border-color: var(--accent); background: var(--accent-wash-soft); }
+
+.cap-metric-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.cap-metric input[type="range"] { width: 100%; accent-color: var(--accent); min-height: 24px; }
+.cap-measured { margin: 0; font-family: var(--mono); font-size: var(--fs-tiny); }
+.cap-why { margin: 0; font-size: var(--fs-tiny); line-height: 1.5; }
+
+.cap-pill {
+  font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .06em;
+  padding: 2px 7px; border-radius: calc(var(--radius) - 2px);
+  border: 1px solid currentColor; white-space: nowrap;
+}
+.cap-pill.cap-ok { color: var(--ok); }
+.cap-pill.cap-attention { color: var(--warn); }
+.cap-pill.cap-blocking { color: var(--bad); }
+.cap-pill.cap-unknown,
+.cap-pill.cap-deferred { color: var(--text-faint); }
+
+
 /* ---------------------------------------------------------------------------
    ARRANGEMENT CHANGES ONLY.
 

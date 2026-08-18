@@ -2,10 +2,16 @@
 
 Each decision records the conflict, the choice, the alternative rejected, and the
 cost. None of these are ratified. Any of them may be reopened, and the
-[AABC feedback](MEETING-BRIEF.md#aabc-feedback--to-be-completed) — which is not
-yet recorded anywhere — should be tested against every one.
+[AABC feedback](MEETING-BRIEF.md#aabc-feedback--to-be-completed) — now recorded —
+has been tested against every one.
 
-Status legend: **Proposed** · **Ratified** · **Superseded**
+**Two decisions are reopened by that feedback.** [ADR-004](#adr-004) has no class
+for a crowd-sourced contributor who scans an object they do not own, and
+[ADR-007](#adr-007) settled VANGO's status on the premise that mobile capture was
+out of scope, which is no longer true. Both should be presented at the meeting as
+open questions rather than defended.
+
+Status legend: **Proposed** · **Ratified** · **Superseded** · **Reopened**
 
 ---
 
@@ -208,7 +214,14 @@ change in the consolidation, and it is non-negotiable.
 <a name="adr-004"></a>
 ## ADR-004 — Two issuer classes, not one trust model
 
-**Status:** Proposed
+**Status:** **Reopened** by the AABC capture feedback — see
+[MEETING-BRIEF §7.3](MEETING-BRIEF.md#aabc-feedback--to-be-completed). Both
+classes assert something about ownership. Crowd-sourced capture introduces an
+actor that asserts nothing about ownership and still needs to be represented:
+a contributor who records an object they do not own. `@dpa/capture` works around
+this for now with a separate `CaptureOperatorRole` enum, deliberately not
+reusing `IssuerClass`, so that a capture cannot be read as a title claim. That is
+a containment measure, not an answer.
 
 ### Conflict
 
@@ -348,7 +361,17 @@ attestation unverifiable. Storage durability is an open backlog item.
 <a name="adr-007"></a>
 ## ADR-007 — VANGO stays a client; it is not folded into the core
 
-**Status:** Proposed · *this ADR answers the explicit open question*
+**Status:** **Reopened** by the AABC capture feedback — see
+[MEETING-BRIEF §7.3](MEETING-BRIEF.md#aabc-feedback--to-be-completed).
+
+> This ADR concluded that VANGO belongs outside the core because it is a
+> *consumer* of passports rather than a producer of them. That reasoning was
+> sound on the premise that capture was out of scope. AABC have now made mobile
+> capture a core requirement, and VANGO is a mobile front-end for scanning — it
+> is the one codebase in the programme already solving the phone-camera problem.
+> The question "does VANGO fold in?" has to be re-argued from the new premise,
+> and the answer may now be different. The decision below is retained unchanged
+> so the original reasoning can be examined rather than quietly rewritten.
 
 ### Decision
 
@@ -488,3 +511,136 @@ about itself.
 Users want a green tick and will not get one. Every UI must communicate a
 three-way state — *lead found* / *nothing found* / *could not look* — where
 users expect two.
+
+---
+
+<a name="adr-010"></a>
+## ADR-010 — Capture is Stage 0, and capture quality is a third independent number
+
+**Status:** Proposed · *the first ADR derived from AABC feedback rather than from
+Annex A and the code*
+
+### Conflict
+
+The pipeline has seven stages and every one of them begins **after** an object
+has already been recorded by somebody. `@dpa/evidence` searches archives,
+`@dpa/assess` scores what was found, `@dpa/govern` notarises the result. Where no
+record was ever created, all seven stages can do is measure the hole:
+[ADR-003](#adr-003) exists precisely to stop that hole being misread as a clean
+result.
+
+AABC have asked for the step before all of this — how an object gets recorded in
+the first place, by whom, and with what evidentiary value.
+
+### Decision
+
+**1. Capture becomes Stage 0**, implemented as `@dpa/capture`, positioned before
+Identify. It is a new position in the pipeline rather than a modification of an
+existing package, because nothing that exists takes a physical object as input.
+
+**2. Capture quality is a third independent number.** `qualityScore` is reported
+alongside `confidenceScore` and `coverage`, and is **never folded into either**.
+Structurally enforced: `@dpa/capture` must not import `@dpa/assess` and
+`@dpa/assess` must not import `@dpa/capture`. A test asserts this at the module
+boundary.
+
+**3. Quality is bounded by its weakest dimension, not averaged.** The class is
+the minimum across ten metrics. Four hundred photographs that are all out of
+focus produce an out-of-focus mesh; averaging perfect image count against poor
+sharpness would report that capture as acceptable.
+
+**4. A capture record must state what it does not prove.** `attests` and
+`doesNotAttest` are mandatory schema fields, and the builder refuses to emit a
+record whose `doesNotAttest` omits the legitimacy disclaimer.
+
+**5. Capture assets never default to public**, and default to `source-community`
+for funerary and sacred material.
+
+### Why quality must not touch the confidence score
+
+This is [ADR-003](#adr-003) applied to a new axis, and the failure it prevents is
+sharper here.
+
+If capture quality contributed to provenance confidence, **a museum could raise
+an object's provenance confidence by buying a better camera.** An institution
+with a well-funded imaging department and no provenance documentation would
+outscore a community holding thorough written records and a phone. That inverts
+the programme's purpose, and it would do so invisibly, because both inputs are
+legitimate and the resulting number would look reasonable.
+
+The two questions are genuinely different:
+
+| | asks |
+|---|---|
+| `confidenceScore` | how much is known about where this object came from? |
+| `coverage` | could the registers have known anything at all? |
+| `qualityScore` | how good is the record we just made of the object itself? |
+
+### Why a good scan is not good provenance
+
+Direct corollary of [ADR-009](#adr-009). A flawless capture of a looted object is
+a flawless capture of a looted object. The capture record looks exactly like
+proof of legitimate ownership — signature, hash, timestamp, chain of custody —
+and is not. That resemblance is the risk, so the disclaimer is a field the format
+requires rather than a caption a UI might forget.
+
+### What this genuinely adds, and to whom
+
+For a `structurally-uncovered` object it is the **only** new information the
+system can generate. The Bura askos scores 58 with 0 of 9 registers able to name
+it, because Bura funerary sites were never inventoried and the registers hold
+reports of thefts from documented collections. Its own timeline records the
+trap: the 1970 UNESCO Convention *"requires a pre-existing inventory — which Bura
+sites lack."*
+
+Capture is the only mechanism in the programme that creates record rather than
+querying it. It cannot help an object already looted from an unrecorded site.
+It can start the record, from today, for everything still in museum, community
+or private custody.
+
+### The reconstruction gap — where this contributes something new
+
+C2PA solves capture-time provenance for 2D media well: a hard binding over the
+asset bytes, an X.509 signature, an RFC 3161 timestamp, and in Truepic's
+implementation a signature applied inside the secure enclave before the image
+leaves the sensor.
+
+**None of it survives photogrammetry.** As of spec v2.1–v2.4 the normative format
+list is JPEG, PNG, GIF, TIFF, BMFF video and PDF. glTF/GLB, USDZ, E57 and PLY are
+absent. The photographs can be sealed to a very high standard and the mesh built
+from them inherits none of it — the chain breaks at exactly the step that
+produces the artefact anyone will actually look at.
+
+Every crowd-sourced heritage capture effort we surveyed — Rekrei/Project Mosul,
+Backup Ukraine, the Million Image Database — used general-purpose photogrammetry
+apps and sealed the 3D output not at all. Rekrei accepts any photograph with no
+submission quality protocol whatsoever.
+
+`ReconstructionBinding` is our answer: one signed structure binding the source
+image set, how many of those carried a verifiable seal, the pipeline and
+parameters, the output mesh hash, and a perceptual hash as a soft binding so a
+re-exported copy can be re-associated. It does **not** make reconstruction
+reproducible — photogrammetry is not bit-deterministic — and `chainComplete` says
+so rather than implying a guarantee the format cannot make.
+
+### Alternative rejected: extend `@dpa/identity` instead of adding a stage
+
+`@dpa/identity` already computes perceptual hashes and forensic signals, so
+capture could have gone there. Rejected because identity answers *"is this the
+same object as that one?"* against material already in hand, whereas capture
+answers *"how do we get this object into the system at all?"*. Folding them would
+have put the quality rubric behind the same module boundary as the forgery-risk
+score, and those two numbers must not meet either.
+
+### Cost
+
+- A new package, a new schema type, and a new route.
+- [ADR-004](#adr-004) and [ADR-007](#adr-007) are reopened.
+- Decision #5 in [MEETING-BRIEF §5](MEETING-BRIEF.md) — the source-community
+  disclosure tier, decided with no source-community input — escalates from weak
+  to blocking. It was tolerable while the system only described objects. It is
+  not tolerable while the system holds photorealistic models of grave goods.
+- The band thresholds are ours and are not standards-backed. There is no ratified
+  cross-body numerical rubric for heritage 3D capture; the London Charter, which
+  is the most widely adopted framework, is a principles document. Every threshold
+  sits in one file so the argument can be had against specific numbers.

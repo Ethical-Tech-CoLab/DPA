@@ -7,7 +7,7 @@ tests pass, CI is green, and the site is live.
 
 - **Live site:** https://ethical-tech-colab.github.io/DPA/
 - **Repository:** [`Ethical-Tech-CoLab/DPA`](https://github.com/Ethical-Tech-CoLab/DPA) — public
-- **Tests:** 304 passing across the nine tested packages
+- **Tests:** 342 passing across the ten tested packages
 - **Everything on the site runs on committed fixtures.** The scores are real — computed
   by the real scorer over real cited sources — but no live register was queried and no
   attestation was written to any chain. See [What is real and what is not](#what-is-real-and-what-is-not).
@@ -63,12 +63,13 @@ having to trust anyone downstream to redact it correctly.
 
 ## The live site
 
-Seven routes, all statically exported and served from GitHub Pages:
+Eight routes, all statically exported and served from GitHub Pages:
 
 | Route | What it shows |
 |---|---|
 | `/` | Overview: the pipeline, the three numbers, what is real |
 | `/demo` | The four demo cases, each rendered in a chosen role |
+| `/capture` | Stage 0: the scan-quality rubric and the live guidance loop, driven by sliders |
 | `/coverage` | The "58 is worse than 28" argument, worked over Bura and Getty |
 | `/disclosure` | One signed record shown to five roles, with a leakage proof |
 | `/exhibit` | A procedural 3D object with role-gated points of interest |
@@ -118,20 +119,21 @@ To check the whole workspace:
 
 ```
 pnpm -r typecheck        # clean
-pnpm -r test             # 304 tests
+pnpm -r test             # 342 tests
 ```
 
 ---
 
 ## The packages
 
-Eleven packages under `packages/`, three apps under `apps/`. There is no
+Twelve packages under `packages/`, three apps under `apps/`. There is no
 `contracts/` directory — the on-chain work was scoped but not built (see
 [BACKLOG.md](BACKLOG.md)).
 
 | Package | One honest sentence |
 |---|---|
 | `schema` | The one passport envelope, the role model, the disclosure tiers, and the single canonical hashing/signing contract (`contentHash` + `signableString`) that every other package depends on |
+| `capture` | **Stage 0.** The scan-quality rubric, the real-time guidance loop, and the capture record — the only stage that creates record rather than querying it. Structurally forbidden from touching the provenance score |
 | `identity` | Image fingerprinting (SHA-256 + dHash), similarity and duplicate detection, forensic signals, and Gemini-based object identification |
 | `evidence` | One connector interface over eight sources plus tiered register checks — the single evidence service, so nothing else talks to a source directly |
 | `assess` | The three numbers that are never combined: the accumulation scorer, the coverage model, and forgery risk |
@@ -234,7 +236,7 @@ about being one.
 
 **Real.** The pipeline runs end to end. The scorer, the coverage model, the
 redaction boundary, and both signature schemes are the real implementations,
-exercised by 304 passing tests. The four demo scores are computed by the real
+exercised by 342 passing tests. The four demo scores are computed by the real
 scorer over real, cited sources. The redaction is not cosmetic: `apps/web`
 writes a physically separate file per role, and `assertNoLeakage` fails the
 build if an above-tier field escapes.
@@ -255,9 +257,11 @@ build if an above-tier field escapes.
 
 ---
 
-## The seven stages, in one diagram
+## The stages, in one diagram
 
 ```
+0 CAPTURE     object → a record of it   capture: rubric, live guidance, seal
+─ ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ──
 1 IDENTIFY    image → object            identity: fingerprint, dHash, similarity
 2 INVESTIGATE object → sourced claims   evidence: 8 sources + tiered registers
 3 ASSESS      claims → three numbers    assess: score, coverage, forgery risk
@@ -267,6 +271,14 @@ build if an above-tier field escapes.
 7 NOTARISE    → content hash on-chain   govern: EAS, hash only, mock by default
 ```
 
+**Stage 0 was added after AABC asked for it**, and the rule above it is not
+decoration. Stages 1–7 all begin after an object has already been recorded by
+somebody; where no record was ever created they can measure the hole and nothing
+more. Capture is the only stage that creates record rather than querying it —
+which for a `structurally-uncovered` object like the Bura askos is the only new
+information the system can generate at all. It is not yet wired into the
+pipeline; see [docs/CAPTURE-PROTOCOL.md](docs/CAPTURE-PROTOCOL.md).
+
 Redaction is deliberately **not** a stage. It happens at the delivery boundary
 in `deliver(passport, role)`, because making it a stage would imply a passport
 is ever "the redacted one" — when one signed record has as many lawful views as
@@ -275,7 +287,7 @@ there are roles. The full account is in
 
 ---
 
-## The nine decisions
+## The ten decisions
 
 Every ADR is now implemented and enforced in code. Each row links to the record,
 which names the file that enforces it.
@@ -285,12 +297,20 @@ which names the file that enforces it.
 | [001](docs/DECISIONS.md#adr-001) | One passport envelope | `packages/schema/src/passport.ts` |
 | [002](docs/DECISIONS.md#adr-002) | One scorer, accumulation from a floor of 30 | `packages/assess/src/scorer.ts` |
 | [003](docs/DECISIONS.md#adr-003) | Coverage is mandatory and never folded into the score | `packages/assess/src/coverage.ts` |
-| [004](docs/DECISIONS.md#adr-004) | Two issuer classes, one canonicalisation | `packages/issue/src/{wallet,institution}.ts` |
+| [004](docs/DECISIONS.md#adr-004) ⚠️ | Two issuer classes, one canonicalisation — **reopened** | `packages/issue/src/{wallet,institution}.ts` |
 | [005](docs/DECISIONS.md#adr-005) | Confidentiality envelope, redacted at the boundary | `packages/govern/src/redact.ts` |
 | [006](docs/DECISIONS.md#adr-006) | Notarise the hash only | `packages/govern/src/notarise.ts` |
-| [007](docs/DECISIONS.md#adr-007) | VANGO stays a separate client | *(no code vendored)* |
+| [007](docs/DECISIONS.md#adr-007) ⚠️ | VANGO stays a separate client — **reopened** | *(no code vendored)* |
 | [008](docs/DECISIONS.md#adr-008) | One evidence service | `packages/evidence/src/gather.ts` |
 | [009](docs/DECISIONS.md#adr-009) | No register check ever returns "clear" | `packages/schema` verdict enum |
+| [010](docs/DECISIONS.md#adr-010) | Capture is Stage 0; scan quality never touches the score | `packages/capture/src/assess.ts` |
+
+**Two are reopened by the AABC feedback.** ADR-004 has no class for a
+crowd-sourced contributor who records an object they do not own. ADR-007 settled
+VANGO's status on the premise that mobile capture was out of scope, which is no
+longer true. Both are carried to the meeting as open questions rather than
+defended — the reasoning is in
+[docs/MEETING-BRIEF.md §7](docs/MEETING-BRIEF.md#aabc-feedback--to-be-completed).
 
 Consolidation sharpened two of these. ADR-002 and ADR-003 were both changed by
 defects that only surfaced once the packages were wired together — the score's

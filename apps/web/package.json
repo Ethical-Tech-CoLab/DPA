@@ -15,6 +15,7 @@
     "@dpa/identity": "workspace:*",
     "@dpa/evidence": "workspace:*",
     "@dpa/assess": "workspace:*",
+    "@dpa/capture": "workspace:*",
     "@dpa/issue": "workspace:*",
     "@dpa/govern": "workspace:*",
     "@dpa/lifecycle": "workspace:*",

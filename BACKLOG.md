@@ -65,16 +65,85 @@ exactly that — a false claim wearing a real source URL is not prevented.
 - [ ] Cross-reference the §13 limitation at first claim
 - [ ] Fix in both `DPP-Paper.md` and the mirrored website content
 
-### 5. AABC feedback is not recorded anywhere
+### 5. ~~AABC feedback is not recorded anywhere~~ — CLOSED
 
-*Source: this review*
+*Source: this review. Closed by the AABC meeting feedback of this cycle.*
 
-The consolidation is framed as responding to AABC feedback that exists in no
-repository. Every decision was derived from Annex A and from the code.
+The consolidation was framed as responding to AABC feedback that existed in no
+repository. That feedback has now been received and recorded.
 
-- [ ] Capture the feedback verbatim in [MEETING-BRIEF §7](docs/MEETING-BRIEF.md#aabc-feedback--to-be-completed)
-- [ ] Re-test all nine ADRs against it
-- [ ] Reopen any decision it contradicts
+- [x] Capture the feedback verbatim in [MEETING-BRIEF §7](docs/MEETING-BRIEF.md#aabc-feedback--to-be-completed)
+- [x] Re-test all nine ADRs against it
+- [x] Reopen any decision it contradicts — **ADR-004** (crowd-sourced
+      contributors are neither issuer class) and **ADR-007** (VANGO's status was
+      settled on the premise that mobile capture was out of scope; that premise
+      is gone) are now open
+
+**The feedback creates a new P0 workstream** — see
+[P0 §6](#6-there-is-no-capture-stage-and-aabc-asked-for-one-first) below.
+
+---
+
+<a name="6-there-is-no-capture-stage-and-aabc-asked-for-one-first"></a>
+### 6. Crowd-sourced capture — the protocol AABC asked to be prioritised
+
+*Source: AABC meeting feedback. See [MEETING-BRIEF §7](docs/MEETING-BRIEF.md#aabc-feedback--to-be-completed) and [ADR-010](docs/DECISIONS.md#adr-010).*
+
+Stage 0 now exists as `@dpa/capture` — rubric, live guidance, capture record,
+reconstruction binding, 38 tests — and `/capture` demonstrates it. What is
+**not** done:
+
+**Verification and standards**
+- [ ] **Track down the "Manhattan Bridge pedestrian capture protocol."** It does
+      not exist in any public source we could reach: not HAER, not Starling Lab,
+      not C2PA, not NYC DOT. The closest real thing is Starling Lab / Numbers
+      Protocol `Starlingcapture`, which seals media in device hardware at capture
+      time. **Ask whoever raised it at the meeting.** Until then it is not prior
+      art and is not cited as such.
+- [ ] Validate the band thresholds against a real standards body. Historic
+      England's 2017 photogrammetry guidance, the Smithsonian DPO 3D tiers and
+      the Europeana 3D task force criteria were all unreachable (403/404) when we
+      checked. The numbers in `rubric.ts` are ours and are a starting position.
+- [ ] Confirm whether C2PA v2.4+ has added glTF/GLB or USDZ support. Our finding
+      that it has not is based on the spec versions we could read.
+
+**Measurement — the rubric is defined but nothing computes it**
+- [ ] Implement the metric extractors. Variance of Laplacian and histogram
+      clipping are straightforward; angular coverage, surface completeness and
+      overlap need pose estimates from ARKit/ARCore or from the reconstruction.
+- [ ] Ground sample distance requires object distance and sensor geometry. On a
+      phone this means reading camera intrinsics, which vary by device.
+- [ ] Scale-bar and colour-target detection. ChArUco/ArUco detection is standard;
+      no detector is wired up.
+
+**The capture client itself**
+- [ ] There is no mobile capture app. `/capture` demonstrates the rubric and the
+      guidance loop against fixtures; it does not touch a camera.
+- [ ] Decide the client strategy — and this is where **[ADR-007](docs/DECISIONS.md#adr-007) is reopened**:
+      VANGO already solves the phone-camera problem for this programme. Build
+      new, extend VANGO, or wrap Apple `ObjectCaptureSession` (the only mobile
+      API with documented real-time quality signals — though it does not expose
+      its own sharpness metric, so ours must be computed independently).
+- [ ] **[ADR-004](docs/DECISIONS.md#adr-004) is reopened**: there is no issuer class for a
+      contributor who scans an object they do not own. `CaptureOperatorRole` is a
+      containment measure, not an answer.
+
+**Consent — blocking, not deferred**
+- [ ] The source-community disclosure tier was decided with no source-community
+      input. Capture escalates this from weak to blocking: the Bura askos is a
+      grave good, and the system will hold rotatable models of funerary material.
+      Defaults are set closed (`source-community` for funerary and sacred), which
+      buys time and is not a substitute for asking.
+- [ ] Define who may raise a capture asset's tier, and on whose authority.
+
+**Pipeline integration**
+- [ ] A capture record is not yet attached to a `Passport`, notarised, or
+      surfaced in `/demo`, `/coverage` or `/disclosure`.
+- [ ] The end-to-end story AABC described — museum scans, scan is
+      provenance-verified, artefact appears in the 3D exhibit — is not wired.
+      `/exhibit` still renders procedural geometry.
+- [ ] Perceptual hashing of a mesh (`outputPerceptualHash`) is specified as
+      dHash over rendered orthographic views. Not implemented.
 
 ---
 

@@ -85,6 +85,9 @@ importers:
       '@dpa/assess':
         specifier: workspace:*
         version: link:../../packages/assess
+      '@dpa/capture':
+        specifier: workspace:*
+        version: link:../../packages/capture
       '@dpa/evidence':
         specifier: workspace:*
         version: link:../../packages/evidence
@@ -136,6 +139,12 @@ importers:
         version: 0.169.0
 
   packages/assess:
+    dependencies:
+      '@dpa/schema':
+        specifier: workspace:*
+        version: link:../schema
+
+  packages/capture:
     dependencies:
       '@dpa/schema':
         specifier: workspace:*

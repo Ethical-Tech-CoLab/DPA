@@ -13,8 +13,9 @@ const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
  */
 const DOCS = [
   { file: "README.md", title: "Overview", blurb: "What DPA is and why the monorepo exists" },
-  { file: "docs/MEETING-BRIEF.md", title: "Meeting brief", blurb: "Five-minute status read for AABC" },
-  { file: "docs/DECISIONS.md", title: "Decisions", blurb: "Nine ADRs, each with rejected alternative and cost" },
+  { file: "docs/MEETING-BRIEF.md", title: "Meeting brief", blurb: "Five-minute status read for AABC, including the recorded feedback" },
+  { file: "docs/DECISIONS.md", title: "Decisions", blurb: "Ten ADRs, each with rejected alternative and cost. Two reopened" },
+  { file: "docs/CAPTURE-PROTOCOL.md", title: "Capture protocol", blurb: "Stage 0: the rubric, the guidance loop, and what a scan does not prove" },
   { file: "docs/ARCHITECTURE-v0.4.md", title: "Architecture", blurb: "The pipeline, the packages, the three numbers" },
   { file: "docs/INVENTORY.md", title: "Inventory", blurb: "Assessment of all five upstream systems" },
   { file: "docs/MIGRATION.md", title: "Migration", blurb: "What each repo owner is asked to do" },
