@@ -21,6 +21,24 @@ const nextConfig = {
   trailingSlash: true,
   reactStrictMode: true,
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
+
+  /**
+   * Workspace packages are consumed as TypeScript source (`main` points at
+   * `src/index.ts`) rather than as a build artefact, so there is one compiler
+   * for the whole repository and no stale `dist` to get out of step.
+   *
+   * The cost is this: those packages are ESM, so their relative imports end in
+   * `.js` as the spec requires, but the file on disk is `.ts`. Node's TS
+   * loaders and `tsc` both understand that; webpack does not, until told.
+   */
+  webpack: (config) => {
+    config.resolve.extensionAlias = {
+      ...config.resolve.extensionAlias,
+      ".js": [".ts", ".tsx", ".js"],
+      ".mjs": [".mts", ".mjs"],
+    };
+    return config;
+  },
 };
 
 export default nextConfig;

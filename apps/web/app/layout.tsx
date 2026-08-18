@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
+import { THEMES, themesCss } from "@dpa/theme";
+import Nav from "../components/Nav";
+import { DEFAULT_THEME, activeTheme, themeBootScript } from "../lib/theme";
 import "./globals.css";
 
 const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+/**
+ * Generated once at build time from the theme definitions, then inlined.
+ *
+ * Inlined rather than emitted as a file because these are the variables every
+ * other rule depends on: served as a separate stylesheet they would be a second
+ * round trip standing between the visitor and a correctly coloured page. It is
+ * a few kilobytes.
+ */
+const THEME_CSS = themesCss(THEMES, DEFAULT_THEME);
 
 export const metadata: Metadata = {
   title: "DPA — Digital Passport for Artworks",
@@ -9,42 +22,32 @@ export const metadata: Metadata = {
     "v0.4 consolidation of the AABC × SDA Bocconi Digital Passport for Artworks programme. One pipeline, one passport, one score, one disclosure model.",
 };
 
-const NAV = [
-  { href: "/", label: "Overview" },
-  { href: "/demo", label: "Demo" },
-  { href: "/coverage", label: "Coverage" },
-  { href: "/disclosure", label: "Disclosure" },
-  { href: "/exhibit", label: "Exhibit" },
-  { href: "/plan", label: "Plan" },
-];
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    /*
+     * `suppressHydrationWarning` because the boot script below deliberately
+     * rewrites `data-theme` before React ever runs. That is the point of the
+     * script — a visitor's saved brand has to be applied before first paint,
+     * and an effect cannot do that. Without this, React would report the
+     * intended difference as a hydration error.
+     */
+    <html lang="en" data-theme={DEFAULT_THEME} suppressHydrationWarning>
+      <head>
+        <style id="dpa-theme" dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body>
-        <nav className="nav">
-          <div className="nav-inner">
-            <a className="nav-brand" href={`${bp}/`}>
-              DPA<span>.</span>
-            </a>
-            {NAV.map((n) => (
-              <a key={n.href} className="nav-link" href={`${bp}${n.href}`}>
-                {n.label}
-              </a>
-            ))}
-            <span className="nav-spacer" />
-            <a
-              className="nav-link"
-              href="https://github.com/Ethical-Tech-CoLab/DPA"
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
-            </a>
-          </div>
-        </nav>
+        <a className="skip" href="#main">
+          Skip to content
+        </a>
 
-        <main>{children}</main>
+        <Nav
+          basePath={bp}
+          wordmark={activeTheme.identity.wordmark}
+          wordmarkAccent={activeTheme.identity.wordmarkAccent}
+        />
+
+        <main id="main">{children}</main>
 
         <footer className="foot">
           <div className="wrap">
@@ -62,11 +65,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               not.
             </p>
             <p className="faint">
+              {activeTheme.identity.organisation
+                ? `${activeTheme.identity.organisation} · `
+                : null}
               Vendored work is credited in{" "}
               <a href="https://github.com/Ethical-Tech-CoLab/DPA/blob/main/ATTRIBUTION.md">
                 ATTRIBUTION.md
               </a>
-              . MIT / CC BY 4.0.
+              . MIT / CC BY 4.0. Source on{" "}
+              <a
+                href="https://github.com/Ethical-Tech-CoLab/DPA"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </a>
+              .
             </p>
           </div>
         </footer>

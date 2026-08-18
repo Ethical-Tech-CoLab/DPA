@@ -187,7 +187,8 @@ export default function CoveragePage() {
           scores near 30, not near 100. Absence of evidence never becomes
           evidence of clean provenance.
         </p>
-        <table className="tbl" style={{ marginTop: 12 }}>
+        <div className="tbl-scroll">
+          <table className="tbl" style={{ marginTop: 12 }}>
           <thead>
             <tr>
               <th style={{ width: 70 }}>Δ</th>
@@ -209,10 +210,12 @@ export default function CoveragePage() {
           </tbody>
         </table>
       </div>
+      </div>
 
       <div className="card" style={{ marginTop: 18 }}>
         <p className="label">All four cases</p>
-        <table className="tbl">
+        <div className="tbl-scroll">
+          <table className="tbl">
           <thead>
             <tr>
               <th>Object</th>
@@ -240,6 +243,7 @@ export default function CoveragePage() {
             ))}
           </tbody>
         </table>
+      </div>
         <p className="faint" style={{ marginTop: 12 }}>
           Every case routes to human review, and that is the correct result.
           Auto-issue requires a score of 75 or above <em>and</em> a well-covered

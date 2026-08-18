@@ -54,12 +54,10 @@ export default function Home() {
   return (
     <>
       {/* ---------------- hero ---------------- */}
-      <section className="wrap" style={{ paddingTop: 72, paddingBottom: 8 }}>
+      <section className="wrap hero">
         <p className="label">AABC × SDA Bocconi · v0.4</p>
-        <h1 style={{ fontSize: "2.7rem", maxWidth: 820 }}>
-          Digital Passport for Artworks
-        </h1>
-        <p style={{ fontSize: "1.12rem", maxWidth: 720 }} className="dim">
+        <h1>Digital Passport for Artworks</h1>
+        <p className="dim lede measure">
           An artwork with uncertain provenance is invisible. Surfacing it exposes
           its holder to legal and reputational risk, so it stays in the dark —
           unlent, unstudied, unclaimable. The DPA lets a holder register an
@@ -67,12 +65,12 @@ export default function Home() {
           time-stamped, and then disclose <em>different amounts of it to
           different parties</em>.
         </p>
-        <p style={{ maxWidth: 720 }} className="dim">
+        <p className="dim measure">
           This repository is the <strong>v0.4 consolidation</strong>: one
           pipeline assembled from five separate working prototypes.
         </p>
 
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 24 }}>
+        <div className="btn-row">
           <a className="btn" href={`${bp}/demo/`} data-active="true">
             See a passport through five roles →
           </a>
@@ -86,7 +84,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- the problem ---------------- */}
-      <section className="wrap" style={{ paddingTop: 64 }}>
+      <section className="wrap section">
         <h2>Five working systems, and that was the problem</h2>
         <p className="dim narrow">
           The framework prototype defined the shape of the problem. Student teams
@@ -95,10 +93,10 @@ export default function Home() {
           None of them could talk to each other.
         </p>
 
-        <div className="grid grid-2" style={{ marginTop: 24 }}>
+        <div className="grid grid-2 spaced">
           <div className="card">
             <p className="label">Before v0.4</p>
-            <ul className="dim" style={{ paddingLeft: "1.1em", marginBottom: 0 }}>
+            <ul className="dim bullets">
               <li><strong>Three</strong> confidence scores that disagreed about the same object</li>
               <li><strong>Four</strong> passport formats, none validating against each other</li>
               <li><strong>Two</strong> incompatible cryptographic trust models</li>
@@ -109,7 +107,7 @@ export default function Home() {
           </div>
           <div className="card">
             <p className="label">v0.4</p>
-            <ul className="dim" style={{ paddingLeft: "1.1em", marginBottom: 0 }}>
+            <ul className="dim bullets">
               <li><strong>One</strong> scorer — accumulation, from a base of 30</li>
               <li><strong>One</strong> passport envelope, signed over one canonicalisation</li>
               <li><strong>Two</strong> issuer classes, deliberately — pseudonymity <em>and</em> accreditation</li>
@@ -120,7 +118,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="warn-box" style={{ maxWidth: 780 }}>
+        <div className="warn-box measure-wide">
           <strong>The core finding.</strong> The five projects were never
           competing implementations. They are the consecutive stages of one
           pipeline that nobody had drawn.
@@ -128,57 +126,46 @@ export default function Home() {
       </section>
 
       {/* ---------------- pipeline ---------------- */}
-      <section className="wrap" style={{ paddingTop: 40 }}>
+      <section className="wrap section">
         <h2>The pipeline</h2>
-        <div className="grid" style={{ gap: 8, marginTop: 18 }}>
+        <div className="grid stage-list">
           {STAGES.map((s) => (
-            <div
-              key={s.n}
-              className="card"
-              style={{ display: "flex", gap: 16, alignItems: "baseline", padding: "13px 18px" }}
-            >
-              <span
-                className="mono"
-                style={{ color: "var(--accent)", fontWeight: 700, minWidth: 20 }}
-              >
-                {s.n}
-              </span>
-              <div style={{ minWidth: 108, fontWeight: 600 }}>{s.name}</div>
-              <code style={{ minWidth: 148, fontSize: ".76rem" }}>{s.pkg}</code>
-              <div className="dim" style={{ fontSize: ".9rem", flex: 1 }}>
-                {s.what}
-              </div>
+            <div key={s.n} className="card stage">
+              <span className="stage-n mono">{s.n}</span>
+              <div className="stage-name">{s.name}</div>
+              <code className="stage-pkg">{s.pkg}</code>
+              <div className="dim stage-what">{s.what}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* ---------------- three numbers ---------------- */}
-      <section className="wrap" style={{ paddingTop: 56 }}>
+      <section className="wrap section">
         <h2>Three numbers, never combined</h2>
         <p className="dim narrow">
           A recurring failure across the upstream repos was one number carrying
           several meanings. v0.4 names three and forbids merging them.
         </p>
-        <div className="grid grid-3" style={{ marginTop: 20 }}>
+        <div className="grid grid-3">
           <div className="card">
             <p className="label">confidenceScore</p>
-            <p style={{ margin: ".4em 0" }}>How much sourced provenance evidence exists?</p>
-            <p className="faint" style={{ fontSize: ".85rem", marginBottom: 0 }}>
+            <p className="stat-q">How much sourced provenance evidence exists?</p>
+            <p className="faint stat-note">
               0–100, accumulated from 30. Never adjusted by coverage.
             </p>
           </div>
           <div className="card">
             <p className="label">coverageClass</p>
-            <p style={{ margin: ".4em 0" }}>Could that evidence ever have existed?</p>
-            <p className="faint" style={{ fontSize: ".85rem", marginBottom: 0 }}>
+            <p className="stat-q">Could that evidence ever have existed?</p>
+            <p className="faint stat-note">
               Never reduced to a number. Never folded into the score.
             </p>
           </div>
           <div className="card">
             <p className="label">forgeryRisk</p>
-            <p style={{ margin: ".4em 0" }}>Is this image what it claims to be?</p>
-            <p className="faint" style={{ fontSize: ".85rem", marginBottom: 0 }}>
+            <p className="stat-q">Is this image what it claims to be?</p>
+            <p className="faint stat-note">
               A different question from “was this looted?”. Same scale, unrelated.
             </p>
           </div>
@@ -186,9 +173,9 @@ export default function Home() {
       </section>
 
       {/* ---------------- what was consolidated ---------------- */}
-      <section className="wrap" style={{ paddingTop: 56 }}>
+      <section className="wrap section">
         <h2>What was consolidated</h2>
-        <table>
+        <div className="tbl-scroll"><table>
           <thead>
             <tr>
               <th>Repository</th>
@@ -207,7 +194,7 @@ export default function Home() {
                   >
                     {r.name}
                   </a>
-                  <div className="faint mono" style={{ fontSize: ".72rem" }}>
+                  <div className="faint mono-sm">
                     {r.status}
                   </div>
                 </td>
@@ -216,8 +203,8 @@ export default function Home() {
               </tr>
             ))}
           </tbody>
-        </table>
-        <p className="faint" style={{ fontSize: ".88rem" }}>
+        </table></div>
+        <p className="faint">
           Every vendored module carries a provenance header naming its origin.
           Full credit in{" "}
           <a href="https://github.com/Ethical-Tech-CoLab/DPA/blob/main/ATTRIBUTION.md">
@@ -228,12 +215,12 @@ export default function Home() {
       </section>
 
       {/* ---------------- honesty ---------------- */}
-      <section className="wrap" style={{ paddingTop: 56, paddingBottom: 20 }}>
+      <section className="wrap section">
         <h2>What this is not</h2>
         <div className="grid grid-2">
           <div className="card">
-            <p className="label" style={{ color: "var(--bad)" }}>Not a certificate</p>
-            <p className="dim" style={{ marginBottom: 0 }}>
+            <p className="label label-bad">Not a certificate</p>
+            <p className="dim last">
               No register check in this system can return <em>clear</em>. The
               strongest available negative is <code>no-evidence-found</code>.
               Colonial and archaeological material was never inventoried, so a
@@ -242,8 +229,8 @@ export default function Home() {
             </p>
           </div>
           <div className="card">
-            <p className="label" style={{ color: "var(--bad)" }}>Not validated</p>
-            <p className="dim" style={{ marginBottom: 0 }}>
+            <p className="label label-bad">Not validated</p>
+            <p className="dim last">
               Everything here runs on committed fixtures. The scorer is real and
               the sources are real and cited, but no live register was queried,
               no attestation was written to a chain, and the scoring has not been

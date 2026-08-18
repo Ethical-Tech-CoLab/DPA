@@ -112,7 +112,8 @@ export default function ExhibitPage() {
 
       <div className="card" style={{ marginTop: 18 }}>
         <p className="label">Voice intent grammar</p>
-        <table className="tbl">
+        <div className="tbl-scroll">
+          <table className="tbl">
           <thead>
             <tr>
               <th>Intent</th>
@@ -134,6 +135,7 @@ export default function ExhibitPage() {
             ))}
           </tbody>
         </table>
+      </div>
         <p className="faint" style={{ marginTop: 12 }}>
           Note that <code>locate</code> is public but never returns the current
           location — that is enforcement tier. An exhibit that answers
