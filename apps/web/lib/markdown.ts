@@ -161,6 +161,7 @@ export function renderMarkdown(md: string): string {
       flushParagraph();
       const tag = isUl ? "ul" : "ol";
       const items: string[] = [];
+      const classes: string[] = [];
       while (i < lines.length) {
         const l = lines[i] ?? "";
         const m = isUl ? /^\s*[-*+]\s+(.*)$/.exec(l) : /^\s*\d+\.\s+(.*)$/.exec(l);
@@ -173,11 +174,26 @@ export function renderMarkdown(md: string): string {
           break;
         }
         let text = m[1] ?? "";
-        text = text.replace(/^\[ \]\s*/, "☐ ").replace(/^\[[xX]\]\s*/, "☑ ");
+        let cls = "";
+        if (/^\[[xX]\]\s*/.test(text)) {
+          text = text.replace(/^\[[xX]\]\s*/, "");
+          cls = "task task-done";
+        } else if (/^\[ \]\s*/.test(text)) {
+          text = text.replace(/^\[ \]\s*/, "");
+          cls = "task task-open";
+        }
         items.push(inline(text));
+        classes.push(cls);
         i++;
       }
-      out.push(`<${tag}>${items.map((t) => `<li>${t}</li>`).join("")}</${tag}>`);
+      out.push(
+        `<${tag}>${items
+          .map((t, n) => {
+            const c = classes[n] ?? "";
+            return c ? `<li class="${c}">${t}</li>` : `<li>${t}</li>`;
+          })
+          .join("")}</${tag}>`,
+      );
       continue;
     }
 

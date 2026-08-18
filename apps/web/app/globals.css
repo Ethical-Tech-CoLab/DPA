@@ -464,6 +464,27 @@ blockquote {
 .prose img { max-width: 100%; }
 .prose pre { max-width: 100%; }
 
+/* Task lists in rendered markdown. The backlog is the one document where a
+   reader's first question is "how much of this is done", so completed items
+   get a green tick and open items get an empty box, rather than both arriving
+   as identical grey bullets. The marker replaces the list bullet so the two
+   states line up in one column and can be counted by eye.
+
+   Colour is carried by --ok, the same token the coverage and capture states
+   use, so a rebranding institution changes "done" everywhere at once. The tick
+   is not the only signal — the box glyph differs too — because a themed
+   palette may not keep green readable, and colour alone would fail anyone who
+   cannot distinguish it. */
+.prose li.task { list-style: none; position: relative; }
+.prose li.task::before {
+  position: absolute;
+  left: -1.3em;
+  font-size: .95em;
+  line-height: inherit;
+}
+.prose li.task-done::before { content: "✔"; color: var(--ok); }
+.prose li.task-open::before { content: "☐"; color: var(--text-faint); }
+
 /* Rendered markdown cannot be wrapped in a scroll container by hand, so the
    table becomes its own. `display: block` is the ugly part of this; the
    alternative is a document that scrolls sideways on a phone, taking the
