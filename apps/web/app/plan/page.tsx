@@ -40,15 +40,17 @@ export default function PlanPage() {
   const docs = DOCS.map((d) => ({ ...d, md: read(d.file) }));
 
   return (
-    <div className="wrap" style={{ paddingTop: 40 }}>
-      <p className="label">The consolidation plan</p>
-      <h1>Plan and decisions</h1>
-      <p className="dim narrow">
-        Rendered directly from the markdown in the repository at build time, so
-        this page cannot drift from the source.
-      </p>
+    <>
+      <header className="page-head">
+        <p className="label">The consolidation plan</p>
+        <h1>Plan and decisions</h1>
+        <p className="lede">
+          Rendered directly from the markdown in the repository at build time, so
+          this page cannot drift from the source.
+        </p>
+      </header>
 
-      <div className="grid grid-3" style={{ margin: "28px 0 44px" }}>
+      <div className="grid grid-3" style={{ margin: "0 0 44px" }}>
         {docs.map((d) => (
           <a
             key={d.file}
@@ -68,19 +70,9 @@ export default function PlanPage() {
       </div>
 
       {docs.map((d) => (
-        <section key={d.file} id={slugFile(d.file)} style={{ marginBottom: 72 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              gap: 12,
-              flexWrap: "wrap",
-              borderTop: "1px solid var(--line-bright)",
-              paddingTop: 20,
-              marginBottom: 8,
-            }}
-          >
-            <h2 style={{ margin: 0 }}>{d.title}</h2>
+        <section key={d.file} id={slugFile(d.file)} className="doc-section">
+          <div className="doc-head">
+            <h2>{d.title}</h2>
             <a
               className="mono faint"
               style={{ fontSize: ".76rem" }}
@@ -92,7 +84,7 @@ export default function PlanPage() {
             </a>
           </div>
 
-          <details style={{ marginBottom: 18 }}>
+          <details className="doc-toc">
             <summary className="faint" style={{ cursor: "pointer", fontSize: ".85rem" }}>
               Contents
             </summary>
@@ -117,6 +109,6 @@ export default function PlanPage() {
       <p className="faint">
         <a href={`${bp}/`}>← Back to the overview</a>
       </p>
-    </div>
+    </>
   );
 }

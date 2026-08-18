@@ -12,7 +12,7 @@ export default function DemoPage() {
   const index = readIndex();
 
   return (
-    <div className="wrap">
+    <>
       <header className="page-head">
         <p className="label">Flagship demo</p>
         <h1>One record, five lawful views</h1>
@@ -33,7 +33,7 @@ export default function DemoPage() {
         }))}
       />
 
-      <div className="card" style={{ marginTop: 24 }}>
+      <div className="card">
         <p className="label">How this was produced</p>
         <p className="dim">
           Every value on this page was computed at build time by running the real
@@ -44,10 +44,10 @@ export default function DemoPage() {
           repository and no register was contacted. Generated{" "}
           <span className="mono-sm">{index.generatedAt}</span>.
         </p>
-        <p className="faint" style={{ marginTop: 10 }}>
+        <p className="faint">
           {index.note}
         </p>
       </div>
-    </div>
+    </>
   );
 }

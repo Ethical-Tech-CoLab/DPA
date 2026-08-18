@@ -49,8 +49,8 @@ export default function BrandPage() {
   }));
 
   return (
-    <div className="wrap">
-      <div className="page-head">
+    <>
+      <header className="page-head">
         <p className="label">Deployment</p>
         <h1>Branding without breaking the disclosure model</h1>
         <p className="lede">
@@ -61,7 +61,7 @@ export default function BrandPage() {
           fork. Use the switcher in the navigation to rebrand the page you are
           reading.
         </p>
-      </div>
+      </header>
 
       <div className="card">
         <h2>Why some tokens are validated and others are not</h2>
@@ -195,7 +195,7 @@ export default function BrandPage() {
             </div>
 
             {result.findings.length > 0 ? (
-              <ul style={{ listStyle: "none", padding: 0, marginTop: 12 }}>
+              <ul style={{ listStyle: "none", padding: 0, marginTop: "var(--gap)" }}>
                 {result.findings.map((f, i) => (
                   <li
                     key={i}
@@ -226,7 +226,7 @@ export default function BrandPage() {
       </p>
       <BrandPreview />
 
-      <div className="card" style={{ marginTop: "var(--gap-lg)" }}>
+      <div className="card">
         <h3>Adding your own</h3>
         <pre>
           <code>{`// packages/theme/src/themes/pinacoteca.ts
@@ -258,6 +258,6 @@ export const pinacoteca = defineTheme({
           would be red.
         </p>
       </div>
-    </div>
+    </>
   );
 }

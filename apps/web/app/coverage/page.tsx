@@ -24,7 +24,7 @@ function RegisterList({
   tone: "ok" | "warn" | "bad";
 }) {
   return (
-    <div style={{ marginTop: 16 }}>
+    <div className="reg-group">
       <p className={`label reg-${tone}`}>
         {title} — {registers.length}
       </p>
@@ -117,7 +117,7 @@ export default function CoveragePage() {
   const buraExplain = readExplain(bura.id);
 
   return (
-    <div className="wrap">
+    <>
       <header className="page-head">
         <p className="label">The idea the rest of the system is built on</p>
         <h1>58 is worse than 28</h1>
@@ -135,7 +135,7 @@ export default function CoveragePage() {
         <CoveragePanel entry={getty} coverage={gettyCov} />
       </div>
 
-      <div className="card" style={{ marginTop: 24 }}>
+      <div className="card">
         <p className="label">The rule</p>
         <h2>Coverage is never folded into the score</h2>
         <p className="dim">
@@ -154,7 +154,7 @@ export default function CoveragePage() {
         <blockquote className="quote">{buraCov.comparability}</blockquote>
       </div>
 
-      <div className="card" style={{ marginTop: 18 }}>
+      <div className="card">
         <p className="label">Why the Bura askos has zero identifying registers</p>
         <p className="dim">
           INTERPOL&rsquo;s Stolen Works of Art database holds archaeological
@@ -172,14 +172,14 @@ export default function CoveragePage() {
           <code>requiresPriorRecord</code> per register and marks those registers
           blind rather than quiet.
         </p>
-        <p className="faint" style={{ marginTop: 10 }}>
+        <p className="faint">
           The same logic is why ICOM Red Lists appear as{" "}
           <em>in scope but not identifying</em>. A Red List names categories of
           object at risk. It is a reason to look harder, never a match.
         </p>
       </div>
 
-      <div className="card" style={{ marginTop: 18 }}>
+      <div className="card">
         <p className="label">Score build-up — {bura.title}</p>
         <p className="dim">
           The scorer accumulates from a floor of 30, the honest position for
@@ -188,7 +188,7 @@ export default function CoveragePage() {
           evidence of clean provenance.
         </p>
         <div className="tbl-scroll">
-          <table className="tbl" style={{ marginTop: 12 }}>
+          <table className="tbl">
           <thead>
             <tr>
               <th style={{ width: 70 }}>Δ</th>
@@ -212,7 +212,7 @@ export default function CoveragePage() {
       </div>
       </div>
 
-      <div className="card" style={{ marginTop: 18 }}>
+      <div className="card">
         <p className="label">All four cases</p>
         <div className="tbl-scroll">
           <table className="tbl">
@@ -244,7 +244,7 @@ export default function CoveragePage() {
           </tbody>
         </table>
       </div>
-        <p className="faint" style={{ marginTop: 12 }}>
+        <p className="faint">
           Every case routes to human review, and that is the correct result.
           Auto-issue requires a score of 75 or above <em>and</em> a well-covered
           class <em>and</em> no similarity flag. A structurally uncovered object
@@ -252,6 +252,6 @@ export default function CoveragePage() {
           the object.
         </p>
       </div>
-    </div>
+    </>
   );
 }

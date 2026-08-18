@@ -153,7 +153,7 @@ export default function RoleSwitcher({
 
   return (
     <>
-      <div className="card" style={{ marginBottom: 18 }}>
+      <div className="card">
         <p className="label">Object</p>
         <div className="btn-row">
           {passports.map((p) => (
@@ -168,7 +168,7 @@ export default function RoleSwitcher({
           ))}
         </div>
 
-        <p className="label" style={{ marginTop: 18 }}>
+        <p className="label">
           Viewing as
         </p>
         <div className="btn-row">
@@ -184,7 +184,7 @@ export default function RoleSwitcher({
           ))}
         </div>
 
-        <p className="faint mono-sm" style={{ marginTop: 16 }}>
+        <p className="faint mono-sm">
           GET <code>{url}</code>
         </p>
         <p className="faint" style={{ marginTop: 4 }}>
@@ -195,7 +195,7 @@ export default function RoleSwitcher({
       </div>
 
       {active ? (
-        <div className="warn-box" style={{ marginBottom: 18 }}>
+        <div className="warn-box">
           <strong>Why this case is here.</strong> {active.teachingPoint}
         </div>
       ) : null}
@@ -210,7 +210,7 @@ export default function RoleSwitcher({
 
       {data ? (
         <>
-          <div className="score-row" style={{ marginBottom: 18 }}>
+          <div className="score-row">
             <div className="score-box">
               <p className="label">Confidence</p>
               <p className="score-num">
@@ -294,7 +294,7 @@ export default function RoleSwitcher({
                 <dt>Envelope</dt>
                 <dd className="mono-sm">v{data._redaction.envelopeVersion}</dd>
               </dl>
-              <p className="faint" style={{ marginTop: 12 }}>
+              <p className="faint">
                 The signature covers the record but not the notarisation, so the
                 same passport verifies identically before and after anchoring.
                 The chain holds the hash only — never the record.
@@ -302,7 +302,7 @@ export default function RoleSwitcher({
             </div>
           </div>
 
-          <div className="card" style={{ marginTop: 18 }}>
+          <div className="card">
             <p className="label">
               Withheld from this role — {data._redaction.withheldFields.length}{" "}
               field{data._redaction.withheldFields.length === 1 ? "" : "s"}
@@ -323,7 +323,7 @@ export default function RoleSwitcher({
                 ))}
               </ul>
             )}
-            <p className="faint" style={{ marginTop: 12 }}>
+            <p className="faint">
               Visible tiers for this role:{" "}
               {data._redaction.visibleTiers.map((t) => (
                 <span key={t} className={`tier-tag role-${t}`}>
@@ -334,7 +334,7 @@ export default function RoleSwitcher({
           </div>
 
           {data.provenanceTimeline ? (
-            <div className="card" style={{ marginTop: 18 }}>
+            <div className="card">
               <p className="label">
                 Provenance timeline — enforcement tier ({data.provenanceTimeline.length}{" "}
                 events)
@@ -351,7 +351,7 @@ export default function RoleSwitcher({
           ) : null}
 
           {data.registryChecks ? (
-            <div className="card" style={{ marginTop: 18 }}>
+            <div className="card">
               <p className="label">Register checks — enforcement tier</p>
               <table className="tbl">
                 <thead>
@@ -371,7 +371,7 @@ export default function RoleSwitcher({
                   ))}
                 </tbody>
               </table>
-              <p className="faint" style={{ marginTop: 10 }}>
+              <p className="faint">
                 No verdict in this system is ever <code>clear</code>. A register
                 that returns nothing has returned nothing; it has not cleared the
                 object.
@@ -380,7 +380,7 @@ export default function RoleSwitcher({
           ) : null}
 
           {data.riskAssessment.flags ? (
-            <div className="card" style={{ marginTop: 18 }}>
+            <div className="card">
               <p className="label">
                 Risk flags — museum tier ({data.riskAssessment.flags.length})
               </p>
@@ -396,7 +396,7 @@ export default function RoleSwitcher({
             </div>
           ) : null}
 
-          <div className="card" style={{ marginTop: 18 }}>
+          <div className="card">
             <button className="btn" onClick={() => setRaw((v) => !v)}>
               {raw ? "Hide" : "Show"} the raw bytes for this role
             </button>

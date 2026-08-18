@@ -9,22 +9,18 @@ export const metadata: Metadata = {
 
 export default function CapturePage() {
   return (
-    <main>
-      <div className="hero">
-        <div className="hero-lead">
-          <p className="label">Stage 0 · @dpa/capture</p>
-          <h1>Creating record, not querying it</h1>
-        </div>
-        <div className="hero-body">
-          <p className="lede">
-            Every other stage in this system begins after an object has already
-            been recorded by somebody. Where no record was ever created, all they
-            can do is measure the hole. This is the stage that fills it.
-          </p>
-        </div>
-      </div>
+    <>
+      <header className="page-head">
+        <p className="label">Stage 0 · @dpa/capture</p>
+        <h1>Creating record, not querying it</h1>
+        <p className="lede">
+          Every other stage in this system begins after an object has already
+          been recorded by somebody. Where no record was ever created, all they
+          can do is measure the hole. This is the stage that fills it.
+        </p>
+      </header>
 
-      <div className="card warn" style={{ marginTop: 24 }}>
+      <div className="card warn">
         <p className="label">What this page is</p>
         <p>
           A working demonstration of the rubric and the real-time guidance loop,
@@ -37,7 +33,7 @@ export default function CapturePage() {
         </p>
       </div>
 
-      <h2 style={{ marginTop: 40 }}>Why this is the priority</h2>
+      <h2>Why this is the priority</h2>
 
       <p>
         The Bura askos scores <strong>58</strong> with{" "}
@@ -65,7 +61,7 @@ export default function CapturePage() {
         this programme exists for.
       </p>
 
-      <h2 style={{ marginTop: 40 }}>Three numbers, three questions</h2>
+      <h2>Three numbers, three questions</h2>
 
       <table>
         <thead>
@@ -122,7 +118,7 @@ export default function CapturePage() {
 
       <CaptureSimulator />
 
-      <h2 style={{ marginTop: 48 }}>Where the chain breaks today</h2>
+      <h2>Where the chain breaks today</h2>
 
       <p>
         C2PA solves capture-time provenance for photographs well — a hard binding
@@ -157,7 +153,7 @@ export default function CapturePage() {
         implying a guarantee the format cannot make.
       </p>
 
-      <div className="card warn" style={{ marginTop: 24 }}>
+      <div className="card warn">
         <p className="label">One citation we could not verify</p>
         <p>
           The feedback that prompted this work cited a{" "}
@@ -176,7 +172,7 @@ export default function CapturePage() {
         </p>
       </div>
 
-      <h2 style={{ marginTop: 40 }}>What is not built</h2>
+      <h2>What is not built</h2>
       <ul className="reg-list">
         <li>
           <strong>No metric extractors.</strong> The rubric is defined and nothing
@@ -205,6 +201,6 @@ export default function CapturePage() {
           one file so the argument can be had against specific numbers.
         </li>
       </ul>
-    </main>
+    </>
   );
 }

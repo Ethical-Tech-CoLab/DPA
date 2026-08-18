@@ -98,7 +98,101 @@ blockquote {
   color: var(--text-dim);
 }
 
+/* ---------------------------------------------------------------------------
+   THE PAGE FRAME.
+
+   One definition of "where the column sits", applied to `main` ITSELF rather
+   than offered as a class for each page to remember. That distinction is the
+   whole point of this block. When it was opt-in, three of the eight routes
+   disagreed about the left edge on the same viewport: the content routes sat
+   at 229px, the home page at 198px, and `/capture` at 0px — full-bleed, its
+   text touching the window edge — because it had simply never been given the
+   class. Nothing failed; a page that forgets an opt-in container still renders.
+
+   As an element selector this is specificity (0,0,1): weaker than any class,
+   so every rule below still wins, but impossible for a new page to omit.
+
+   `.wrap` stays, because the nav and the footer live OUTSIDE `main` and still
+   need the frame by name. Inside `main` it is neutralised rather than removed,
+   so a page copied from the old pattern — or from the footer — lands correctly
+   instead of being padded twice.
+   --------------------------------------------------------------------------- */
+
+main { max-width: var(--w); margin: 0 auto; padding: 0 var(--pad-page); }
 .wrap { max-width: var(--w); margin: 0 auto; padding: 0 var(--pad-page); }
+main .wrap { max-width: none; padding-left: 0; padding-right: 0; }
+
+/* ---------------------------------------------------------------------------
+   VERTICAL RHYTHM.
+
+   The horizontal frame above fixed where a page starts. This fixes the spacing
+   DOWN the page, which had drifted the same way and for the same reason: it was
+   set per element, inline, on every page. The gap between one card and the next
+   was written thirty-odd times as a literal, and the literals disagreed —
+   `/coverage` and `/disclosure` used 24px after the heading and 18px between
+   later cards, `/exhibit` used 24 then 18, and trailing notes were 10px on one
+   page and 12px on another for the same kind of text.
+
+   Worse, `18` and `24` are exactly the DESKTOP ends of `--gap` and `--gap-lg`,
+   which are fluid. So every one of those literals was the large-viewport value
+   of a token, frozen: on a phone the tokens contracted and the hardcoded gaps
+   did not, and the spacing scale came apart at precisely the width where space
+   is scarcest.
+
+   Stated once, here, in the same tokens as everything else.
+
+   Two elements are exempt because they already own their spacing and would
+   otherwise be double-spaced: a `.page-head` supplies its own bottom padding,
+   and a `.section` its own top padding. --------------------------------------- */
+
+main > * + *          { margin-top: var(--gap-lg); }
+main > .page-head + * { margin-top: 0; }
+main > .section       { margin-top: 0; }
+
+/* Headings are not just another block. A heading opens a section, so it takes
+   more space above than a sibling paragraph, and it binds to the content it
+   introduces, so it takes less below. Without this the flat rhythm above would
+   space a heading exactly like a paragraph and flatten the document structure
+   of the one long-form route, `/capture`. */
+main > h2                    { margin-top: var(--section); }
+main > h3                    { margin-top: var(--gap-lg); }
+main > h2 + *, main > h3 + * { margin-top: var(--gap); }
+
+/* A column of stacked blocks. Any container that stacks cards says so once,
+   here, rather than each card carrying its own top margin — which is how the
+   spacing drifted in the first place.
+
+   Deliberately NOT `:not(.grid) > .card + .card`: several component containers
+   (`.cap-metrics`, `.cap-live`) are `display: grid` without carrying the `.grid`
+   class, so that selector added a margin on top of the grid's own `gap` and
+   produced a 27px step where every other pair of cards sat at 15px. */
+.stack { display: grid; gap: var(--gap-lg); align-content: start; }
+
+/* The same argument one level down: blocks that follow prose inside a card.
+   These carried the 10-vs-12 inconsistency. */
+.card > p.faint,
+.card > .tbl-scroll,
+.card > .tbl { margin-top: var(--gap); }
+
+.reg-group { margin-top: var(--gap); }
+
+/* `/plan` renders each committed document as a section with a rule above its
+   title. This was eleven lines of inline style repeated for every document,
+   carrying its own `paddingTop: 20` and `marginBottom: 72` — two more numbers
+   that existed nowhere else in the system. */
+.doc-section { margin-bottom: var(--section); }
+.doc-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line-bright);
+  padding-top: var(--gap);
+  margin-bottom: .5em;
+}
+.doc-head h2 { margin: 0; }
+.doc-toc { margin-bottom: var(--gap); }
+
 /* In `ch`, like every other measure. It was `48rem`, and `rem` tracks the root
    font size — so on `campus`, which raises the type scale, the same 48rem held
    MORE characters per line rather than the same number in a wider column. That
@@ -411,7 +505,14 @@ blockquote {
    Home page.
    --------------------------------------------------------------------------- */
 
-.hero { padding: calc(var(--section) * 1.4) 0 var(--gap); }
+/* The landing page opens taller than the content routes. That is deliberate —
+   a front door, not a section heading — but it is now a stated multiple of the
+   same `--head-top` the other seven pages use, so the two cannot drift apart.
+   The `0` on the horizontal sides is correct rather than accidental: `main`
+   owns the gutter. It used to sit on `.wrap` as well, where the shorthand
+   silently reset the frame's own side padding and pulled the home page 31px
+   left of every other page in the navigation. */
+.hero { padding: calc(var(--head-top) * 1.4) 0 var(--gap); }
 .hero h1 { font-size: calc(var(--fs-display) * 1.2); max-width: 18ch; }
 
 .section { padding-top: var(--section); }
@@ -502,13 +603,34 @@ blockquote {
    Page furniture for the demo / coverage / disclosure / exhibit / brand routes.
    --------------------------------------------------------------------------- */
 
-.page-head { padding: var(--section) 0 calc(var(--section) * .6); max-width: 50rem; }
+/* ---------------------------------------------------------------------------
+   Page furniture. Every route in the navigation opens the same way: a `.label`
+   kicker, an `h1`, and a `.lede`, inside one `.page-head`. That is the template
+   — not a suggestion, because when it was a suggestion `/plan` opened with an
+   inline `paddingTop: 40` and started 10px above every other page, and
+   `/capture` opened with a bespoke hero and started 19px below them.
+
+   `--head-top` and `--head-bottom` exist so the rhythm is one setting rather
+   than a number repeated per page. Both derive from `--section`, which is a
+   theme token, so a brand that wants an airier document moves it once.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --head-top: var(--section);
+  --head-bottom: calc(var(--section) * .6);
+}
+
+.page-head { padding: var(--head-top) 0 var(--head-bottom); max-width: 50rem; }
 .page-head h1 { font-family: var(--serif); font-size: var(--fs-display); line-height: 1.15; margin: .3em 0 .5em; }
 .page-head h2 { font-family: var(--serif); }
 .lede { color: var(--text-dim); font-size: var(--fs-lede); }
 
-.wrap > .card h2 { font-family: var(--serif); font-size: var(--fs-h2); margin: .2em 0 .5em; }
-.wrap > .card h3, .card h3 { font-family: var(--serif); font-size: var(--fs-h3); margin: .2em 0 .4em; }
+/* `.card h2` rather than `.wrap > .card h2`. The old selector depended on a
+   card being a DIRECT child of the frame, which was true only while each page
+   carried its own `.wrap`. With the frame on `main` the home page's cards sit
+   inside `section.section` and would silently have lost their serif heading. */
+.card h2 { font-family: var(--serif); font-size: var(--fs-h2); margin: .2em 0 .5em; }
+.card h3 { font-family: var(--serif); font-size: var(--fs-h3); margin: .2em 0 .4em; }
 
 .mono-sm { font-family: var(--mono); font-size: var(--fs-tiny); }
 .grow { flex: 1 1 16rem; }

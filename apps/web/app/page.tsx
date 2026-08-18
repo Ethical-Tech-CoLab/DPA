@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <>
       {/* ---------------- hero ---------------- */}
-      <section className="wrap hero">
+      <section className="hero">
         <div className="hero-lead">
           <p className="label">AABC × SDA Bocconi · v0.4</p>
           <h1>Digital Passport for Artworks</h1>
@@ -89,7 +89,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- the problem ---------------- */}
-      <section className="wrap section">
+      <section className="section">
         <h2>Five working systems, and that was the problem</h2>
         <p className="dim narrow">
           The framework prototype defined the shape of the problem. Student teams
@@ -131,7 +131,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- pipeline ---------------- */}
-      <section className="wrap section">
+      <section className="section">
         <h2>The pipeline</h2>
         <div className="grid stage-list">
           {STAGES.map((s) => (
@@ -146,7 +146,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- three numbers ---------------- */}
-      <section className="wrap section">
+      <section className="section">
         <h2>Three numbers, never combined</h2>
         <p className="dim narrow">
           A recurring failure across the upstream repos was one number carrying
@@ -178,7 +178,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- what was consolidated ---------------- */}
-      <section className="wrap section">
+      <section className="section">
         <h2>What was consolidated</h2>
         <div className="tbl-scroll"><table>
           <thead>
@@ -220,7 +220,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- honesty ---------------- */}
-      <section className="wrap section">
+      <section className="section">
         <h2>What this is not</h2>
         <div className="grid grid-2">
           <div className="card">

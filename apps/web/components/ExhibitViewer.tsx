@@ -331,7 +331,7 @@ export default function ExhibitViewer({
 
   return (
     <>
-      <div className="card" style={{ marginBottom: 18 }}>
+      <div className="card">
         <p className="label">Visitor role</p>
         <div className="btn-row">
           {ROLES.map((r) => (
@@ -345,7 +345,7 @@ export default function ExhibitViewer({
             </button>
           ))}
         </div>
-        <p className="faint" style={{ marginTop: 10 }}>
+        <p className="faint">
           {visiblePois.length} of {BURA_SCENE.pois.length} points of interest are
           reachable at this level, and {visibleIntents.length} of 7 voice
           intents. The exhibit enforces the same envelope as the passport,
@@ -357,7 +357,7 @@ export default function ExhibitViewer({
       <div className="exhibit-grid">
         <div className="viewer" ref={mountRef} />
 
-        <div>
+        <div className="stack">
           <div className="card">
             <p className="label">Points of interest</p>
             <ul className="poi-list">
@@ -376,7 +376,7 @@ export default function ExhibitViewer({
               ))}
             </ul>
             {visiblePois.length < BURA_SCENE.pois.length ? (
-              <p className="withheld" style={{ marginTop: 10 }}>
+              <p className="withheld">
                 {BURA_SCENE.pois.length - visiblePois.length} point
                 {BURA_SCENE.pois.length - visiblePois.length === 1 ? "" : "s"} of
                 interest withheld at this access level.
@@ -384,7 +384,7 @@ export default function ExhibitViewer({
             ) : null}
           </div>
 
-          <div className="card" style={{ marginTop: 16 }}>
+          <div className="card">
             <p className="label">Voice intents</p>
             <div className="btn-row">
               {visibleIntents.map((i) => (
@@ -397,7 +397,7 @@ export default function ExhibitViewer({
                 </button>
               ))}
             </div>
-            <p className="faint" style={{ marginTop: 10 }}>
+            <p className="faint">
               Speech synthesis {speechSupport ? "available" : "unavailable"} ·
               haptics {hapticSupport ? "available" : "unavailable"} in this
               browser. On HopeOS hardware both are native; here they degrade to
@@ -405,7 +405,7 @@ export default function ExhibitViewer({
             </p>
           </div>
 
-          <div className="card" style={{ marginTop: 16 }}>
+          <div className="card">
             <p className="label">Narration transcript</p>
             {transcript.length === 0 ? (
               <p className="faint">

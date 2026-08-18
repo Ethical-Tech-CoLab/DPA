@@ -25,7 +25,7 @@ export default function ExhibitPage() {
     cov.blindRegisters.length;
 
   return (
-    <div className="wrap">
+    <>
       <header className="page-head">
         <p className="label">From shadow to light</p>
         <h1>The other half of the argument</h1>
@@ -52,7 +52,7 @@ export default function ExhibitPage() {
         totalRegisters={total}
       />
 
-      <div className="grid grid-2" style={{ marginTop: 24 }}>
+      <div className="grid grid-2">
         <div className="card">
           <p className="label">What is real here</p>
           <ul>
@@ -91,7 +91,7 @@ export default function ExhibitPage() {
         </div>
       </div>
 
-      <div className="card" style={{ marginTop: 18 }}>
+      <div className="card">
         <p className="label">The HopeOS boundary</p>
         <h2>Why the adapter is written before the integration</h2>
         <p className="dim">
@@ -110,7 +110,7 @@ export default function ExhibitPage() {
         </p>
       </div>
 
-      <div className="card" style={{ marginTop: 18 }}>
+      <div className="card">
         <p className="label">Voice intent grammar</p>
         <div className="tbl-scroll">
           <table className="tbl">
@@ -136,7 +136,7 @@ export default function ExhibitPage() {
           </tbody>
         </table>
       </div>
-        <p className="faint" style={{ marginTop: 12 }}>
+        <p className="faint">
           Note that <code>locate</code> is public but never returns the current
           location — that is enforcement tier. An exhibit that answers
           &ldquo;where is it now?&rdquo; in a public gallery has told a thief
@@ -144,7 +144,7 @@ export default function ExhibitPage() {
         </p>
       </div>
 
-      <div className="card" style={{ marginTop: 18 }}>
+      <div className="card">
         <p className="label">Why this object</p>
         <p className="dim">{entry.teachingPoint}</p>
         <p className="dim">
@@ -156,6 +156,6 @@ export default function ExhibitPage() {
           If the exhibit works for this object it works for the hard case.
         </p>
       </div>
-    </div>
+    </>
   );
 }

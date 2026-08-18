@@ -83,7 +83,7 @@ export default function BrandPreview() {
           </div>
         </div>
 
-        <p className="label" style={{ marginTop: 16 }}>
+        <p className="label">
           Disclosure tiers
         </p>
         <div className="btn-row">
@@ -103,7 +103,7 @@ export default function BrandPreview() {
           <code>legal.holderIdentity</code> withheld at this tier
         </div>
 
-        <p className="faint" style={{ marginTop: 14 }}>
+        <p className="faint">
           Every colour, radius and type size in this panel came from{" "}
           <code>{theme.id}</code>. No component was modified to produce it.
         </p>
