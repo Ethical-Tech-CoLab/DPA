@@ -25,15 +25,45 @@ const VIEWPORT_MIN = 380;
 const VIEWPORT_MAX = 1280;
 
 /**
+ * The viewport range over which the content FRAME grows.
+ *
+ * Deliberately different from the type range above, and it has to be. Type
+ * stops growing at a laptop width because past that point the limit is the
+ * reader's eye at desk distance, not the panel: 17px is 17px whether the
+ * monitor is 24" or 49". Layout is the opposite — a 3440px display has room to
+ * show three times as much, and refusing to use it is what leaves a narrow
+ * column stranded in the middle of a Surface Hub.
+ *
+ * The upper bound is 3440 rather than 2560 so that the ramp stays gentle enough
+ * to hold a roughly constant PROPORTION of the viewport — about 74–84% all the
+ * way up. Ending the ramp at 2560 made the frame equal to the viewport there
+ * (no gutters at all) and then fall to 65% of a 3440px ultrawide, so the widest
+ * display got the worst ratio. Proportion is what the eye reads, not pixels.
+ *
+ * Viewport width cannot tell us viewing distance, so we do not guess: an
+ * ultrawide at 60cm and a wall panel across a room report the same number and
+ * want opposite type sizes. Room-scale deployments select the `campus` theme,
+ * which raises the whole type scale explicitly. That is a deployment decision
+ * with a human behind it, which is the only honest way to make it.
+ */
+const FRAME_MIN = 1280;
+const FRAME_MAX = 3440;
+
+/**
  * A `clamp()` that interpolates linearly against viewport width.
  *
  * Expressed in rem so that a user who has raised their browser's default font
  * size is respected. A `vw`-only scale ignores that preference entirely, which
  * is an accessibility regression dressed up as responsiveness.
  */
-export function fluid(minPx: number, maxPx: number): string {
-  const slope = (maxPx - minPx) / (VIEWPORT_MAX - VIEWPORT_MIN);
-  const intercept = minPx - slope * VIEWPORT_MIN;
+export function fluid(
+  minPx: number,
+  maxPx: number,
+  fromVw: number = VIEWPORT_MIN,
+  toVw: number = VIEWPORT_MAX,
+): string {
+  const slope = (maxPx - minPx) / (toVw - fromVw);
+  const intercept = minPx - slope * fromVw;
   const n = (v: number, dp: number): string =>
     Number(v.toFixed(dp)).toString();
   return `clamp(${n(minPx / 16, 4)}rem, ${n(intercept / 16, 4)}rem + ${n(slope * 100, 4)}vw, ${n(maxPx / 16, 4)}rem)`;
@@ -112,13 +142,19 @@ export function themeVariables(theme: Theme): Record<string, string> {
     // Shape and rhythm.
     "--radius": shape.radius,
     "--radius-lg": shape.radiusLg,
-    "--w": shape.contentWidth,
+    // The frame grows with the display; prose does not. `--measure` is in `ch`
+    // so it tracks this theme's own type size rather than a fixed pixel width.
+    "--w": fluid(shape.contentWidth, shape.contentWidthWide, FRAME_MIN, FRAME_MAX),
+    "--w-base": `${shape.contentWidth / 16}rem`,
+    "--measure": `${shape.proseMeasure}ch`,
     "--nav-h": shape.navHeight,
     "--focus-w": shape.focusWidth,
     "--gap": fluid(12, 18),
     "--gap-lg": fluid(16, 24),
     "--pad-card": fluid(16, 22),
-    "--pad-page": fluid(16, 24),
+    // Page gutters grow on wide displays too. Content pinned to the very edge
+    // of a 49" panel is as uncomfortable to read as a column stranded mid-screen.
+    "--pad-page": `calc(${fluid(16, 24)} + ${fluid(0, 24, FRAME_MIN, FRAME_MAX)})`,
     "--section": fluid(28, 48),
   };
 }

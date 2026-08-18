@@ -99,7 +99,61 @@ blockquote {
 }
 
 .wrap { max-width: var(--w); margin: 0 auto; padding: 0 var(--pad-page); }
-.narrow { max-width: 48rem; }
+/* In `ch`, like every other measure. It was `48rem`, and `rem` tracks the root
+   font size — so on `campus`, which raises the type scale, the same 48rem held
+   MORE characters per line rather than the same number in a wider column. That
+   is backwards: a brand that enlarges text wants a proportionally wider column,
+   not a longer line. */
+.narrow { max-width: var(--measure); }
+
+/* ---------------------------------------------------------------------------
+   THE READING MEASURE.
+
+   The single most important rule in this stylesheet once the frame was allowed
+   to grow. Widening the FRAME is not the same as widening the TEXT: a 2,000px
+   paragraph is harder to read than a 600px one, because the eye loses its place
+   returning to the start of the next line. Without this the site would be worse
+   on a better display, which is the opposite of responsive.
+
+   Written with `:where()` so it has ZERO specificity. It is a default, not an
+   override — any rule anywhere wins against it without needing `!important`,
+   and `max-width` never forces an element to be wider than it would have been.
+
+   It has to be a blanket default rather than a list of the places prose
+   appears. It was a list first, and two paragraphs still escaped: the footer
+   line and one `p.faint` on the home page, each running to 2,064px on a 2560px
+   panel. The next page added would have escaped too.
+   --------------------------------------------------------------------------- */
+
+:where(main, footer) :where(p, li, blockquote, dd) { max-width: var(--measure); }
+
+/* Tables need their own answer, because `max-width` on a `td` is ignored under
+   automatic table layout — the table algorithm decides cell widths, and it was
+   handing the coverage explanation column 2,470px on an ultrawide. Capping the
+   TABLE is the mechanism that actually works without `table-layout: fixed`,
+   which would force every narrow column (a score, a hash) to the same width as
+   the prose.
+
+   The cap is the theme's BASE frame less its gutters — that is, exactly the
+   width these tables were laid out at before the frame was allowed to grow, so
+   widening cannot make a table worse than it already was. The extra width goes
+   to ARRANGEMENT instead: cases side by side, grids gaining columns, the
+   pipeline in two. That is where width does real work; a fifth column of prose
+   is not an improvement over a fourth.
+
+   Zero specificity, so the two tables that want a different rule keep it:
+   rendered markdown is already `width: max-content` and stops at its own
+   content, and the disclosure matrix is a field-by-role grid of short cells
+   that is easier to read the further apart its columns are. */
+:where(main) table { max-width: calc(var(--w-base) - 3rem); }
+.matrix { max-width: none; }
+
+/* Lists used as LAYOUT rather than as prose: a row of chips, a column of
+   buttons, a row with its own divider. The measure is about line length, and
+   these have no lines to limit. */
+.withheld-list li,
+.poi-list li,
+.reg-list li { max-width: none; }
 
 /* ---------------------------------------------------------------------------
    Skip link. Present because the nav is the first thing in the tab order and
@@ -255,7 +309,13 @@ blockquote {
    Primitives.
    --------------------------------------------------------------------------- */
 
+/* A card is a query container, so the things inside it can respond to the width
+   the card ACTUALLY has rather than the width of the window. A `.kv` list in a
+   two-column grid on a 2560px display has ~1000px; the same list in a
+   three-column grid at the same viewport has ~600px. A viewport media query
+   cannot tell those apart, and gets one of them wrong. */
 .card {
+  container-type: inline-size;
   background: var(--bg-raised);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -390,8 +450,15 @@ blockquote {
    Prose (rendered markdown docs).
    --------------------------------------------------------------------------- */
 
-.prose { max-width: 48rem; }
+/* The container spans the full frame; the TEXT inside it does not. On a 2560px
+   display a 48rem document leaves two-thirds of the panel empty, but the tables
+   in these documents were being scrolled sideways at every width because they
+   were trapped in that column. So the container takes the frame, the measure
+   default above keeps the paragraphs readable, and the tables finally get the
+   width they were always short of. */
+.prose { max-width: 100%; }
 .prose h2 { border-bottom: 1px solid var(--line); padding-bottom: .3em; }
+.prose > h1, .prose > h2, .prose > h3, .prose > h4 { max-width: var(--measure); }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li { margin: .3em 0; }
 .prose img { max-width: 100%; }
@@ -404,7 +471,7 @@ blockquote {
 .prose table {
   display: block;
   width: max-content;
-  max-width: 100%;
+  max-width: min(100%, calc(var(--w-base) - 3rem));
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   font-size: var(--fs-small);
@@ -436,6 +503,12 @@ blockquote {
   letter-spacing: .06em; padding-top: 3px;
 }
 .kv dd { margin: 0; color: var(--text-dim); overflow-wrap: anywhere; }
+
+/* Two pairs per row once the CARD is wide enough to hold them without the
+   hashes wrapping. Keyed to the container, not the viewport — see `.card`. */
+@container (min-width: 40rem) {
+  .kv { grid-template-columns: minmax(7rem, 8.5rem) 1fr minmax(7rem, 8.5rem) 1fr; }
+}
 
 .withheld-list { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .withheld-list li {
@@ -486,6 +559,21 @@ blockquote {
 .reg-list { list-style: none; padding: 0; margin: 8px 0 0; font-size: var(--fs-small); }
 .reg-list li { padding: 7px 0; border-bottom: 1px solid var(--line); }
 .reg-list li:last-child { border-bottom: none; }
+
+/* Each row is really `register name — why it can or cannot see this object`,
+   which is a two-column structure written as one line. Once the CARD is wide
+   enough, lay it out as the two columns it always was: the names line up so
+   they can be scanned, the explanations get a readable measure instead of
+   running to 1,200px, and the divider still spans the full row. Keyed to the
+   card, because these lists sit in a grid whose column count varies. */
+@container (min-width: 46rem) {
+  .reg-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, var(--measure));
+    column-gap: var(--gap);
+    align-items: baseline;
+  }
+}
 .reg-ok { color: var(--ok); }
 .reg-warn { color: var(--warn); }
 .reg-bad { color: var(--bad); }
@@ -550,7 +638,50 @@ blockquote {
 
 /* ---------------------------------------------------------------------------
    ARRANGEMENT CHANGES ONLY.
+
+   Sizing is handled by the fluid scales in the theme package, which interpolate
+   continuously; there is no breakpoint anywhere below that resizes anything.
+   Breakpoints exist here only where the ARRANGEMENT has to change — a row that
+   must stack, a single column that should become two. That division is what
+   keeps a 1366×768 kiosk from getting the phone treatment, and what stops a
+   Surface Hub from getting the laptop treatment.
    --------------------------------------------------------------------------- */
+
+/* --- Wide displays. -------------------------------------------------------
+   Above roughly 1500px the frame is wide enough that a single column of
+   pipeline stages or key/value pairs is mostly whitespace. These rules spend
+   the extra width on showing MORE AT ONCE rather than on making each thing
+   bigger, which is the distinction the fluid scales cannot make for us. */
+
+@media (min-width: 94rem) {
+  /* Six pipeline stages in one column leaves a 1,900px-wide row holding a
+     single sentence. Two columns reads as a pipeline; one reads as a list.
+     Three was tried and is too many — each stage has four columns of its own
+     and they start colliding. */
+  .stage-list { grid-template-columns: 1fr 1fr; }
+
+  /* The heading and the text beneath it were each capped at a reading measure,
+     so on a wide panel the hero was a title in the top-left corner and an empty
+     right half. Setting them beside each other fills the space with the content
+     that was already there rather than by stretching anything. */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: calc(var(--gap-lg) * 2);
+    align-items: end;
+  }
+  .hero h1 { max-width: 15ch; }
+
+  /* The exhibit viewer is the one element that genuinely wants every pixel:
+     it is a 3D object, and inspecting it is the whole point of the route. */
+  .viewer { height: clamp(18rem, 62vh, 44rem); }
+}
+
+@media (min-width: 120rem) {
+  .page-head { max-width: 62rem; }
+}
+
+/* --- Narrow displays. ---------------------------------------------------- */
 
 @media (max-width: 62rem) {
   .nav-links { display: none; }

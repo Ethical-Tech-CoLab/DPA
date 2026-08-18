@@ -101,8 +101,36 @@ export interface ShapeTokens {
   radius: string;
   /** Corner radius for cards and panels. */
   radiusLg: string;
-  /** Maximum content width. */
-  contentWidth: string;
+  /**
+   * Content frame width, in px, on a standard laptop (viewport ~1280).
+   *
+   * This is a MINIMUM, not a cap — see `contentWidthWide`.
+   */
+  contentWidth: number;
+  /**
+   * Content frame width, in px, on a very wide display (viewport ~2560 and up).
+   *
+   * The frame interpolates between the two, so a double-wide monitor, a Surface
+   * Hub or a 4K panel gets substantially more usable width instead of a narrow
+   * column marooned in the middle of the screen. Any viewport in between gets a
+   * width proportional to what it actually has, rather than the next step down.
+   *
+   * Widening the FRAME is not the same as widening the TEXT, and the two must
+   * not be confused. Prose is capped separately by `proseMeasure` — a paragraph
+   * 2,000px wide is unreadable no matter how large the display, because the eye
+   * loses the start of the next line. What the extra width is for is showing
+   * MORE AT ONCE: every column of a register table without scrolling, the
+   * disclosure matrix beside its proof, the pipeline in two columns.
+   */
+  contentWidthWide: number;
+  /**
+   * Maximum line length for running prose, in `ch`.
+   *
+   * In `ch` rather than px so it tracks the theme's own type size: a brand that
+   * enlarges text for a lecture hall should get a proportionally wider column,
+   * not the same pixel width holding fewer words.
+   */
+  proseMeasure: number;
   /** Height of the navigation bar on wide viewports. */
   navHeight: string;
   /** Border width used for the active-state indicator. */

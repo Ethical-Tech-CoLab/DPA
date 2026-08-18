@@ -61,6 +61,8 @@ export const atrium = defineTheme({
   shape: {
     radius: "4px",
     radiusLg: "6px",
-    contentWidth: "1120px",
+    contentWidth: 1120,
+    contentWidthWide: 2600,
+    proseMeasure: 70,
   },
 });

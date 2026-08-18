@@ -55,31 +55,36 @@ export default function Home() {
     <>
       {/* ---------------- hero ---------------- */}
       <section className="wrap hero">
-        <p className="label">AABC × SDA Bocconi · v0.4</p>
-        <h1>Digital Passport for Artworks</h1>
-        <p className="dim lede measure">
-          An artwork with uncertain provenance is invisible. Surfacing it exposes
-          its holder to legal and reputational risk, so it stays in the dark —
-          unlent, unstudied, unclaimable. The DPA lets a holder register an
-          object pseudonymously, prove the registration is immutable and
-          time-stamped, and then disclose <em>different amounts of it to
-          different parties</em>.
-        </p>
-        <p className="dim measure">
-          This repository is the <strong>v0.4 consolidation</strong>: one
-          pipeline assembled from five separate working prototypes.
-        </p>
+        <div className="hero-lead">
+          <p className="label">AABC × SDA Bocconi · v0.4</p>
+          <h1>Digital Passport for Artworks</h1>
+        </div>
 
-        <div className="btn-row">
-          <a className="btn" href={`${bp}/demo/`} data-active="true">
-            See a passport through five roles →
-          </a>
-          <a className="btn" href={`${bp}/coverage/`}>
-            Why a low score means two things
-          </a>
-          <a className="btn" href={`${bp}/plan/`}>
-            Read the plan
-          </a>
+        <div className="hero-body">
+          <p className="dim lede measure">
+            An artwork with uncertain provenance is invisible. Surfacing it
+            exposes its holder to legal and reputational risk, so it stays in the
+            dark — unlent, unstudied, unclaimable. The DPA lets a holder register
+            an object pseudonymously, prove the registration is immutable and
+            time-stamped, and then disclose <em>different amounts of it to
+            different parties</em>.
+          </p>
+          <p className="dim measure">
+            This repository is the <strong>v0.4 consolidation</strong>: one
+            pipeline assembled from five separate working prototypes.
+          </p>
+
+          <div className="btn-row">
+            <a className="btn" href={`${bp}/demo/`} data-active="true">
+              See a passport through five roles →
+            </a>
+            <a className="btn" href={`${bp}/coverage/`}>
+              Why a low score means two things
+            </a>
+            <a className="btn" href={`${bp}/plan/`}>
+              Read the plan
+            </a>
+          </div>
         </div>
       </section>
 

@@ -7,7 +7,7 @@ tests pass, CI is green, and the site is live.
 
 - **Live site:** https://ethical-tech-colab.github.io/DPA/
 - **Repository:** [`Ethical-Tech-CoLab/DPA`](https://github.com/Ethical-Tech-CoLab/DPA) — public
-- **Tests:** 297 passing across the nine tested packages
+- **Tests:** 304 passing across the nine tested packages
 - **Everything on the site runs on committed fixtures.** The scores are real — computed
   by the real scorer over real cited sources — but no live register was queried and no
   attestation was written to any chain. See [What is real and what is not](#what-is-real-and-what-is-not).
@@ -118,7 +118,7 @@ To check the whole workspace:
 
 ```
 pnpm -r typecheck        # clean
-pnpm -r test             # 297 tests
+pnpm -r test             # 304 tests
 ```
 
 ---
@@ -201,6 +201,30 @@ is a poor proxy for whether two colours look different to a person. Every
 registered theme is checked by a test, so a brand that hurts legibility fails CI
 instead of shipping. The `/brand` route renders that report live.
 
+### Large-format displays
+
+The places this is meant to run — a gallery kiosk, a Surface Hub in a seminar
+room, an ultrawide on a registrar's desk — are mostly not laptops. The content
+frame is therefore a range rather than a fixed width: `contentWidth` at a laptop
+and `contentWidthWide` on a very wide panel, interpolated so that every viewport
+in between gets a frame proportional to what it actually has. It holds roughly
+74–84% of the display at any size, so nothing is ever a narrow column stranded
+in the middle of a 49" screen.
+
+**Widening the frame is not the same as widening the text, and the distinction
+is enforced.** Prose is capped separately by `proseMeasure`, in `ch` so it tracks
+the theme's own type size; tables are capped at the width they were laid out for.
+The extra space is spent on *arrangement* — cases side by side, the pipeline in
+two columns, key/value pairs two-up, the 3D viewer taller, grids gaining columns
+— because showing more at once is useful and a 2,000px line of text is not. A
+test asserts that no line of text on any route, in any theme, is longer at 3440px
+than it is at 1280px.
+
+Type does **not** grow with viewport width, deliberately. Width cannot tell you
+viewing distance: an ultrawide at 60cm and a wall panel across a room report the
+same number and want opposite type sizes. Room-scale deployments select `campus`,
+which raises the whole scale explicitly — a decision with a human behind it.
+
 ---
 
 ## What is real and what is not
@@ -210,7 +234,7 @@ about being one.
 
 **Real.** The pipeline runs end to end. The scorer, the coverage model, the
 redaction boundary, and both signature schemes are the real implementations,
-exercised by 297 passing tests. The four demo scores are computed by the real
+exercised by 304 passing tests. The four demo scores are computed by the real
 scorer over real, cited sources. The redaction is not cosmetic: `apps/web`
 writes a physically separate file per role, and `assertNoLeakage` fails the
 build if an above-tier field escapes.

@@ -60,7 +60,11 @@ export const campus = defineTheme({
   shape: {
     radius: "8px",
     radiusLg: "12px",
-    contentWidth: "1180px",
+    contentWidth: 1180,
+    // Highest of the three. `campus` is the theme a lecture hall or a wall
+    // panel selects, and those are exactly the deployments with width to spare.
+    contentWidthWide: 2720,
+    proseMeasure: 68,
     navHeight: "60px",
     focusWidth: "3px",
   },

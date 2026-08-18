@@ -69,7 +69,13 @@ export const slate: Theme = {
   shape: {
     radius: "7px",
     radiusLg: "10px",
-    contentWidth: "1080px",
+    contentWidth: 1080,
+    // Wide end reached on a 3440px ultrawide. Chosen so the frame holds roughly
+    // 74–84% of the viewport at every size in between rather than spanning
+    // edge to edge, which trades one bad layout for another: on a 49" panel the
+    // eye then has to cross the whole desk to get from the nav to the content.
+    contentWidthWide: 2560,
+    proseMeasure: 72,
     navHeight: "56px",
     focusWidth: "2px",
   },
