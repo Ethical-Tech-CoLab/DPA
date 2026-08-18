@@ -1,0 +1,155 @@
+/**
+ * The theme contract.
+ *
+ * ---------------------------------------------------------------------------
+ * WHY THERE ARE TWO CLASSES OF TOKEN
+ *
+ * A museum, a university or a ministry will want this to look like theirs. That
+ * is a reasonable thing to want and the whole point of this package. But not
+ * every colour on the page is decoration.
+ *
+ * `brand` tokens are chrome: page background, surfaces, rules, body text, the
+ * accent used for links and focus. Change them freely. Nothing about the
+ * meaning of a passport depends on whether the background is near-black or
+ * paper-white.
+ *
+ * `semantic` tokens are not chrome. The five role colours tell a reader which
+ * disclosure tier they are looking at, and the three coverage colours tell them
+ * whether a score can be trusted at all. If a rebrand quietly collapses
+ * `enforcement` and `public` into two indistinguishable blues, the site has not
+ * been restyled — it has developed a disclosure bug wearing a stylesheet, and
+ * it will look completely fine to the person who shipped it.
+ *
+ * So semantic tokens are themeable too, but they are validated. `validateTheme`
+ * enforces that the five role colours stay perceptually distinct from each
+ * other and legible against the background, and every theme in this repository
+ * is checked by a test. A brand cannot be merged if it makes the disclosure
+ * model harder to read.
+ * ---------------------------------------------------------------------------
+ */
+
+/** A CSS colour. Hex is required — the validator has to be able to parse it. */
+export type Hex = string;
+
+/**
+ * Chrome. Freely themeable.
+ */
+export interface BrandTokens {
+  /** Page background. */
+  bg: Hex;
+  /** Raised surfaces: cards, the nav bar. */
+  bgRaised: Hex;
+  /** Inset surfaces: code blocks, score boxes, wells. */
+  bgInset: Hex;
+  /** Hairline rules and default borders. */
+  line: Hex;
+  /** Borders that need to be seen: inputs, buttons, active edges. */
+  lineBright: Hex;
+  /** Primary body text. */
+  text: Hex;
+  /** Secondary text. Still meant to be read. */
+  textDim: Hex;
+  /** Tertiary text: labels, captions, things you skim. */
+  textFaint: Hex;
+  /** Links, focus rings, the active nav indicator. */
+  accent: Hex;
+  /** A muted accent for borders and quiet emphasis. */
+  accentDim: Hex;
+  /** Text and icons sitting ON the accent colour. */
+  accentContrast: Hex;
+}
+
+/**
+ * Meaning. Themeable but constrained — see the note at the top of this file.
+ */
+export interface SemanticTokens {
+  /** The five disclosure roles. These must remain distinguishable. */
+  rolePublic: Hex;
+  roleSourceCommunity: Hex;
+  roleMuseum: Hex;
+  roleEnforcement: Hex;
+  roleOwner: Hex;
+  /** well-covered — the registers could look, and did. */
+  ok: Hex;
+  /** partially-covered — read the number with care. */
+  warn: Hex;
+  /** structurally-uncovered — the number is not about the object. */
+  bad: Hex;
+}
+
+export interface TypographyTokens {
+  /** UI and body. */
+  sans: string;
+  /** Display headings. The programme's documents have a scholarly register. */
+  serif: string;
+  /** Hashes, field paths, anything that must not be mistaken for prose. */
+  mono: string;
+  /**
+   * Root font size in px at the NARROW end of the viewport. Type interpolates
+   * between this and `sizeMax` with clamp(), so the site does not jump between
+   * two fixed sizes at a breakpoint.
+   */
+  sizeMin: number;
+  /** Root font size in px at the WIDE end. */
+  sizeMax: number;
+  /** Multiplier applied to display headings only. Lets a brand shout quietly. */
+  displayScale: number;
+}
+
+export interface ShapeTokens {
+  /** Corner radius for buttons, tags, inputs. */
+  radius: string;
+  /** Corner radius for cards and panels. */
+  radiusLg: string;
+  /** Maximum content width. */
+  contentWidth: string;
+  /** Height of the navigation bar on wide viewports. */
+  navHeight: string;
+  /** Border width used for the active-state indicator. */
+  focusWidth: string;
+}
+
+/** Optional wordmark. Text only — no image assets, so no build step. */
+export interface BrandIdentity {
+  /** Shown in the nav. Keep it short; it sits next to six links. */
+  wordmark: string;
+  /**
+   * A single accented character or short suffix rendered in the accent colour
+   * after the wordmark. Set to null for a plain wordmark.
+   */
+  wordmarkAccent: string | null;
+  /** Shown in the footer. One line. */
+  organisation: string | null;
+}
+
+export interface Theme {
+  /** Stable id. Used as `data-theme` and in NEXT_PUBLIC_THEME. */
+  id: string;
+  /** Human label for the switcher. */
+  label: string;
+  /** One sentence on who this is for. */
+  description: string;
+  /** Drives the CSS `color-scheme` property, so form controls match. */
+  colorScheme: "dark" | "light";
+  identity: BrandIdentity;
+  brand: BrandTokens;
+  semantic: SemanticTokens;
+  typography: TypographyTokens;
+  shape: ShapeTokens;
+}
+
+/**
+ * A partial theme, for the common case: "the default, but our colours".
+ * See `defineTheme`.
+ */
+export interface ThemeOverrides {
+  id: string;
+  label: string;
+  description: string;
+  colorScheme?: "dark" | "light";
+  identity?: Partial<BrandIdentity>;
+  brand?: Partial<BrandTokens>;
+  semantic?: Partial<SemanticTokens>;
+  typography?: Partial<TypographyTokens>;
+  shape?: Partial<ShapeTokens>;
+}
