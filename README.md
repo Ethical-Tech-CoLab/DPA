@@ -329,6 +329,7 @@ stories are in [docs/DECISIONS.md](docs/DECISIONS.md) and the
 | Understanding the code | [docs/ARCHITECTURE-v0.4.md](docs/ARCHITECTURE-v0.4.md) |
 | Tracing what came from where | [docs/INVENTORY.md](docs/INVENTORY.md) |
 | Owning one of the five upstream repos | [docs/MIGRATION.md](docs/MIGRATION.md) |
+| **Touching anything visual** — a page, a component, a theme | **[docs/DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md)** |
 | Looking for what is left to do | [BACKLOG.md](BACKLOG.md) |
 
 ---

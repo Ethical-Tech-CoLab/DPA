@@ -50,13 +50,20 @@ export default function BrandPreview() {
           background: "var(--bg)",
           color: "var(--text)",
           marginTop: "var(--gap)",
+          // The one place a face is set outside the role rule, and it is not an
+          // exception to it. This panel renders a DIFFERENT theme than the page
+          // around it. `font-family` is inherited, so it was already resolved
+          // against the page's `--sans` at `body`; re-declaring it here is what
+          // makes the nested `data-theme` scope actually re-resolve. Headings
+          // need no equivalent — the role rule sets them from `var(--serif)`,
+          // which resolves at the heading, inside this scope.
           fontFamily: "var(--sans)",
         }}
       >
         <p className="label">
           {theme.identity.organisation ?? theme.label} — preview
         </p>
-        <h3 style={{ fontFamily: "var(--serif)" }}>
+        <h3>
           {theme.identity.wordmark}
           <span style={{ color: "var(--accent)" }}>
             {theme.identity.wordmarkAccent ?? ""}

@@ -19,6 +19,7 @@ const DOCS = [
   { file: "docs/ARCHITECTURE-v0.4.md", title: "Architecture", blurb: "The pipeline, the packages, the three numbers" },
   { file: "docs/INVENTORY.md", title: "Inventory", blurb: "Assessment of all five upstream systems" },
   { file: "docs/MIGRATION.md", title: "Migration", blurb: "What each repo owner is asked to do" },
+  { file: "docs/DESIGN-SYSTEM.md", title: "Design system", blurb: "The template, the tokens, and the tests that stop them drifting" },
   { file: "BACKLOG.md", title: "Backlog", blurb: "Every known gap, merged and prioritised" },
   { file: "ATTRIBUTION.md", title: "Attribution", blurb: "Who wrote what" },
 ];

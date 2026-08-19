@@ -171,3 +171,190 @@ describe("vertical rhythm is set by the template, not per page", () => {
     });
   }
 });
+
+
+/**
+ * THE READING COLUMN.
+ *
+ * The frame above fixed where a page starts. It did not fix how wide the things
+ * inside it are allowed to get, and on a large display that turned out to be the
+ * more visible defect. Measured in Chromium at 2560px before these tests were
+ * written: the frame gave `main` 1886px of usable width, a card holding nothing
+ * but prose spanned all 1886px of it, and the text inside that card wrapped at
+ * 720px. The box was 2.6x wider than anything it contained, and the line length
+ * was correct all along — so "the text is too narrow" was the wrong diagnosis
+ * and widening the measure would have made it worse.
+ *
+ * `main` and `.section` now lay out on named tracks. Sentences occupy a column
+ * one measure wide; tables, card grids and the 3D viewer break out to the full
+ * band. Two vertical edges for the whole document, at any depth of nesting.
+ */
+describe("prose is capped at a reading measure and structure breaks out", () => {
+  it("the reading width is derived from existing tokens, not a new number", () => {
+    expect(globals()).toMatch(
+      /--reading:\s*calc\(\s*var\(--measure\)\s*\+\s*2\s*\*\s*var\(--pad-card\)\s*\)/
+    );
+  });
+
+  it("the reading width is registered, so `ch` resolves once at the root", () => {
+    // `ch` is relative to the font of the element that USES a variable, not the
+    // one that declares it. Unregistered, a card with smaller type computed a
+    // narrower --reading than main did and sat visibly off the column edge.
+    const css = globals();
+    expect(css).toMatch(/@property\s+--reading\s*\{[^}]*syntax:\s*"<length>"/s);
+    expect(css).toMatch(/@property\s+--reading\s*\{[^}]*inherits:\s*true/s);
+  });
+
+  it("main and .section share one set of tracks", () => {
+    const css = globals();
+    const rule = css.match(/main,\s*\.section\s*\{[^}]*\}/s)?.[0] ?? "";
+    expect(rule).toMatch(/display:\s*grid/);
+    expect(rule).toMatch(/\[full-start\]/);
+    expect(rule).toMatch(/\[content-start\]\s*min\(100%,\s*var\(--reading\)\)/);
+    expect(rule).toMatch(/\[content-end\]/);
+    expect(rule).toMatch(/\[full-end\]/);
+  });
+
+  it("a nested section hands its children the same column", () => {
+    // Without this the landing page put a section heading on the full band's
+    // edge and the card grid inside that same section on another, which is two
+    // left edges inside one visual block.
+    expect(globals()).toMatch(/main\s*>\s*\*,\s*\.section\s*>\s*\*\s*\{\s*grid-column:\s*content/s);
+  });
+
+  it("breakout is granted by what a container holds, not only by class", () => {
+    // A class list goes stale the moment someone puts a table in a card and
+    // does not think to widen it. :has() makes the container widen itself.
+    const css = globals();
+    const has = css.match(/:is\(main, \.section\) > :has\(([^)]*)\)/)?.[1] ?? "";
+    for (const token of ["table", "canvas", ".grid", ".tbl-scroll", ".kv"]) {
+      expect(has).toContain(token);
+    }
+  });
+
+  it("a prose-only card is capped wherever it lands", () => {
+    // The safety net for the next container somebody adds with its own
+    // grid-template-columns. Should be a no-op; costs nothing if it is.
+    const css = globals();
+    const rule = css.match(/\.card:not\(:has\([^)]*\)\)\s*\{[^}]*\}/s)?.[0] ?? "";
+    expect(rule).toMatch(/max-width:\s*var\(--reading\)/);
+    expect(rule).toMatch(/margin-inline:\s*auto/);
+    // Load-bearing: a grid item with auto inline margins loses `stretch` and
+    // falls back to fit-content, which collapsed these cards to 47px.
+    expect(rule).toMatch(/width:\s*100%/);
+  });
+
+  it("grid tracks cap at the reading width instead of absorbing the display", () => {
+    const css = globals();
+    for (const cls of ["grid-2", "grid-3"]) {
+      const rule = css.match(new RegExp(`\\.${cls}\\s*\\{[^}]*\\}`, "s"))?.[0] ?? "";
+      expect(rule).toMatch(/min\(100%,\s*var\(--reading\)\)/);
+      expect(rule).not.toMatch(/,\s*1fr\)\)/);
+    }
+  });
+
+  it("no page or component hardcodes a width for a text container", () => {
+    // Widths belong to the template. A page that sets its own is how the eight
+    // routes came to disagree in the first place.
+    for (const r of ROUTES) {
+      expect(read(r)).not.toMatch(/(maxWidth|max-width):\s*["']?\d+(px|rem)/);
+    }
+    for (const f of componentFiles) {
+      expect(readComponent(f)).not.toMatch(/(maxWidth|max-width):\s*["']?\d+(px|rem)/);
+    }
+  });
+});
+
+/**
+ * TYPEFACE BY ROLE.
+ *
+ * The site shipped with two typefaces on one page and no rule saying which was
+ * which, because the serif was assigned by CONTAINER rather than by role. On
+ * /brand, an h2 inside a card rendered serif while an h2 at the top level of the
+ * same page rendered sans. The h1 on the landing page was the only h1 on the
+ * site that was not serif. Nothing was wrong with having two faces; what was
+ * wrong was that which one you got depended on where you happened to sit.
+ */
+describe("typeface is chosen by role, never by container", () => {
+  it("every heading in the document body takes the editorial face", () => {
+    expect(globals()).toMatch(
+      /:where\(main,\s*footer\)\s*:where\(h1,\s*h2,\s*h3,\s*h4\)\s*\{\s*font-family:\s*var\(--serif\)/
+    );
+  });
+
+  it("no container re-assigns a typeface to a heading", () => {
+    // `.card h2 { font-family: ... }` is the exact shape of the original bug.
+    const css = globals();
+    for (const m of css.matchAll(/^\s*([^@{}\n][^{}\n]*)\{([^}]*)\}/gm)) {
+      const selector = m[1] ?? "";
+      const body = m[2] ?? "";
+      if (!/font-family/.test(body)) continue;
+      if (!/\bh[1-4]\b/.test(selector)) continue;
+      // The one role rule is allowed; anything else scoping a face to a
+      // heading by its surroundings is the defect coming back.
+      expect(selector.replace(/\s+/g, " ").trim()).toBe(
+        ":where(main, footer) :where(h1, h2, h3, h4)"
+      );
+    }
+  });
+
+  it("a face is only ever set to re-resolve a nested theme scope", () => {
+    // `font-family` is inherited and therefore already resolved at `body`
+    // against the page's tokens. An element that renders a DIFFERENT theme
+    // must restate it or the preview silently shows the page's face. That is
+    // the only defensible reason to name a face outside the role rule, so the
+    // test allows it exactly there and nowhere else.
+    for (const r of ROUTES) expect(read(r)).not.toMatch(/fontFamily/);
+    for (const f of componentFiles) {
+      const src = readComponent(f);
+      if (!/fontFamily/.test(src)) continue;
+      expect(src, `${f} names a typeface`).toMatch(/data-theme/);
+      // and only for the body face — headings are the role rule's business
+      for (const m of src.matchAll(/fontFamily:\s*"([^"]*)"/g)) {
+        expect(m[1]).toBe("var(--sans)");
+      }
+    }
+  });
+});
+
+
+/**
+ * The guide is only worth writing if it cannot quietly rot. These assertions
+ * keep it present, reachable, and honest about which tests back it — so a rule
+ * cannot be removed from the code while the document still claims it holds.
+ */
+describe("the design system document stays honest", () => {
+  const ROOT = path.join(here, "..", "..");
+  const guide = () =>
+    fs.readFileSync(path.join(ROOT, "docs", "DESIGN-SYSTEM.md"), "utf8");
+
+  it("exists and is reachable from the README and the site", () => {
+    expect(fs.existsSync(path.join(ROOT, "docs", "DESIGN-SYSTEM.md"))).toBe(true);
+    expect(fs.readFileSync(path.join(ROOT, "README.md"), "utf8")).toContain(
+      "docs/DESIGN-SYSTEM.md"
+    );
+    // /plan renders the docs, so the guide ships with the deployed site
+    expect(read("plan/page.tsx")).toContain("docs/DESIGN-SYSTEM.md");
+  });
+
+  it("every test file it names actually exists", () => {
+    for (const m of guide().matchAll(/`((?:apps|packages)\/[^`]+\.test\.ts)`/g)) {
+      const cited = m[1] ?? "";
+      expect(fs.existsSync(path.join(ROOT, cited)), `${cited} is cited but missing`).toBe(true);
+    }
+  });
+
+  it("documents the rules this file enforces", () => {
+    const g = guide();
+    for (const claim of [
+      "--reading",
+      ":has(",
+      "grid-column: full",
+      "var(--serif)",
+      ".stack",
+      "data-theme",
+    ]) {
+      expect(g, `the guide never mentions ${claim}`).toContain(claim);
+    }
+  });
+});

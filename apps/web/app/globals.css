@@ -123,6 +123,84 @@ main { max-width: var(--w); margin: 0 auto; padding: 0 var(--pad-page); }
 main .wrap { max-width: none; padding-left: 0; padding-right: 0; }
 
 /* ---------------------------------------------------------------------------
+   THE READING COLUMN.
+
+   The frame above grows with the display. Prose must not: a line longer than
+   about 75 characters is measurably harder to read, and `--measure` is already
+   at the generous end of that range. Those two facts were never reconciled, and
+   the gap between them was the bug.
+
+   Measured at 2560px: the frame's inner width was 1886px, a prose card spanned
+   the whole 1886px, and the text inside that card wrapped at 720px — 38% of its
+   own container. The card's border drew a box and the text filled a third of
+   it. What looked broken was not the line length, which was correct; it was a
+   container three times wider than anything it contained.
+
+   So the column, not just the text, is one measure wide, and it is centred
+   rather than pinned left — otherwise capping the children of a wide centred
+   frame just moves the empty space to the right instead of removing it.
+
+   Content that genuinely needs width still gets the whole frame by spanning to
+   `full`. That is the point of the extra space: tables, card grids and the 3D
+   viewer use it. Sentences do not.
+   --------------------------------------------------------------------------- */
+
+/* Derived, not a new knob: a card holding prose should be exactly wide enough
+   for one measure of text plus its own padding, so the box fits its contents.
+   Deriving it means a rebrand that changes either token keeps them in step. */
+/* Registered, not merely declared. `--measure` is expressed in `ch`, and `ch`
+   resolves against the font of the element that USES the variable, not the one
+   that declares it. Unregistered, a card with smaller type computed a smaller
+   `--reading` than `main` did, so the two disagreed about how wide one measure
+   is and the card sat visibly off the column's edge. A registered property is
+   computed where it is declared and inherits as an absolute length, so every
+   element in the document means the same thing by it. */
+@property --reading {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 44rem;
+}
+:root { --reading: calc(var(--measure) + 2 * var(--pad-card)); }
+
+/* `main` is the page-level instance and `.section` is the nested one. Applying
+   the same tracks to both is what stops a section from inventing its own
+   geometry: on the landing page the section heading sat at the full band's left
+   edge while the card grid inside that same section centred itself, which put
+   two left edges inside one visual block. A nested container that spans `full`
+   and then re-declares the tracks hands its own children the same content
+   column, so the document has exactly two vertical edges — one for sentences,
+   one for structure — however deeply the markup nests.
+
+   `.hero` is deliberately NOT in this list. It is the one full-bleed
+   composition on the site: above 120rem it becomes a two-column arrangement of
+   title and lead (see the rule near the end of this file), which is its own
+   geometry and cannot borrow this one. It still begins on the `full` edge, so
+   it lines up with the card grid beneath it rather than with the prose. */
+main,
+.section {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(0, 1fr)
+    [content-start] min(100%, var(--reading)) [content-end]
+    minmax(0, 1fr) [full-end];
+  align-content: start;
+}
+
+main > *,
+.section > * { grid-column: content; }
+
+/* Layout containers, which hold structure rather than sentences. The `:has()`
+   clause is what stops this list from going stale: a card that is given a table
+   or a grid later widens on its own, instead of waiting for someone to notice
+   and add a class. Where `:has()` is unsupported the rule is simply skipped and
+   the container stays one measure wide — narrow, but never broken. */
+:is(main, .section) > .wide,
+:is(main, .section) > :is(.section, .grid, .tbl-scroll, .exhibit-grid, .cap-live, .cap-metrics),
+:is(main, .section) > :has(.grid, .tbl-scroll, table, canvas, .kv, .timeline, .swatches, .cap-metric, .score-row) {
+  grid-column: full;
+}
+
+/* ---------------------------------------------------------------------------
    VERTICAL RHYTHM.
 
    The horizontal frame above fixed where a page starts. This fixes the spacing
@@ -416,9 +494,34 @@ main > h2 + *, main > h3 + * { margin-top: var(--gap); }
   padding: var(--pad-card);
 }
 
-.grid { display: grid; gap: var(--gap); }
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
-.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.5rem), 1fr)); }
+/* A card that holds nothing but prose is capped at one reading measure wherever
+   it lands, and centred in whatever track it was given. The track rules below
+   should already make this a no-op — it is here so that the NEXT container
+   somebody adds with its own `grid-template-columns` cannot silently reproduce
+   the defect this pass was opened to fix. It stays a no-op or it saves us.
+   The selector is the same predicate used to grant a full-width breakout, so
+   anything holding a table, grid, canvas or key-value list is excluded: those
+   want the width and reading measure does not apply to them. */
+.card:not(:has(.grid, .tbl-scroll, table, canvas, .kv, .timeline, .swatches, .cap-metric, .score-row)) {
+  /* `width: 100%` is load-bearing. A grid item with auto inline margins loses
+     its default `stretch` sizing and falls back to fit-content, which collapsed
+     these cards to 47px — the width of their own padding. Stating the width
+     restores the fill, `max-width` caps it, and the auto margins then centre
+     whatever is left over. */
+  width: 100%;
+  max-width: var(--reading);
+  margin-inline: auto;
+}
+
+/* Tracks cap at the reading width for the same reason a prose card does: a
+   column 1226px wide holding a 660px line of text is a box that does not fit
+   its contents, which is what the full-width cards looked like before. `1fr`
+   let each track absorb whatever the frame had spare, so the mismatch grew
+   with the display — worst on exactly the large screens this is meant to serve.
+   Capping the track and centring the row keeps the cards proportionate. */
+.grid { display: grid; gap: var(--gap); justify-content: center; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), min(100%, var(--reading)))); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.5rem), min(100%, var(--reading)))); }
 
 .pill {
   display: inline-block; padding: 2px 9px; border-radius: 999px;
@@ -620,17 +723,35 @@ main > h2 + *, main > h3 + * { margin-top: var(--gap); }
   --head-bottom: calc(var(--section) * .6);
 }
 
-.page-head { padding: var(--head-top) 0 var(--head-bottom); max-width: 50rem; }
-.page-head h1 { font-family: var(--serif); font-size: var(--fs-display); line-height: 1.15; margin: .3em 0 .5em; }
-.page-head h2 { font-family: var(--serif); }
+/* ---------------------------------------------------------------------------
+   TYPEFACE BY ROLE.
+
+   Three faces, each with one job:
+
+     --serif   editorial voice — headings and pull quotes
+     --sans    interface and body — everything the reader operates or reads
+     --mono    machine values — code, hashes, identifiers, measurements
+
+   That is a deliberate system, but it had been applied by CONTAINER rather than
+   by role, so the same element rendered differently depending on where it sat.
+   Measured across the eight routes: `h2` inside a card was serif while `h2` at
+   the top of the same page was sans — visible together on `/brand` — the h1 on
+   the home page was the only h1 on the site that was not serif, and the
+   headings in rendered markdown on `/plan` were sans while the heading directly
+   above them was serif.
+
+   Binding the face to the element instead of to its ancestor is what makes the
+   rule hold without anyone maintaining a list of places.
+   --------------------------------------------------------------------------- */
+
+:where(main, footer) :where(h1, h2, h3, h4) { font-family: var(--serif); }
+
+.page-head { padding: var(--head-top) 0 var(--head-bottom); }
+.page-head h1 { font-size: var(--fs-display); line-height: 1.15; margin: .3em 0 .5em; }
 .lede { color: var(--text-dim); font-size: var(--fs-lede); }
 
-/* `.card h2` rather than `.wrap > .card h2`. The old selector depended on a
-   card being a DIRECT child of the frame, which was true only while each page
-   carried its own `.wrap`. With the frame on `main` the home page's cards sit
-   inside `section.section` and would silently have lost their serif heading. */
-.card h2 { font-family: var(--serif); font-size: var(--fs-h2); margin: .2em 0 .5em; }
-.card h3 { font-family: var(--serif); font-size: var(--fs-h3); margin: .2em 0 .4em; }
+.card h2 { font-size: var(--fs-h2); margin: .2em 0 .5em; }
+.card h3 { font-size: var(--fs-h3); margin: .2em 0 .4em; }
 
 .mono-sm { font-family: var(--mono); font-size: var(--fs-tiny); }
 .grow { flex: 1 1 16rem; }
@@ -738,6 +859,10 @@ main > h2 + *, main > h3 + * { margin-top: var(--gap); }
    Exhibit.
    --------------------------------------------------------------------------- */
 
+/* The 1.15/.85 split is kept: the viewer is what benefits from a wide display.
+   The panel beside it is prose, and is held to one measure by the `.card` rule
+   above rather than by this track — a percentage inside `min()` collapses
+   during track sizing, and an absolute cap here starves the viewer at 1280. */
 .exhibit-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: var(--gap-lg); }
 
 .viewer {
@@ -795,8 +920,8 @@ main > h2 + *, main > h3 + * { margin-top: var(--gap); }
    sentence; one above the other when there is not. auto-fit rather than a
    breakpoint, because this block sits at several widths across the page. */
 .cap-live {
-  display: grid; gap: var(--gap); margin-top: var(--gap);
-  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+  display: grid; gap: var(--gap); margin-top: var(--gap); justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), min(100%, var(--reading))));
 }
 
 .cap-headline { display: flex; flex-direction: column; gap: 6px; }
@@ -865,8 +990,16 @@ main > h2 + *, main > h3 + * { margin-top: var(--gap); }
   /* The heading and the text beneath it were each capped at a reading measure,
      so on a wide panel the hero was a title in the top-left corner and an empty
      right half. Setting them beside each other fills the space with the content
-     that was already there rather than by stretching anything. */
+     that was already there rather than by stretching anything.
+
+     The breakout to `full` belongs HERE and not in the base rule. Below this
+     width the hero is a single column of prose, so it should sit on the same
+     edge as every other paragraph on the site; only once it splits in two does
+     it need the whole band. Declaring it full-bleed at every width put the
+     landing page's opening sentence on a different left edge from the rest of
+     the page at 1280 — the exact class of drift this pass exists to remove. */
   .hero {
+    grid-column: full;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: calc(var(--gap-lg) * 2);
@@ -880,7 +1013,11 @@ main > h2 + *, main > h3 + * { margin-top: var(--gap); }
 }
 
 @media (min-width: 120rem) {
-  .page-head { max-width: 62rem; }
+  /* The page head used to widen here, on the theory that a very large display
+     should get longer lines. It should not: the reading column governs, and
+     `--measure` is already at the top of the readable range. Widening only the
+     head also put its lede on a different measure from the body beneath it. */
+  .page-head { max-width: none; }
 }
 
 /* --- Narrow displays. ---------------------------------------------------- */
